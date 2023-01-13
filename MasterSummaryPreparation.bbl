@@ -1,0 +1,139 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{doi:10.1021/acs.jpcc.2c03665}{article}{}
+      \name{author}{6}{}{%
+        {{hash=0214fdf7f5c27ca2c961490363a3beb8}{%
+           family={Balzer},
+           familyi={B\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+        {{hash=0a52fd4d5a83bafdeef8652c9ad35c9a}{%
+           family={Hestand},
+           familyi={H\bibinitperiod},
+           given={Nicholas\bibnamedelima J.},
+           giveni={N\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=0198fc1d176971ddbdbf541f38130f69}{%
+           family={Zablocki},
+           familyi={Z\bibinitperiod},
+           given={Jennifer},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0f9a3d67e68c2ace6c0889981a1f67b5}{%
+           family={Schnakenburg},
+           familyi={S\bibinitperiod},
+           given={Gregor},
+           giveni={G\bibinitperiod}}}%
+        {{hash=a41d1571ee9f5000bc8ccc747c293a73}{%
+           family={Lützen},
+           familyi={L\bibinitperiod},
+           given={Arne},
+           giveni={A\bibinitperiod}}}%
+        {{hash=63f74d28e9d85665a2a5a4421450337d}{%
+           family={Schiek},
+           familyi={S\bibinitperiod},
+           given={Manuela},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{ebe0151d4aebe0a438e9ec42f1bac5ec}
+      \strng{fullhash}{da4cd5eaeb1614f751cbcb8a3d967f0d}
+      \strng{bibnamehash}{da4cd5eaeb1614f751cbcb8a3d967f0d}
+      \strng{authorbibnamehash}{da4cd5eaeb1614f751cbcb8a3d967f0d}
+      \strng{authornamehash}{ebe0151d4aebe0a438e9ec42f1bac5ec}
+      \strng{authorfullhash}{da4cd5eaeb1614f751cbcb8a3d967f0d}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Physical Chemistry C}
+      \field{number}{32}
+      \field{title}{Spotlight on Charge-Transfer Excitons in Crystalline Textured n-Alkyl Anilino Squaraine Thin Films}
+      \field{volume}{126}
+      \field{year}{2022}
+      \field{pages}{13802\bibrangedash 13813}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1021/acs.jpcc.2c03665
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1021/acs.jpcc.2c03665
+      \endverb
+      \verb{file}
+      \verb :C\:/Users/Pipes/Nextcloud/Documents/Uni/Books/MasterProject/Balzer_Hestand_JPhysChemC_2022.pdf:PDF
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1021/acs.jpcc.2c03665
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1021/acs.jpcc.2c03665
+      \endverb
+      \keyw{relevant,prio1}
+    \endentry
+    \entry{doi:10.1021/acs.chemrev.7b00581}{article}{}
+      \name{author}{2}{}{%
+        {{hash=0a52fd4d5a83bafdeef8652c9ad35c9a}{%
+           family={Hestand},
+           familyi={H\bibinitperiod},
+           given={Nicholas\bibnamedelima J.},
+           giveni={N\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=c9616e5f109cb0dc7aab4c1fb356e1a8}{%
+           family={Spano},
+           familyi={S\bibinitperiod},
+           given={Frank\bibnamedelima C.},
+           giveni={F\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{c69a536bc7cf6cdf8041c15b9bdbcac8}
+      \strng{fullhash}{c69a536bc7cf6cdf8041c15b9bdbcac8}
+      \strng{bibnamehash}{c69a536bc7cf6cdf8041c15b9bdbcac8}
+      \strng{authorbibnamehash}{c69a536bc7cf6cdf8041c15b9bdbcac8}
+      \strng{authornamehash}{c69a536bc7cf6cdf8041c15b9bdbcac8}
+      \strng{authorfullhash}{c69a536bc7cf6cdf8041c15b9bdbcac8}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Chemical Reviews}
+      \field{note}{PMID: 29664617}
+      \field{number}{15}
+      \field{title}{Expanded Theory of H- and J-Molecular Aggregates: The Effects of Vibronic Coupling and Intermolecular Charge Transfer}
+      \field{volume}{118}
+      \field{year}{2018}
+      \field{pages}{7069\bibrangedash 7163}
+      \range{pages}{95}
+      \verb{doi}
+      \verb 10.1021/acs.chemrev.7b00581
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1021/acs.chemrev.7b00581
+      \endverb
+      \verb{file}
+      \verb :C\:/Users/Pipes/Nextcloud/Documents/Uni/Books/MasterProject/Hestand_Spano_ChemReviews_2018.pdf:PDF
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1021/acs.chemrev.7b00581
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1021/acs.chemrev.7b00581
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
