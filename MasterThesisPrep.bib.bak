@@ -1,6 +1,6 @@
 % Encoding: UTF-8
 
-@Article{doi:10.1021/acs.jpclett.1c00317,
+@Article{Funke2021,
   author   = {Funke, Sebastian and Duwe, Matthias and Balzer, Frank and Thiesen, Peter H. and Hingerl, Kurt and Schiek, Manuela},
   journal  = {The Journal of Physical Chemistry Letters},
   title    = {Determining the Dielectric Tensor of Microtextured Organic Thin Films by Imaging Mueller Matrix Ellipsometry},
@@ -17,7 +17,7 @@
   url      = {https://doi.org/10.1021/acs.jpclett.1c00317},
 }
 
-@Article{doi:10.1021/acs.jpcc.2c03665,
+@Article{Balzer2022,
   author    = {Balzer, Frank and Hestand, Nicholas J. and Zablocki, Jennifer and Schnakenburg, Gregor and Lützen, Arne and Schiek, Manuela},
   journal   = {The Journal of Physical Chemistry C},
   title     = {Spotlight on Charge-Transfer Excitons in Crystalline Textured n-Alkyl Anilino Squaraine Thin Films},

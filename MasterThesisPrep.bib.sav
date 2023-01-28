@@ -1,6 +1,6 @@
 % Encoding: UTF-8
 
-@Article{doi:10.1021/acs.jpclett.1c00317,
+@Article{Funke2021,
   author   = {Funke, Sebastian and Duwe, Matthias and Balzer, Frank and Thiesen, Peter H. and Hingerl, Kurt and Schiek, Manuela},
   journal  = {The Journal of Physical Chemistry Letters},
   title    = {Determining the Dielectric Tensor of Microtextured Organic Thin Films by Imaging Mueller Matrix Ellipsometry},
@@ -17,7 +17,7 @@
   url      = {https://doi.org/10.1021/acs.jpclett.1c00317},
 }
 
-@Article{doi:10.1021/acs.jpcc.2c03665,
+@Article{Balzer2022,
   author    = {Balzer, Frank and Hestand, Nicholas J. and Zablocki, Jennifer and Schnakenburg, Gregor and Lützen, Arne and Schiek, Manuela},
   journal   = {The Journal of Physical Chemistry C},
   title     = {Spotlight on Charge-Transfer Excitons in Crystalline Textured n-Alkyl Anilino Squaraine Thin Films},
@@ -34,7 +34,7 @@
   url       = {https://doi.org/10.1021/acs.jpcc.2c03665},
 }
 
-@Article{doi:10.1021/acs.jpcc.9b11816,
+@Article{Zheng2020,
   author   = {Zheng, Chenyu and Mark, Michael F. and Wiegand, Tyler and Diaz, Steven A. and Cody, Jeremy and Spano, Frank C. and McCamant, David W. and Collison, Christopher J.},
   journal  = {The Journal of Physical Chemistry C},
   title    = {Measurement and Theoretical Interpretation of Exciton Diffusion as a Function of Intermolecular Separation for Squaraines Targeted for Bulk Heterojunction Solar Cells},
@@ -50,7 +50,7 @@
   url      = {https://doi.org/10.1021/acs.jpcc.9b11816},
 }
 
-@Article{doi:10.1021/acs.chemrev.7b00581,
+@Article{Hestand2018,
   author  = {Hestand, Nicholas J. and Spano, Frank C.},
   journal = {Chemical Reviews},
   title   = {Expanded Theory of H- and J-Molecular Aggregates: The Effects of Vibronic Coupling and Intermolecular Charge Transfer},
@@ -65,7 +65,7 @@
   url     = {https://doi.org/10.1021/acs.chemrev.7b00581},
 }
 
-@Article{doi:10.1021/acs.jpcc.5b05095,
+@Article{Hestand2015,
   author  = {Hestand, Nicholas J. and Zheng, Chenyu and Penmetcha, Anirudh Raju and Cona, Brandon and Cody, Jeremy A. and Spano, Frank C. and Collison, Christopher J.},
   journal = {The Journal of Physical Chemistry C},
   title   = {Confirmation of the Origins of Panchromatic Spectra in Squaraine Thin Films Targeted for Organic Photovoltaic Devices},
@@ -83,7 +83,7 @@ See Spotlight on Charge-Transfer Excitons in Crystalline Textured n-Alkyl Anilin
   url     = {https://doi.org/10.1021/acs.jpcc.5b05095},
 }
 
-@Article{doi:10.1021/acs.cgd.7b01131,
+@Article{Balzer2017,
   author  = {Balzer, Frank and Kollmann, Heiko and Schulz, Matthias and Schnakenburg, Gregor and Lützen, Arne and Schmidtmann, Marc and Lienau, Christoph and Silies, Martin and Schiek, Manuela},
   journal = {Crystal Growth \& Design},
   title   = {Spotlight on Excitonic Coupling in Polymorphic and Textured Anilino Squaraine Thin Films},
@@ -97,7 +97,7 @@ See Spotlight on Charge-Transfer Excitons in Crystalline Textured n-Alkyl Anilin
   url     = {https://doi.org/10.1021/acs.cgd.7b01131},
 }
 
-@Article{doi:10.1021/acs.jpcc.8b11416,
+@Article{Zheng2019,
   author  = {Zheng, Chenyu and Zhong, Chuwei and Collison, Christopher J. and Spano, Frank C.},
   journal = {The Journal of Physical Chemistry C},
   title   = {Non-Kasha Behavior in Quadrupolar Dye Aggregates: The Red-Shifted H-Aggregate},

@@ -19,7 +19,7 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
-    \entry{doi:10.1021/acs.jpcc.2c03665}{article}{}
+    \entry{Balzer2022}{article}{}
       \name{author}{6}{}{%
         {{hash=0214fdf7f5c27ca2c961490363a3beb8}{%
            family={Balzer},
@@ -86,7 +86,7 @@
       \endverb
       \keyw{relevant,prio1}
     \endentry
-    \entry{doi:10.1021/acs.chemrev.7b00581}{article}{}
+    \entry{Hestand2018}{article}{}
       \name{author}{2}{}{%
         {{hash=0a52fd4d5a83bafdeef8652c9ad35c9a}{%
            family={Hestand},
