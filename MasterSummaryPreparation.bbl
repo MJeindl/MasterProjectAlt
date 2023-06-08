@@ -133,6 +133,77 @@
       \verb https://doi.org/10.1021/acs.chemrev.7b00581
       \endverb
     \endentry
+    \entry{Hestand2015}{article}{}
+      \name{author}{7}{}{%
+        {{hash=0a52fd4d5a83bafdeef8652c9ad35c9a}{%
+           family={Hestand},
+           familyi={H\bibinitperiod},
+           given={Nicholas\bibnamedelima J.},
+           giveni={N\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=25ceb2a077c6aa5b230c91ae56eb2328}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Chenyu},
+           giveni={C\bibinitperiod}}}%
+        {{hash=d31bbcab8df72252f5a951270818a7bc}{%
+           family={Penmetcha},
+           familyi={P\bibinitperiod},
+           given={Anirudh\bibnamedelima Raju},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=d1e13dd8ed6163746b495bbea4cf3fa8}{%
+           family={Cona},
+           familyi={C\bibinitperiod},
+           given={Brandon},
+           giveni={B\bibinitperiod}}}%
+        {{hash=bf1c058e301b53a694c6a4fcb12009a5}{%
+           family={Cody},
+           familyi={C\bibinitperiod},
+           given={Jeremy\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=c9616e5f109cb0dc7aab4c1fb356e1a8}{%
+           family={Spano},
+           familyi={S\bibinitperiod},
+           given={Frank\bibnamedelima C.},
+           giveni={F\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=02c4381e3c39c63149d0cf5654248da6}{%
+           family={Collison},
+           familyi={C\bibinitperiod},
+           given={Christopher\bibnamedelima J.},
+           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{fdf135543055a214461171494285b807}
+      \strng{fullhash}{e9a7f6dd8f44310591e9eaf25ac2cdcf}
+      \strng{bibnamehash}{e9a7f6dd8f44310591e9eaf25ac2cdcf}
+      \strng{authorbibnamehash}{e9a7f6dd8f44310591e9eaf25ac2cdcf}
+      \strng{authornamehash}{fdf135543055a214461171494285b807}
+      \strng{authorfullhash}{e9a7f6dd8f44310591e9eaf25ac2cdcf}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Journal of Physical Chemistry C}
+      \field{number}{33}
+      \field{title}{Confirmation of the Origins of Panchromatic Spectra in Squaraine Thin Films Targeted for Organic Photovoltaic Devices}
+      \field{volume}{119}
+      \field{year}{2015}
+      \field{pages}{18964\bibrangedash 18974}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1021/acs.jpcc.5b05095
+      \endverb
+      \verb{eprint}
+      \verb https://doi.org/10.1021/acs.jpcc.5b05095
+      \endverb
+      \verb{file}
+      \verb :C\:/Users/Pipes/Nextcloud/Documents/Uni/Books/MasterProject/Hestand_Zheng_PhysChem_2015.pdf:PDF;:C\:/Users/Pipes/Nextcloud/Documents/Uni/Books/MasterProject/Hestand_Zheng_PhysChem_2015_correction.pdf:PDF
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1021/acs.jpcc.5b05095
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1021/acs.jpcc.5b05095
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput
