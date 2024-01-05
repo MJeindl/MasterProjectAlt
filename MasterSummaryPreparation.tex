@@ -34,6 +34,7 @@ in preparation of master thesis work\\
 \normalsize Maximilian Jeindl\\
 \end{center}
 
+\subsection{DOOT}
 
 \begin{multicols}{2}
 \section{Structure}
@@ -65,7 +66,7 @@ H_{excition} = E_M\:+\:D\:+\sum_{m,n}J_{m,n}|m><n|
 ... maybe
 
 
-Going beyond the point dipole approximation, valid for intermolecular separation lengths larger than the length over which charges separate to produce $\textbf{\mu}$(?).
+Going beyond the point dipole approximation, valid for intermolecular separation lengths larger than the length over which charges separate to produce $\boldsymbol{\mu}$(?). probably \cite{Hestand2018}
 
 
 
@@ -73,7 +74,7 @@ Going beyond the point dipole approximation, valid for intermolecular separation
 An extended essential states model, based on Painelli's essential states model for DAD chromophores, is used to model the absorption spectra observed. The molecule has two degenerate states, the so called zwitterionic states, due to its symmetry, where the excitation is $\mathrm{D^+A^-D}$ and $\mathrm{DA^-D^+}$ respectively for states $\mathrm{|Z_1>}$ and $\mathrm{|Z_2>}$. The zwitterionic states along with the neutral $\mathrm{|N>}$ DAD together are the essential states model. Compared to the neutral state $\mathrm{|Z_1>}$ and $\mathrm{|Z_2>}$ have a higher energy by $\mu _Z$ and they couple to it through $\mathrm{-t_Z}$.\cite{Balzer2022}
 
 
-
+For zwitterionic or ionic states coulombic intermolecular interactions are allowed and vibronic coupling is considered treating the arms as harmonic oscillators. The equilibrium geometry is made dependent on the electronic state. (ref 35) Considering thin films each system is treated as a dimer pair consisting of nearest-neighbor $\pi-$stacked molecules along a axis. \cite{Balzer2022}
 
 \begin{Figure}
 \centering
@@ -81,6 +82,31 @@ An extended essential states model, based on Painelli's essential states model f
 \captionof{figure}{asdf\cite{Balzer2022}}
 \label{SQstructureBasic}
 \end{Figure}
+
+Spin-cast polycristalline nBSQ, nPSQ, nHSQ, nOSQ thin films have polarization a $\lambda \approx 550\: nm\: (\sim 2.25 eV)$ and a $\lambda \approx 650\: nm\: (\sim 1.91 eV)$ peaks. Spectra averaged over crystall directions, thus no polarization dependence observable. $t_\mathrm{CT}$ and $\mu_\mathrm{CT}$ decrease with increasing alkyl chain length. Specifically the trend for $\mu_\mathrm{CT}$ opposes prior publications for nBSQ and nHSQ. In simulations the trend of decreasing $t_\mathrm{CT}$ and $\mu_\mathrm{CT}$ reproduces the relative increase of the high energy peak and the narrowing of the peak spacing. However the high energy peak is wider than the low energy peak from experimental data, whereas the simulation behaves oppositely.\cite{Balzer2022}
+
+Dip coating and drop casting are used to gain larger well ordered but isolated aggregates. Aggregates are several hundred nanometers tall and well isolated. For nHSQ the polarization rotation difference between the absorption peaks in reflection is $|\Delta\Phi^r_{max}| = (7\pm3)^\circ$. For transmission spectroscopy the angle was found to be $|\delta\Phi^{spec}_{max}| = (10 \pm 3)^\circ$. For drop-casting the reflection measurement was reproduced to be the same as $|\Delta\Phi^r_{max}|$ and for transmission $|\delta\Phi^{t}_{max}| = (9 \pm 3)^\circ$. The difference between reflection and transmission measurements are due to polarization rotation within the crystal. The refractive index for nHSQ and nOSQ is ellipsoid, the absorbance ellipsoid is unknown. The same measurements were done for nOSQ microcrystallites form dip coating showing $|\delta\Phi^{spec}_{max}| = (11\pm3)^\circ$, $|\delta\Phi^{t}_{max}| = (12\pm3)^\circ$ and $|\Delta\Phi^r_{max}| = (8\pm3)^\circ$.\cite{Balzer2022}
+
+\begin{table}[H]
+\caption{Difference in polarization angles for nHSQ and nOSQ from reflection (r), transmission (t) and spectroscopic transmission (spec) in crystalline samples\cite{Balzer2022}}
+\begin{tabular}{l|lll}
+compound & $|\delta\Phi^{r}_{max}| [deg]$  & $|\delta\Phi^{t}_{max}| [deg]$  & $|\delta\Phi^{spec}_{max}| [deg]$     \\ \hline
+nHSQ     & $7\pm3$ & $9\pm3$  & $10\pm3$ \\
+nOSQ     & $8\pm3$ & $12\pm3$ & $11\pm3$
+\end{tabular}
+\end{table}
+
+The molecular transition dipole is oriented along the long axis of the molecule and the charge-transfer transition dipole is oriented along the $\pi$-stacking axis. \cite{Balzer2022}
+The electronic states relevant for absorbance spectra of  squaraine thin films are adequately described as linear combination of neutral and charge separated states $|ge_1>_{AS}$, optically allowed intramolecular exciton, and $|ac_1>_{AS}$, lowest-energy antisymmetric intermolecular charge transfer (ICT) state. Foregoing intermolecular interactions and vibronic coupling they are eigenstates of the system, with $|ge_1>_{AS}$ the having the only nonzero transition dipole moment from the symmetric groundstate $|gg>_S$. \cite{Balzer2022}
+
+Allowing intermolecular charge-transfer inteactions changes ground- and excited- state wavefunctions: $|gg>_S$ mixes  with higher enrgy charge-transfer states leading to a new ground state $|G>_S$ of mixed charge-transfer and neutral character. This results in a transition dipole moment $\mathbf{\mu}^{\left(1\right)}_{CT} \neq 0$ from groundstate to $|ac_1>_{AS}$, allowing for the transition to it. For the nAlkyl systems here $\mathbf{\mu}^{\left(1\right)}_{CT}$ is small relative to the intramolecular $\mathbf{\mu}^{\left(1\right)}_{M}$. Thus the direction of the total dipole is mainly determined by the direction of the intramolecular component. The two polarization peaks come from the two possible combinations of the dipole moments. \cite{Balzer2022}
+\newpage
+
+%Going in via the coulomb interaction between molecules in zwitterionic states also leads to the characteristic vibronic spectral features exhibited by J- and H- aggregates from excition theory. For this the charge zwitterionic chargedensities are condensed to pointcharges on the nitrogen atoms and centered in the four-membered ring.\cite{Hestand2015}
+\section{Measurements}
+\subsection{SQIB}
+\subsection{nAlkyl}
+
 
 \newpage
 \printbibliography
