@@ -23,23 +23,35 @@ Irises etc are beneficial if there is a working setup.\newline
 Use irises to shape the probe beam to an acceptable Gaussian shape while avoiding diffraction effects. Optimally the incoming beam is level with the table, since any inclination will introduce an astigmatism? depending on the rear lens position.\newline
 Begin with the first lens in the path leaving enough space for the linear stage and the SHG crystal to the next static optic. Set lens centered regarding beam. Use the irises in front of the lens to adjust the reflection on the lens surface to return the exact incoming beampath.\newline
 Place the rear stage lens and once again adjust for center position. One may again use the reflection and additionally the transmitted beam to tell if the stage is parallel to the beam path. The center of the beam should not move when translating the stage and the expansion of the beam diameter should be as symmetric as possible. Adjusting via the reflection is not such a clear indication of alignment here, as there are multiple convex surfaces in play at this point, leading to multiple focal beams, what may not be in full accordance with each other. For this usually it was chosen to get the highest intensity spot, which refers to the final glass/air surface of the second lens, in the incoming beam path. This spot is also focused, which makes adjustment easier.\newline
-Finally one can adjust mirrors after the stage to get an image on the camera again, as even relatively minute changes in alignment will lead to some beam offset and change in direction. Translating the stage then will give an indication of how well the SHG stage is set up in regards to astigmatism aka non symmetric expansion. However beware that the mirror outcoupling in the cage will also have some influence.
+Finally one can adjust mirrors after the stage to get an image on the camera again, as even relatively minute changes in alignment will lead to some beam offset and change in direction. Translating the stage then will give an indication of how well the SHG stage is set up in regards to astigmatism which can be seen as non symmetric expansion of the beam. However beware that the mirror outcoupling in the cage also influences the way a change in focus is experienced, due to deviations from an orthogonal inclination angle to the sensor.
 \paragraph{For measurements}
 To find SHG intensity approach from the incoming beam direction and adjust SHG crystal until sufficient output power is achieved.\newline
-Adjust the linear stage such that there is no lateral movement. The stage slide is mounted in a way that can rotate a bit if a rotation force is applied. It may be necessary to do this and have the stage "snap back" to make sure it will not move during the measurement. This can be checked after the measurement by checking the overlap again.
+Adjust the linear stage such that there is no lateral movement. The current stage slide is mounted in a way that can rotate a bit if force is applied at the corners. It may be necessary to do this and have the stage "snap back" to make sure it will not move during the measurement. This can be checked after the measurement by checking the overlap again.
 \subsection{Detector Setup}
 The detectors themselves are the same as in ...cite robert.... For the measurements detector A was used at all times in combination with a picoscope ???. An unspecified prism UV translucent, equal sided prism is also inserted to remove any remainders of the fundamental probe wavelength at the detector. To improve this separation an extra iris may be used immediately in front of the detector.
+\section{Adjusting overlap without achromatic optics}
+One of the main issues that had to be addressed was the change from achromatic objectives to uncoated plano-convex lenses within the cage.\newline
+This is emphasized especially by plotting the wavelength dependence of the focal length as defined by the lensmaker equation:
+\begin{equation}
+\frac{1}{f} = (n-1) \left[\frac{1}{R_1} - \frac{1}{R_2} + \frac{(n-1)d}{n R_1 R_2}\right]
+\end{equation}
+\begin{figure}[h]
+\centering
+\includegraphics[width = 0.9\linewidth]{images/ChromaticAbberation.png}
+\caption{Refractive index change and focal shift for UVFS plano convex lenses}
+\end{figure}
+
 \section{Software}
 \subsection{Overlap Compensation}
-Opposed to the old setup, where the achromatic objectives guaranteed relatively consistent overlap of pump and probe, the UV setup has the need to correct the variation between the single measurements. \newline
-Relevant for this are the beam size of the probe as well as the overlap of the pump and the probe beam in the sample. Variations in those parameters are induced by change of the beamshape due to SHG generation, imperfect alignmenent of the SHG telescope and correction of the chromatic abberation for different wavelength settings of the probe.\newline
+Opposed to the old setup, where the achromatic objectives guaranteed relatively consistent overlap of pump and probe, the UV setup has the need to correct the variation between the single measurements, since the diffraction of the dispersive elements in the probe path varies strongly in the UV range and any compensation via the telescope will be imperfect.\newline
+Relevant for this are the beam size of the probe as well as the overlap of the pump and the probe beam in the sample. Variations in those parameters are induced by change of the beamshape due to SHG generation, imperfect alignment of the SHG telescope and correction of the chromatic aberration for different wavelength settings of the probe.\newline
 
 
 \subsection{Artray-LiveFitting}
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup, it is not decided which part has the problem, a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient. The background has been recorded with the lens cap on and....
 \newline
-For all measurements version 1.2 were used, which uses ALGLIB (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian on for the beamshape.
+For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.
 
 \section{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
