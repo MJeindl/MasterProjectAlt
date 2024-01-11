@@ -62,8 +62,10 @@ C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{prob
 \end{equation}
 
 \begin{gather}
-I_1(x)\cdot I_2(x) = I_{12}(x) = S_{12}\cdot \frac{1}{\sqrt{2\pi}\sigma_{12}} exp\left(-\frac{\left(x-\mu_{12}\right)^2}{2\cdot\sigma_{12}^2}\right)\\
-\int I_{12}(x)\; dx \coloneqq S_{12} \cdot 1
+I_1(x)\cdot I_2(x) = I_{12}(x) = S_{12}\cdot \frac{1}{\sqrt{2\pi}\sigma_{new}} exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\cdot\sigma_{12}^2}\right)\\
+\int I_{12}(x)\; dx \coloneqq S_{12} \cdot 1\\
+\sigma_{new} = \dfrac{\sigma_1 \cdot \sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}\\
+\mu_{new} = \dfrac{\mu_1\sigma_2^2 + \mu_2\sigma_1^2}{\sigma_1^2 + \sigma_2^2}
 \end{gather}
 
 
