@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \begin{document}
@@ -10,9 +11,11 @@
 Part of the experimental objective was to extend the range of the transient absorption microscope (TAM) into the UV range via SHG of the probe NOPA output. With the extension a wavelength range of 250 nm to 940 nm, with a gap between 470 nm and 500 nm, is available for probing the sample.\newline
 To achieve this range a few optics, most notably the achromatic objectives used to image the sample, had to be exchanged for optics non absorbing in the UV.
 \subsection{Cage setup}
-To accomodate the lower wavelengths the objectives have to be exchanged for wavelengths below 350 nm, where absorption reduces the transmission of the objective combination severely. Furthermore the objectives are not rated for wavelengths below ?400 nm? raising the question of if their achromacity still is a viable assumption.\newline
-The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample.\newline
-The plano-convex lenses are not achromatic and their chromatic behaviour is described by the thin lens approximation.
+To accomodate the lower wavelengths the objectives have to be exchanged for wavelengths below 350 nm, where absorption reduces the transmission of the objective combination severely. Furthermore only one of the objectives is rated down to 350 nm raising the question of if their achromacity still is a viable assumption.\newline
+The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample.
+\newline
+The plano-convex lenses are neither apochromatic nor achromatic and thus exhibit chromatic aberration.\newline
+
 \subsection{SHG stage}
 \subsubsection{Summary}
 To achieve a stable second harmonic generation (SHG) a telescope was built with two spherical lenses. The front lens is a 85 mm lens in a mount adjustable for horizontal and vertical displacement orthogonal to the beam path and the rear lens is a 75 mm UVFS lens on a linear stage, to provide a degree of freedom for the focus of the probe beam, which is necessary to account for the achromacity of the extended setup.
@@ -46,12 +49,38 @@ This is emphasized especially by plotting the wavelength dependence of the focal
 Opposed to the old setup, where the achromatic objectives guaranteed relatively consistent overlap of pump and probe, the UV setup has the need to correct the variation between the single measurements, since the diffraction of the dispersive elements in the probe path varies strongly in the UV range and any compensation via the telescope will be imperfect.\newline
 Relevant for this are the beam size of the probe as well as the overlap of the pump and the probe beam in the sample. Variations in those parameters are induced by change of the beamshape due to SHG generation, imperfect alignment of the SHG telescope and correction of the chromatic aberration for different wavelength settings of the probe.\newline
 
+\subsubsection{Correction Factor}
+The correction factor aims to equilibrate the dOD of the given pump-probe overlap to one where the pump is constant in radiance over the entire probe area or in a physical description is infinitely larger than the probe beam.
+Thus for very high $\mathrm{\frac{\sigma_{Probe}}{\sigma_{Pump}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
+The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
+\begin{equation*}
+I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2*\pi}*\sigma_{pump}}
+\end{equation*}, which is 1 due to the intensity taken as a Gaussian or normal distribution. The denominator is the integral over the product of the fitted normal distributions of pump and probe beams called $\mathrm{S_{12}}$.
+
+\begin{equation}\label{CorrFactorGaussians}
+C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{probe}(x) \; dx} = \dfrac{c^*\cdot \int I_{probe} dx}{S_{12}}
+\end{equation}
+
+\begin{gather}
+I_1(x)\cdot I_2(x) = I_{12}(x) = S_{12}\cdot \frac{1}{\sqrt{2\pi}\sigma_{12}} exp\left(-\frac{\left(x-\mu_{12}\right)^2}{2\cdot\sigma_{12}^2}\right)\\
+\int I_{12}(x)\; dx \coloneqq S_{12} \cdot 1
+\end{gather}
+
+
+
+\begin{equation}
+S_{12} = \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(-\dfrac{\left(\mu_1 - \mu_2\right)^2}{2\cdot \left(\sigma_1^2+\sigma_2^2\right)}\right)
+\end{equation}
+A few examples of the behavior of the correction factor are shown in fig.
+
+Furthermore to have all values be comparable the correction factor is divided by the peak radiance value.
+
 
 \subsection{Artray-LiveFitting}
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup, it is not decided which part has the problem, a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient. The background has been recorded with the lens cap on and....
 \newline
-For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.
+For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.\
 
 \section{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
