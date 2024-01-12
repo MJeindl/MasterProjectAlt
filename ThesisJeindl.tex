@@ -1,25 +1,58 @@
-\documentclass[10pt,a4paper]{article}
+%\documentclass[10pt,a4paper]{article}
+\documentclass[twoside,openright]{scrreprt}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{graphicx}
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+
+\usepackage[msc]{tugrazthesis}
+
 \begin{document}
-\section{Experimental Setup}
+%--- INFORMATION FOR TITLEPAGE -------------------------------------------------
+
+% Your name including previous academic degrees (optional argument sets a different \author{}):
+\thesisauthor[Firstname Lastname]{Firstname Lastname, BSc}
+
+% Title of your thesis (optional argument sets a different \title{}):
+\thesistitle[Short Thesis Title]{Title and\\Subtitle\\of the Thesis\\(up to 4 Lines)}
+
+% Date of completion (optional argument sets a different \date{})
+\thesisdate[ ]{Month Year}
+
+% Supervisor headline (select male/female/plural version)
+\supervisortitle{\germanenglish{Betreuerin/Betreuer}{Supervisor}}
+
+% Supervisor info
+\supervisor{%
+  Markus Koch, academic degrees of supervisor\\
+  up to 2 lines
+
+  Institute of Experimental Physics\\
+  up to 2 lines
+
+  %optional extra information (second advisor, name of faculty, etc.)\\
+  %up to 2 lines
+}
+
+% Academic degree achieved with this thesis, according to your curriculum (check curriculum and select male/female version):
+\academicdegree{Diplom-Ingenieur}
+
+\chapter{Experimental Setup}
 Part of the experimental objective was to extend the range of the transient absorption microscope (TAM) into the UV range via SHG of the probe NOPA output. With the extension a wavelength range of 250 nm to 940 nm, with a gap between 470 nm and 500 nm, is available for probing the sample.\newline
 To achieve this range a few optics, most notably the achromatic objectives used to image the sample, had to be exchanged for optics non absorbing in the UV.
-\subsection{Cage setup}
+\section{Cage setup}
 To accomodate the lower wavelengths the objectives have to be exchanged for wavelengths below 350 nm, where absorption reduces the transmission of the objective combination severely. Furthermore only one of the objectives is rated down to 350 nm raising the question of if their achromacity still is a viable assumption.\newline
 The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample.
 \newline
 The plano-convex lenses are neither apochromatic nor achromatic and thus exhibit chromatic aberration.\newline
 
-\subsection{SHG stage}
-\subsubsection{Summary}
+\section{SHG stage}
+\subsection{Summary}
 To achieve a stable second harmonic generation (SHG) a telescope was built with two spherical lenses. The front lens is a 85 mm lens in a mount adjustable for horizontal and vertical displacement orthogonal to the beam path and the rear lens is a 75 mm UVFS lens on a linear stage, to provide a degree of freedom for the focus of the probe beam, which is necessary to account for the achromacity of the extended setup.
-\subsubsection{Operation}
+\subsection{Operation}
 \paragraph{Setting up}
 The task of setting up the SHG stage is non trivial regarding proper alignment and linear stage positioning, such that the ~5 cm of movement are sufficient to adjust for the chromatic aberration within the targeted wavelength range for probe. This task often ends up being trial and error in correspondence to checking multiple wavelengths. The cage lenses have to be in their correct positions first.\newline
 Irises etc are beneficial if there is a working setup.\newline
@@ -32,7 +65,7 @@ To find SHG intensity approach from the incoming beam direction and adjust SHG c
 Adjust the linear stage such that there is no lateral movement. The current stage slide is mounted in a way that can rotate a bit if force is applied at the corners. It may be necessary to do this and have the stage "snap back" to make sure it will not move during the measurement. This can be checked after the measurement by checking the overlap again.
 \subsection{Detector Setup}
 The detectors themselves are the same as in ...cite robert.... For the measurements detector A was used at all times in combination with a picoscope ???. An unspecified prism UV translucent, equal sided prism is also inserted to remove any remainders of the fundamental probe wavelength at the detector. To improve this separation an extra iris may be used immediately in front of the detector.
-\section{Adjusting overlap without achromatic optics}
+\subsection{Adjusting overlap without achromatic optics}
 One of the main issues that had to be addressed was the change from achromatic objectives to uncoated plano-convex lenses within the cage.\newline
 This is emphasized especially by plotting the wavelength dependence of the focal length as defined by the lensmaker equation:
 \begin{equation}
@@ -44,12 +77,12 @@ This is emphasized especially by plotting the wavelength dependence of the focal
 \caption{Refractive index change and focal shift for UVFS plano convex lenses}
 \end{figure}
 
-\section{Software}
-\subsection{Overlap Compensation}
+\chapter{Software}
+\section{Overlap Compensation}
 Opposed to the old setup, where the achromatic objectives guaranteed relatively consistent overlap of pump and probe, the UV setup has the need to correct the variation between the single measurements, since the diffraction of the dispersive elements in the probe path varies strongly in the UV range and any compensation via the telescope will be imperfect.\newline
 Relevant for this are the beam size of the probe as well as the overlap of the pump and the probe beam in the sample. Variations in those parameters are induced by change of the beamshape due to SHG generation, imperfect alignment of the SHG telescope and correction of the chromatic aberration for different wavelength settings of the probe.\newline
 
-\subsubsection{Correction Factor}
+\subsection{Correction Factor}
 The correction factor aims to equilibrate the dOD of the given pump-probe overlap to one where the pump is constant in radiance over the entire probe area or in a physical description is infinitely larger than the probe beam.
 Thus for very high $\mathrm{\frac{\sigma_{Probe}}{\sigma_{Pump}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
 The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
@@ -77,14 +110,28 @@ A few examples of the behavior of the correction factor are shown in fig.
 
 Furthermore to have all values be comparable the correction factor is divided by the peak radiance value.
 
-
-\subsection{Artray-LiveFitting}
+\begin{table}[h]
+\begin{tabular}{lll}
+$\Delta \mu$ / $\sigma$               & $\dfrac{\sigma_{pump}}{\sigma_{probe}}$ / 1 & Correction Factor                                                                                                \\ \hline
+0                                     & 1                                           & $\sqrt{2}$                                                                                                        \\
+$\Delta\mu$                           & 1                                           & $\sqrt{2} exp \left( \dfrac{\Delta \mu ^2}{4}\right)$                                                             \\
+\textless{}\textless{} $\sigma$       & 1                                           & $\sqrt{2}$                                                                                                        \\
+$\approx \sigma$                      & 1                                           & $\sqrt{2}exp\left(\dfrac{1}{4}\right)$                                                                            \\
+\textgreater{}\textgreater{} $\sigma$ & 1                                           & \$$\sim$exp \textbackslash{}left(\textbackslash{}Delta\textbackslash{}mu\textasciicircum{}2\textbackslash{}right) \\
+$FWHM = 2*\sqrt{2 ln(2)}\sigma$       & 1                                           & $\sqrt{2}exp(2ln2)\approx 5.6$                                                                                    \\
+0                                     & 3                                           & $\sqrt(\dfrac{9+1}{9}) \approx 1.054$                                                                             \\
+0                                     & 1/3                                         & $\sqrt(\dfrac{9+1}{1}) \approx 3.2$                                                                               \\
+0                                     & 1/2                                         & $\sqrt(\dfrac{4+1}{1}) \approx 2.2$                                                                               \\
+0                                     & 2                                           & $\sqrt(\dfrac{4+1}{4}) \approx 1.12$                                                                             
+\end{tabular}
+\end{table}
+\section{Artray-LiveFitting}
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup, it is not decided which part has the problem, a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient. The background has been recorded with the lens cap on and....
 \newline
 For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.\
 
-\section{Examination of reliability}
+\chapter{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
 
 \end{document}
