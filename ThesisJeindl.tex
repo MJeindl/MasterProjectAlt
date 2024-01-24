@@ -40,19 +40,42 @@
 % Academic degree achieved with this thesis, according to your curriculum (check curriculum and select male/female version):
 \academicdegree{Diplom-Ingenieur}
 
-\chapter{Experimental Setup}
+\chapter{Devices and Setup}
+
+
+
 Part of the experimental objective was to extend the range of the transient absorption microscope (TAM) into the UV range via SHG of the probe NOPA output. With the extension a wavelength range of 250 nm to 940 nm, with a gap between 470 nm and 500 nm, is available for probing the sample.\newline
 To achieve this range a few optics, most notably the achromatic objectives used to image the sample, had to be exchanged for optics non absorbing in the UV.
-\section{Cage setup}
+\section{Regular Transient Absorption Microscope Setup}\label{RegTAM}
+A short description of the experimental setup for the Transient Absorption Microscope (TAM), as it was before attempting an extension to higher photon energies follows. For further details see previous work (cite robert master thesis)\\
+As a laser source a PHAROS femtosecond laser by Light Conversion is used with an output of 400 µJ at 20 kHz with a pulse length in the range of ....? The output is evenly split between two Orpheus Non-Collinear Optical Parametric Amplifiers (NOPAs), where one is setup with second harmonic (2H) for the pump pulses (650 nm - 940 nm) and the other is setup with third harmonic (3H) for the probe pulses (500 nm - 940 nm). Long term output power stability is mainly important for the pump pulse, which is why the setup, including the compressor the PHAROS, is optimized for maximum stability of the 2H NOPA. Meanwhile having little shot to shot fluctuations is important in all cases. PHAROS is the most reliable part of the setup, with exception of the compression setting which may need adjusting every once upon a while.\\
+
+The light following the pump path goes through several apertures and ND filters, which may be absorptive glass filters or metal coated reflective filters which may also be gradient filters for linear adjustability, until the beam reaches the linear delay stage, which uses a Newpot LTA-HS actuator. The beam path is then led through the chopper by the use of a roughly 1:1 telescope around it, which blocks every second pulse leaving a half frequency signal for the pump. The chopper is synchronised to a signal output of PHAROS, which allows for setting a delay such that there is just a binary on and off modulation of the pump, compared to a partial chopping of beams at full frequency. After passing through a lambda half wave plate the beam enters the common path in the cage with the sample.
+
+The probe beam has the same treatment of apertures and ND filters, including a variable reflective one, and goes through a lambda/2 plate until it reaches the common path.
+
+
+For detection of the transient signal a custom made detector based on Hamamatsu S1336-8BQ (some way to check this? robert's thesis says BK which would be the wrong one for UV) Si photodiode is used in combination with an analogue long pass amplification circuit stretching the signal such that it can be measured with an Oscilloscope with ??? MT frequency. For all measurements detector "A" was used. The diode is fit for measurements in the wavelength range of 190-1100  nm and ....? Find datasheet and plot wavelength vs signal.
+
+\section{UV extended Transient Absorption Microscope Setup}
+This section will address the issues addressed with the extended setup as well as attempted solutions and the final changes to make it work.
+\subsection{Cage setup}
 To accomodate the lower wavelengths the objectives have to be exchanged for wavelengths below 350 nm, where absorption reduces the transmission of the objective combination severely. Furthermore only one of the objectives is rated down to 350 nm raising the question of if their achromacity still is a viable assumption.\newline
 The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample.
 \newline
-The plano-convex lenses are neither apochromatic nor achromatic and thus exhibit chromatic aberration.\newline
+The plano-convex lenses are neither apochromatic nor achromatic and thus exhibit chromatic aberration, leading to an issue that will be addressed in \ref{SHG-Stage-desc}. \newline
 
-\section{SHG stage}
-\subsection{Summary}
-To achieve a stable second harmonic generation (SHG) a telescope was built with two spherical lenses. The front lens is a 85 mm lens in a mount adjustable for horizontal and vertical displacement orthogonal to the beam path and the rear lens is a 75 mm UVFS lens on a linear stage, to provide a degree of freedom for the focus of the probe beam, which is necessary to account for the achromacity of the extended setup.
-\subsection{Operation}
+\subsection{Second Harmonic Generation stage}\label{SHG-Stage-desc}
+The Second Harmonic Generation (SHG) stage addresses multiple issues. 
+Firstly the 3H NOPA used for the probe beam does not supply high enough power to 
+\begin{itemize}
+\item The 3H NOPA used for the probe beam does not supply high enough power to allow for stable SHG over the entire output wavelength range of the NOPA without a focusing element increasing the power locally within the crystal. 
+\item The chromatic abberation or focus shift within the cage system means that a degree of freedom on the focus of the probe needs to be included as to allow for adjustments to the pointspread function of the probe.
+\end{itemize}
+
+
+The solution to these issues is an adjustable telescope of biconvex lenses, of which the second lens is UV transmissive. To achieve a stable second harmonic generation (SHG) a telescope was built with two spherical lenses. The front lens is a 85 mm lens in a mount adjustable for horizontal and vertical displacement orthogonal to the beam path and the rear lens is a 75 mm UVFS lens on a linear stage, to provide a degree of freedom for the focus of the probe beam, which is necessary to account for the achromacity of the extended setup.
+\subsubsection{Operation}
 \paragraph{Setting up}
 The task of setting up the SHG stage is non trivial regarding proper alignment and linear stage positioning, such that the ~5 cm of movement are sufficient to adjust for the chromatic aberration within the targeted wavelength range for probe. This task often ends up being trial and error in correspondence to checking multiple wavelengths. The cage lenses have to be in their correct positions first.\newline
 Irises etc are beneficial if there is a working setup.\newline
@@ -76,6 +99,20 @@ This is emphasized especially by plotting the wavelength dependence of the focal
 \includegraphics[width = 0.9\linewidth]{images/ChromaticAbberation.png}
 \caption{Refractive index change and focal shift for UVFS plano convex lenses}
 \end{figure}
+This issue is of fundamental nature and a few attempts were made until the final solution in .... was found.
+\subsubsection{Regular Focusing after Cage}
+This is the option used for the regular TAM setup as described in \ref{RegTAM}. The last mirror in front of the detector is simply removed to reveal a camera behind it. The rear cage objective is focused onto this camera using white light from an LED torch or similar lightsources in transmission. Afterwards the front objective is moved such that a satisfactory pointspread function of the beam is seen from the camera sensor.\\ 
+This is sufficient as the achromatic objectives allow a very similar focus for all wavelengths between 400 nm and 940 nm. The rear objective simply projects the pointspread function of the beams in the plane of the sample to which it was focused to, while moving the front objective adjusts the part of the focusing beam cone, and thus the size of the slice of the beam, which interacts with the sample. This is working for both pump and probe.\\
+Since the focal length of the lenses varies wildly in the UV this is not an option for the UV extension.
+\subsubsection{Dummy Conversion Sample}
+An idea was to use a "dummy" sample acting as a screen to then be imaged onto the camera in the rear using the lens. This method has several requirements:
+\begin{itemize}
+\item The screen needs to allow for diffuse imaging of the sample without disturbing the beamshape too much.
+\item Any UV or near UV light needs to be converted to the visible region, where the focal length difference becomes negligible.
+\end{itemize}
+
+The requirement for diffuse imaging is simple. Any collimation or focusing action of the beam needs to be lost to actually image the sample plane, where the "dummy" is placed at. The requirement is less stringent for wavelengths close to a chosen wavelength to which the setup would be calibrated to, as the lenses would image the beam fine for that wavelength.\\
+
 
 \chapter{Software}
 \section{Overlap Compensation}
