@@ -113,6 +113,16 @@ An idea was to use a "dummy" sample acting as a screen to then be imaged onto th
 
 The requirement for diffuse imaging is simple. Any collimation or focusing action of the beam needs to be lost to actually image the sample plane, where the "dummy" is placed at. The requirement is less stringent for wavelengths close to a chosen wavelength to which the setup would be calibrated to, as the lenses would image the beam fine for that wavelength.\\
 
+For the issue of UV conversion a few attempts with different dyes and paper were made, which showed variable success as to their luminescence.\\
+Look up notes on this and write this down -> either enumerate or tabular, describe the different options and how well they performed\\
+What proved to be the main issue with this method was the diffuse imaging part. Finding materials that would allow only diffuse light to be transmitted, while being regular enough to be used is not easy. The use of paper in combination with wax and marker dye did ..... check notes
+
+\subsubsection{Sample mirror path}
+The option that finally won out is decoupling the beams after the frontal cage lens and imaging onto a camera that is in the mirror plane of the sample surface. This method requires a method for consistent placement of the mirror within the cage and a way to move the camera into the mirror plane of the sample.\\
+Former is solved by a 45 degree mirror insert for the cage, which was designed to rest on top of the cage system rails. This drop in mirror mount was 3d printed for adjustability and has proven to be consistent enough to allow for this method to work. \\
+An advantage of PLA as opposed to aluminium with the negative of the rails cut into it is that it allows proper sliding into place, whereas aluminium "gripped" onto the rails making it hard to get consistent placement. This may be improved by cutting the rail negative even slightly bigger. However this still presents one with the problem of how to mount the mirror to the mount. Super glueing  the mirror to the Al mount was attempted for a quick trial, but this proved to not be long living. The mirror dropped from the mount after some use.\\
+The 3d printed mount can be seen in fig. ....
+Considerations regarding use of rubber bands or 3d printed fittings were made, however it turns out just by moving the mirror drop-in mount against a solid surface, such as one of the cage plates holding the rails, is sufficiently reproducible for the sensor resolution of the camera used. (alternatively also reference the change in beam diameter according to rayleigh length etc)
 
 \chapter{Software}
 \section{Overlap Compensation}
