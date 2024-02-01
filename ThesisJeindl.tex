@@ -6,9 +6,10 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{graphicx}
-
+\usepackage{svg}
 
 \usepackage[msc]{tugrazthesis}
+
 
 \begin{document}
 %--- INFORMATION FOR TITLEPAGE -------------------------------------------------
@@ -59,9 +60,25 @@ For detection of the transient signal a custom made detector based on Hamamatsu 
 
 \section{UV extended Transient Absorption Microscope Setup}
 This section will address the issues addressed with the extended setup as well as attempted solutions and the final changes to make it work.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{images/ComponentLibrary_svg/TAM-SetupUV.png}
+\caption{UV extended TAM\\Pump adjustable for 650 nm to 940 nm
+\\Probe adjustable between 500 nm and 940 nm with the option of separate range of 250 nm and 470 nm via SHG crystal\\
+SHG stage shown including optional filters to remove white light from NOPA (ahead of SHG crystal) and fundamental wavelength of SHG (after SHG crystal)\\ Cage setup in further detail in fig. \ref{Fig:CageSetup}}
+\end{figure}
+
+\begin{figure}[h]\label{Fig:CageSetup}
+\centering
+\includegraphics[width=0.9\linewidth]{images/ComponentLibrary_svg/TAM_Setup-SHGandDetector.png}
+\caption{Detail view of new components in TAM\\ Ahead of first show probe lens white light remainder from NOPA may be filtered and after the second lens the fundamental may be filtered\\
+Rear camera shown as coupled out of the standard path, however it is advised to instead have the rear camera in the standard detector path and only insert the mirror coupling into the mirror when doing measurements.}
+\end{figure}
+
 \subsection{Cage setup}
-To accomodate the lower wavelengths the objectives have to be exchanged for wavelengths below 350 nm, where absorption reduces the transmission of the objective combination severely. Furthermore only one of the objectives is rated down to 350 nm raising the question of if their achromacity still is a viable assumption.\newline
-The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample.
+To accommodate the lower wavelengths the objectives have to be exchanged for wavelengths below 350 nm, where absorption reduces the transmission of the objective combination severely. Furthermore only one of the objectives is rated down to 350 nm raising the question of if their achromacity still is a viable assumption.\newline
+The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample as can be seen in fig. \ref{Fig:CageSetup}. This is done to reduce spherical aberration.
 \newline
 The plano-convex lenses are neither apochromatic nor achromatic and thus exhibit chromatic aberration, leading to an issue that will be addressed in \ref{SHG-Stage-desc}. \newline
 
@@ -87,10 +104,12 @@ Finally one can adjust mirrors after the stage to get an image on the camera aga
 To find SHG intensity approach from the incoming beam direction and adjust SHG crystal until sufficient output power is achieved.\newline
 Adjust the linear stage such that there is no lateral movement. The current stage slide is mounted in a way that can rotate a bit if force is applied at the corners. It may be necessary to do this and have the stage "snap back" to make sure it will not move during the measurement. This can be checked after the measurement by checking the overlap again.
 \subsection{Detector Setup}
-The detectors themselves are the same as in ...cite robert.... For the measurements detector A was used at all times in combination with a picoscope ???. An unspecified prism UV translucent, equal sided prism is also inserted to remove any remainders of the fundamental probe wavelength at the detector. To improve this separation an extra iris may be used immediately in front of the detector.
+The detectors themselves are the same as described in Robert Schwarzl's master thesis.\cite{Schwarzl2021} For the measurements detector A was used at all times in combination with a picoscope 5442D. An equal sided, UV translucent, prism is inserted to remove any remainders of the fundamental probe wavelength at the detector. To improve this separation an extra iris may be used immediately in front of the detector.\\
+The prism should be placed such that the angle between pump and probe is further increased, as this can help reach full pump rejection without any other filters or beamblocks involved. For each change of the probe the mirror coupling into the prism should be adjusted for maximum intensity of the probe on the detector, which can be monitored using the fourierDetector() matlab program.\\
+The detector has a maximum peak to peak voltage (Vpp) of approximately 3 V, which means that the Vpp should be kept below this value to avoid response problems and thus systematic errors in the measurement.
 \subsection{Adjusting overlap without achromatic optics}
 One of the main issues that had to be addressed was the change from achromatic objectives to uncoated plano-convex lenses within the cage.\newline
-This is emphasized especially by plotting the wavelength dependence of the focal length as defined by the lensmaker equation:
+This is emphasized especially by plotting the wavelength dependence of the focal length as defined by the lensmaker equation for the lenses used:
 \begin{equation}
 \frac{1}{f} = (n-1) \left[\frac{1}{R_1} - \frac{1}{R_2} + \frac{(n-1)d}{n R_1 R_2}\right]
 \end{equation}
@@ -99,8 +118,13 @@ This is emphasized especially by plotting the wavelength dependence of the focal
 \includegraphics[width = 0.9\linewidth]{images/ChromaticAbberation.png}
 \caption{Refractive index change and focal shift for UVFS plano convex lenses}
 \end{figure}
-This issue is of fundamental nature and a few attempts were made until the final solution in .... was found.
-\subsubsection{Regular Focusing after Cage}
+
+Furthermore the depth of focus may be visualized by plotting the beam waist diameter over distance for several relevant focal lengths in fig. ....
+The change of the depth of focus (DOF) and thus the change in beam waist diameter for a specific distance from the focal point of the corresponding wavelength decreases for higher photon energies.
+
+
+This issue is of fundamental nature and a few attempts were made until the final solution in \ref{SampleMirrorCamera} was found.
+\subsubsection{Regular Focusing after Cage}\label{regRearFocus}
 This is the option used for the regular TAM setup as described in \ref{RegTAM}. The last mirror in front of the detector is simply removed to reveal a camera behind it. The rear cage objective is focused onto this camera using white light from an LED torch or similar lightsources in transmission. Afterwards the front objective is moved such that a satisfactory pointspread function of the beam is seen from the camera sensor.\\ 
 This is sufficient as the achromatic objectives allow a very similar focus for all wavelengths between 400 nm and 940 nm. The rear objective simply projects the pointspread function of the beams in the plane of the sample to which it was focused to, while moving the front objective adjusts the part of the focusing beam cone, and thus the size of the slice of the beam, which interacts with the sample. This is working for both pump and probe.\\
 Since the focal length of the lenses varies wildly in the UV this is not an option for the UV extension.
@@ -114,20 +138,31 @@ An idea was to use a "dummy" sample acting as a screen to then be imaged onto th
 The requirement for diffuse imaging is simple. Any collimation or focusing action of the beam needs to be lost to actually image the sample plane, where the "dummy" is placed at. The requirement is less stringent for wavelengths close to a chosen wavelength to which the setup would be calibrated to, as the lenses would image the beam fine for that wavelength.\\
 
 For the issue of UV conversion a few attempts with different dyes and paper were made, which showed variable success as to their luminescence.\\
-Look up notes on this and write this down -> either enumerate or tabular, describe the different options and how well they performed\\
-What proved to be the main issue with this method was the diffuse imaging part. Finding materials that would allow only diffuse light to be transmitted, while being regular enough to be used is not easy. The use of paper in combination with wax and marker dye did ..... check notes. PTFE tape seems too opaque to be a good choice for the probe beam.
+Generally paper combined with orange gel marker (Stabilo No. 70/40) seemed to work best
+Paper soaked with wax to increase transmittance and smooth out scattering alone did not work particularly well unless combined with text marker. Marker has to be applied ahead of the wax and on the other side of the paper, from where the wax will be applied. (I am considering just throwing this all out, though having an off hand comment shouldn't be too bad) 
 
-Using a microscope slide with gelled, at room temperature evaporated, Stabilo marker (No. 70/40) turned out to have decent conversion efficiency, but lacks any diffusivity. This could work, based on adjusting the cage setup to the pump wavelength, so it is correctly imaged. However at that time the rear focus was still set with white light instead of 653 nm pump adjacent light, which would not have allowed for this method. Also this leads to problems as soon as the probe light has long enough wavelengths to simply transmit through the glass slide. It would need to be filtered, which at the time was not possible as longpass filters were not available to us. Another unanswered question is the emission spectrum of the marker gel. (lab notes  starting in june)
-In the end none of these options turned out to be stable or user-friendly enough to pursue further.
+Using a microscope slide with gelled, specifically at room temperature evaporated, Stabilo marker (No. 70/40) turned out to have decent conversion efficiency, but lacks any diffusivity. This could work, based on adjusting the cage setup to the pump wavelength, so it is correctly imaged. However at that time the rear focus was still set with white light instead of 653 nm pump adjacent light, which would not have allowed for this method. Also this leads to problems as soon as the probe light has long enough wavelengths to simply transmit through the glass slide. It would need to be filtered, which at the time was not possible as longpass filters were not available to us. Another unanswered question is the emission spectrum of the marker gel. (lab notes  starting in june)\\
+Surprisingly the frontal focus point found with this projection method coincides well with the finally used frontal focus point. Consider that the projection screen may not be spaced entirely correctly though. CHECK THICKNESS
+Overall the attempted projection screen method did not seem viable and thus was not pursued further. A main disadvantage, apart from problems with wavelength conversion, is that in the best case the scattering applies a strong averaging to the beam pointspread function, which does not allow for detection of deviations of the beam shape from a Gaussian distribution. Unless a very consistent and fine scattering projection screen with good conversion to a specific wavelength band close to the pump is found it just is infeasible.
 
 
-\subsubsection{Sample mirror path}
+\subsubsection{Sample mirror path}\label{SampleMirrorCamera}
 The option that finally won out is decoupling the beams after the frontal cage lens and imaging onto a camera that is in the mirror plane of the sample surface. This method requires a method for consistent placement of the mirror within the cage and a way to move the camera into the mirror plane of the sample.\\
+\paragraph{Method}
+The rear lens is set to image the sample plane onto the camera as described in \ref{regRearFocus} with a pump adjacent wavelength used to illuminate the sample. This is done to be able to use the pump beam as a reference for the cage system, as the front focus for the sample and the rear focus for the camera are both calibrated using a wavelength with very little chromatic focal shift from it.\\
+A two step process is then used to get the position of the camera in the mirrored sample path correct:
+\begin{enumerate}
+\item Adjust the camera distance so, that the pump beam profile is right before inversion, due to passing through the imaging or focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a bit beyond that point. Attention has to be paid to not go into inversion, which is hard to tell by eye. Later on this could be done by comparing the fitted intensity value/FWHM of the beam profile as long as the pump beam did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile.
+\item Set the probe to the same or an adjacent wavelength to the pump and setup overlap using the rear camera. Due to beampaths and thus spherical abberation this may be a tedious process and not completely accurate. Check the overlap on the frontal camera by moving the camera back and forth and observing if the beams cross through their centers. If that is the case the pump probe overlap should be given optimally and the frontal camera can be set to the optimum position of this overlap. Take reference TA measurements to if possible to check if there is an improvement from the purely DMK set position.
+\end{enumerate}
+\paragraph{Setup}
 Former is solved by a 45 degree mirror insert for the cage, which was designed to rest on top of the cage system rails. This drop in mirror mount was 3d printed for adjustability and has proven to be consistent enough to allow for this method to work. \\
 An advantage of PLA as opposed to aluminium with the negative of the rails cut into it is that it allows proper sliding into place, whereas aluminium "gripped" onto the rails making it hard to get consistent placement. This may be improved by cutting the rail negative even slightly bigger. However this still presents one with the problem of how to mount the mirror to the mount. Super glueing  the mirror to the Al mount was attempted for a quick trial, but this proved to not be a long lived connection.\\
 The 3d printed mount can be seen in fig. ....
-Considerations regarding use of rubber bands or 3d printed fittings were made, however it turns out just by moving the mirror drop-in mount against a solid surface, such as one of the cage plates holding the rails, is sufficiently reproducible for the sensor resolution of the camera used. (alternatively also reference the change in beam diameter according to rayleigh length etc)
+Considerations regarding use of rubber bands or 3d printed fittings were made, however it turns out just by moving the mirror drop-in mount against a solid surface, such as one of the cage plates holding the rails, is sufficiently reproducible for the sensor resolution of the camera used. (alternatively also reference the change in beam diameter according to rayleigh length etc)\\
 
+The lighting for imaging the rear sample onto the camera via the rear lens is done using a ring light with 4 LEDs, which have a spectral intensity distribution close to the targeted pump beam. The spectrum can be seen in fig. ...\\
+%The LEDs are mounted onto a square aluminium frame and are angled towards the sample to illuminate it evenly. To properly setup the focus light that not passing through the lens has to be minimized or contrast will be lost. To focus properly a small scratch is introduced to the edge of the sample, which allows better contrast for focusing as well and allows to focus closer to the center to the layer than to the top or bottom of the layer. (eh questionable, think better)
 
 
 \chapter{Software}
@@ -137,10 +172,10 @@ Relevant for this are the beam size of the probe as well as the overlap of the p
 
 \subsection{Correction Factor}
 The correction factor aims to equilibrate the dOD of the given pump-probe overlap to one where the pump is constant in radiance over the entire probe area or in a physical description is infinitely larger than the probe beam.
-Thus for very high $\mathrm{\frac{\sigma_{Probe}}{\sigma_{Pump}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
-The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
+Thus for very high $\mathrm{\frac{\sigma_{Pump}}{\sigma_{Probe}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
+The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in REF back or in Bromiley, which was used to check correctness.\cite{Bromiley2014} The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
 \begin{equation*}
-I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2*\pi}*\sigma_{pump}}
+I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2\cdot\pi}\cdot\sigma_{pump}}
 \end{equation*}, which is 1 due to the intensity taken as a Gaussian or normal distribution. The denominator is the integral over the product of the fitted normal distributions of pump and probe beams called $\mathrm{S_{12}}$.
 
 \begin{equation}\label{CorrFactorGaussians}
@@ -148,7 +183,7 @@ C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{prob
 \end{equation}
 
 \begin{gather}
-I_1(x)\cdot I_2(x) = I_{12}(x) = S_{12}\cdot \frac{1}{\sqrt{2\pi}\sigma_{new}} exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\cdot\sigma_{12}^2}\right)\\
+I_1(x)\cdot I_2(x) = I_{12}(x) = S_{12}\cdot \frac{1}{\sqrt{2\pi}\sigma_{new}} exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\cdot\sigma_{12}^2}\right)\label{GaussianProduct}\\
 \int I_{12}(x)\; dx \coloneqq S_{12} \cdot 1\\
 \sigma_{new} = \dfrac{\sigma_1 \cdot \sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}\\
 \mu_{new} = \dfrac{\mu_1\sigma_2^2 + \mu_2\sigma_1^2}{\sigma_1^2 + \sigma_2^2}
@@ -161,33 +196,43 @@ S_{12} = \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(
 \end{equation}
 A few examples of the behavior of the correction factor are shown in fig.
 
-Furthermore to have all values be comparable the correction factor is divided by the peak radiance value.
+Furthermore to have all relative $\mathrm{\Delta OD}$ values be directly comparable, the correction factor is divided by the peak radiance value.
 
 \begin{table}[h]
 \begin{tabular}{lll}
 $\Delta \mu$ / $\sigma$               & $\dfrac{\sigma_{pump}}{\sigma_{probe}}$ / 1 & Correction Factor                                                                                                \\ \hline
 0                                     & 1                                           & $\sqrt{2}$                                                                                                        \\
 $\Delta\mu$                           & 1                                           & $\sqrt{2} exp \left( \dfrac{\Delta \mu ^2}{4}\right)$                                                             \\
-\textless{}\textless{} $\sigma$       & 1                                           & $\sqrt{2}$                                                                                                        \\
 $\approx \sigma$                      & 1                                           & $\sqrt{2}exp\left(\dfrac{1}{4}\right)$                                                                            \\
-\textgreater{}\textgreater{} $\sigma$ & 1                                           & \$$\sim$exp \textbackslash{}left(\textbackslash{}Delta\textbackslash{}mu\textasciicircum{}2\textbackslash{}right) \\
-$FWHM = 2*\sqrt{2 ln(2)}\sigma$       & 1                                           & $\sqrt{2}exp(2ln2)\approx 5.6$                                                                                    \\
+$\infty$ & 1                                           & $\sim$ exp$\left(\Delta mu ^2 \right)$ \\
+$2\cdot\sqrt{2 ln(2)}\sigma$       & 1                                           & $\sqrt{2}exp(2ln2)\approx 5.6$                                                                                    \\
 0                                     & 3                                           & $\sqrt(\dfrac{9+1}{9}) \approx 1.054$                                                                             \\
 0                                     & 1/3                                         & $\sqrt(\dfrac{9+1}{1}) \approx 3.2$                                                                               \\
 0                                     & 1/2                                         & $\sqrt(\dfrac{4+1}{1}) \approx 2.2$                                                                               \\
 0                                     & 2                                           & $\sqrt(\dfrac{4+1}{4}) \approx 1.12$                                                                             
 \end{tabular}
 \end{table}
-\section{Artray-LiveFitting}
+\subsection{Artray-LiveFitting}
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
-Issues with our system are that for our specific camera or system setup, it is not decided which part has the problem, a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient. The background has been recorded with the lens cap on and....
+Issues with our system are that for our specific camera or system setup a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient, as the variation seems to be constant over time. The background has been recorded with the lens cap on at an exposure of 15 ms, which was chosen after comparing the subtracted quality output of 0.3 ms, 15 ms and 100 ms. 
 \newline
-For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.\
+For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.\\
+In version 1.2 the relevant fitting parameters are returned as a numeric overlap integral based on the Gaussian beamshapes. In this version it is still calculated numerically from the fits, however it can be rebased into an analytical form as per eq. \ref{GaussianProduct} which describes the product of two Gaussians.
+\begin{equation}
+overlap = \int \sqrt{f_1(x)*f_2(x)}dx =  \sqrt{\frac{2 \sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}\cdot exp\left(-\frac{\left(\mu_1-\mu_2\right)^2}{4\cdot \left(\sigma_1^2 + \sigma_2^2\right)}\right)
+\end{equation}
+This is not directly related to correction factor calculated within the python program to make everything comparable, but is more of a measure of how similar the beams are, which is why only the normal distributions are used without an intensity modifier, thus both beams are weighted identically. \\
+This is reasonable as the best results for the correction factor are achieved when pump and probe beams are similar in size. This overlap integral returns a maximum value of 1 when the beams are identical and falls off quickly if the intensity maxima are shifted and slowly if the FWHM of the beams is different.\\
 
 \chapter{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
 
 
+
+
+
+
+\chapter*{Used materials}
 \begin{tabular}{|c|c|c|}
 \hline 
 Type & Device & SN \\ 
@@ -211,4 +256,10 @@ Power meter & Field Mate + head & - / 1019L08R \\
 X-Y stage actuators & Z825B with Thorlabs Kinesis Cube & • \\ 
 \hline 
 \end{tabular} 
+
+\chapter{Derivations of formula}
+\section{Produkt of two Gaussians}
+\bibliographystyle{ieeetr}
+\bibliography{MasterThesisPrep}
+
 \end{document}
