@@ -172,6 +172,28 @@ The lighting for imaging the rear sample onto the camera via the rear lens is do
 Opposed to the old setup, where the achromatic objectives guaranteed relatively consistent overlap of pump and probe, the UV setup has the need to correct the variation between the single measurements, since the diffraction of the dispersive elements in the probe path varies strongly in the UV range and any compensation via the telescope will be imperfect.\newline
 Relevant for this are the beam size of the probe as well as the overlap of the pump and the probe beam in the sample. Variations in those parameters are induced by change of the beamshape due to SHG generation, imperfect alignment of the SHG telescope and correction of the chromatic aberration for different wavelength settings of the probe.\newline
 
+\subsection{Beam Characterisation}
+The python class ArtFit has some options to check for the validity of the data used. Since the data is saved in a raw format, however it is cut and thus an offset for the ROI has to be accounted for. \footnote{NOTE: FOR ARTRAY VER 1.3 CHANGE SO METADATA OF ROI OFFSET IS SAVED, ALSO OF BACKGROUND FILE: may not work like I hoped}
+
+ArtFit may parse 3 different input types: (think of something different, not meaningful like this)
+\begin{enumerate}
+\item Quick plotting of raw data:\\
+With a path to a raw data file and an optional bool value, which is used to tell the program to use the standard size of 1280x720 instead of a square pixel array size deduced from total number of entries. Plots the beam intensity profile without any processing.
+\item Single beam profile with background subtraction: \\
+Loads a JSON characterising the background file, including a set offset of ROI, the path for the beam profile to be loaded and a width for fitting.
+\item Two beam profiles with background subtraction: \\
+ROI offset has to be identical and is again defined by a JSON file with background location.
+\end{enumerate}
+
+To get meaningful data for correction of data the pump power has to be set using setPumpPower() and the scale can optionally be overwritten from the background file with setScale(). Fitting is done by calling plainFit(id), where id = 1 for probe (first path handed over) and id = 2 for pump (second path).
+
+Some options to show 
+\begin{itemize}
+\item plotComp()\\
+Shows an intensity contour plot of both beams on top of each other. If only one beam file is loaded only one is shown. Also shows the fitted intensity slices on top of each other for both pixel array axis. Returns an overlap value corresponding to what is given by the liveFitting program described in section \ref{Sec:LiveFitting}.
+\item plotGauss()\\
+Plots the intensity profile of the beams, if both are given, separately with an overlayed contour plot of the fits, to allow to ascertain the validity of the fit. Needs to have already fitted data with plainFit() to show the Gaussian distribution. Fitted data may be printed to console by setting printData = True for the options. The intensity profile is shown by default without background subtraction and can be shown with subtracted background by handing over a boolean. The fits are always done with subtracted background, the profile just is not shown background subtracted by default.
+\end{itemize}
 \subsection{Correction Factor}
 The correction factor aims to equilibrate the dOD of the given pump-probe overlap to one where the pump is constant in radiance over the entire probe area or in a physical description is infinitely larger than the probe beam.
 Thus for very high $\mathrm{\frac{\sigma_{Pump}}{\sigma_{Probe}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
@@ -214,7 +236,7 @@ $2\cdot\sqrt{2 ln(2)}\sigma$       & 1                                          
 0                                     & 2                                           & $\sqrt(\dfrac{4+1}{4}) \approx 1.12$                                                                             
 \end{tabular}
 \end{table}
-\subsection{Artray-LiveFitting}
+\subsection{Artray-LiveFitting}\label{Sec:LiveFitting}
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient, as the variation seems to be constant over time. The background has been recorded with the lens cap on at an exposure of 15 ms, which was chosen after comparing the subtracted quality output of 0.3 ms, 15 ms and 100 ms. 
 \newline
@@ -223,6 +245,7 @@ In version 1.2 the relevant fitting parameters are returned as a numeric overlap
 \begin{equation}
 overlap = \int \sqrt{f_1(x)*f_2(x)}dx =  \sqrt{\frac{2 \sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}\cdot exp\left(-\frac{\left(\mu_1-\mu_2\right)^2}{4\cdot \left(\sigma_1^2 + \sigma_2^2\right)}\right)
 \end{equation}
+This is calculated separately for both axis of the pixel array and then multiplied for a final value. (CHECK IF THAT IS ACTUALLY FINE AND PROVE IT WITH SIMULATION, same question as for correction factor)
 This is not directly related to correction factor calculated within the python program to make everything comparable, but is more of a measure of how similar the beams are, which is why only the normal distributions are used without an intensity modifier, thus both beams are weighted identically. \\
 This is reasonable as the best results for the correction factor are achieved when pump and probe beams are similar in size. This overlap integral returns a maximum value of 1 when the beams are identical and falls off quickly if the intensity maxima are shifted and slowly if the FWHM of the beams is different.\\
 
@@ -304,9 +327,10 @@ exp\left(-\frac{\sigma_1^2+\sigma_2^2}{2\sigma_1^2\sigma_2^2} \left[x - \frac{\m
 \begin{split}
 G_{12}(x) & = \frac{1}{\sqrt{2\pi}\sigma_{new}}\frac{\sigma_{new}}{\sqrt{2\pi}\sigma_1\sigma_2}\cdot exp\left(- \frac{\left(\mu_1-\mu_2\right)^2}{2\sigma_{12}^2}\right) \cdot
 exp\left(-\frac{\left(x-\mu_{new}\right)^2}{\sigma_{12}^2}\right)\\
-& = S_n \cdot \frac{1}{\sqrt[2]{2\pi}\sigma_{new}} \cdot exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\sigma_{new}^2}\right)
+& = S_n \cdot \frac{1}{\sqrt{2\pi}\sigma_{new}} \cdot exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\sigma_{new}^2}\right)
 \end{split}
 \end{gather}
+
 
 
 \bibliographystyle{ieeetr}
