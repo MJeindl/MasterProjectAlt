@@ -8,6 +8,8 @@
 \usepackage{graphicx}
 \usepackage{svg}
 
+\usepackage{stackrel}
+
 \usepackage[msc]{tugrazthesis}
 
 
@@ -179,7 +181,7 @@ I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2\cdot\pi}\cdot\sigma_{pump
 \end{equation*}, which is 1 due to the intensity taken as a Gaussian or normal distribution. The denominator is the integral over the product of the fitted normal distributions of pump and probe beams called $\mathrm{S_{12}}$.
 
 \begin{equation}\label{CorrFactorGaussians}
-C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{probe}(x) \; dx} = \dfrac{c^*\cdot \int I_{probe} dx}{S_{12}}
+C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{probe}(x) \; dx} = \dfrac{c^*\cdot \int I_{probe} dx}{S_{12}} = \dfrac{c*}{S_{12}}
 \end{equation}
 
 \begin{gather}
@@ -259,6 +261,54 @@ X-Y stage actuators & Z825B with Thorlabs Kinesis Cube & • \\
 
 \chapter{Derivations of formula}
 \section{Produkt of two Gaussians}
+This calculation has been cross checked with Bromiley.
+
+\begin{gather}
+\begin{split}
+G_{12}(x) & =  G_1(x) \cdot G_2(x) \\ 
+& = \frac{1}{2\pi \sigma_1 \sigma_2}
+exp\left(-\frac{1}{2}\left[\frac{\left(x-\mu_1\right)^2}{\sigma_1^2} + \frac{\left(x-\mu_2\right)^2}{\sigma_2^2} \right]\right)
+\\
+& = \frac{1}{2\pi \sigma_1 \sigma_2} exp \left(-\frac{1}{2\sigma_1^2 \sigma_2^2} \left[
+\sigma_2^2 \left(x^2 - 2 \mu_1 x + \mu_1^2 \right) + 
+\sigma_1^2 \left(x^2 - 2 \mu_2 x + \mu_2^2 \right)
+\right] \right)
+\\
+& = \frac{1}{2\pi \sigma_1 \sigma_2} exp \left(-\frac{1}{2\sigma_1^2 \sigma_2^2} \left[
+x^2(\sigma_1^2+\sigma_2^2) - 2x(\mu_1\sigma_2^2 + \mu_2\sigma_1^2) + (\sigma_1^2 \mu_2^2 + \sigma_2^2 \mu_1^2)
+\right] \right)
+\end{split}
+\\
+\sigma_{12} \equiv \sqrt{\sigma_1^2+\sigma_2^2}
+\\
+G_{12}(x) = \frac{1}{2\pi \sigma_1 \sigma_2} exp \left(-\frac{\sigma_{12}^2}{2\sigma_1^2\sigma_2^2}\left[
+x - 2x\frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}} + \frac{\sigma_1^2\mu_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}}
++ \epsilon - \epsilon
+\right]\right)
+\\
+\left(\frac{\mu_1 \sigma_2^2 + \mu_2\sigma_1^2}{\sigma_{12}^2}\right)^2 \stackrel{!}{=} \frac{\sigma_1^2\sigma_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}^2} + \epsilon
+\\
+\begin{split}
+\epsilon \cdot \sigma_{12}^4  & = \mu_2^2\sigma_1^4 + \mu_1^2\sigma_2^4 + 2\mu_1\mu_2\sigma_1^2\sigma_2^2 - \sigma_1^2\mu_2^2(\sigma_1^2+ \sigma_2^2) - \sigma_2^2\mu_1^2(\sigma_1^2+ \sigma_2^2)\\
+& = - (\mu_1^2\sigma_1^2\sigma_2^2 + \mu_2^2\sigma_1^2\sigma_2^2 - 2 \mu_1\mu_2\sigma_1^2\sigma_2^2)\\
+& = - \sigma_1^2\sigma_2^2(\mu_1-\mu_2)^2
+\end{split}
+\\
+G_{12}(x) = \frac{1}{2\pi\sigma_1\sigma_2}\cdot exp\left(- \frac{\sigma_{12}^2}{2\sigma_1^2\sigma_2^2\sigma_{12}^4}\sigma_1^2\sigma_2^2\left(\mu_1-\mu_2\right)^2
+\right) \cdot
+exp\left(-\frac{\sigma_1^2+\sigma_2^2}{2\sigma_1^2\sigma_2^2} \left[x - \frac{\mu_1\sigma_2^2+\mu_2\sigma_1^2}{\sigma_{12}^2}\right]^2 \right) \\
+\sigma_{new} = \frac{\sigma_1\sigma_2}{\sigma_{12}}
+\\
+\mu_{new} = \frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}^2}
+\\
+\begin{split}
+G_{12}(x) & = \frac{1}{\sqrt{2\pi}\sigma_{new}}\frac{\sigma_{new}}{\sqrt{2\pi}\sigma_1\sigma_2}\cdot exp\left(- \frac{\left(\mu_1-\mu_2\right)^2}{2\sigma_{12}^2}\right) \cdot
+exp\left(-\frac{\left(x-\mu_{new}\right)^2}{\sigma_{12}^2}\right)\\
+& = S_n \cdot \frac{1}{\sqrt[2]{2\pi}\sigma_{new}} \cdot exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\sigma_{new}^2}\right)
+\end{split}
+\end{gather}
+
+
 \bibliographystyle{ieeetr}
 \bibliography{MasterThesisPrep}
 
