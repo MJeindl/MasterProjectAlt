@@ -9,6 +9,8 @@
 \usepackage{svg}
 
 \usepackage{stackrel}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \usepackage[msc]{tugrazthesis}
 
@@ -55,10 +57,10 @@ As a laser source a PHAROS femtosecond laser by Light Conversion is used with an
 
 The light following the pump path goes through several apertures and ND filters, which may be absorptive glass filters or metal coated reflective filters which may also be gradient filters for linear adjustability, until the beam reaches the linear delay stage, which uses a Newpot LTA-HS actuator. The beam path is then led through the chopper by the use of a roughly 1:1 telescope around it, which blocks every second pulse leaving a half frequency signal for the pump. The chopper is synchronised to a signal output of PHAROS, which allows for setting a delay such that there is just a binary on and off modulation of the pump, compared to a partial chopping of beams at full frequency. After passing through a lambda half wave plate the beam enters the common path in the cage with the sample.
 
-The probe beam has the same treatment of apertures and ND filters, including a variable reflective one, and goes through a lambda/2 plate until it reaches the common path.
+The probe beam has the same treatment of apertures and ND filters, including a variable reflective one, and goes through a $\mathrm{\lambda/2}$ plate until it reaches the common path.
 
 
-For detection of the transient signal a custom made detector based on Hamamatsu S1336-8BQ (some way to check this? robert's thesis says BK which would be the wrong one for UV) Si photodiode is used in combination with an analogue long pass amplification circuit stretching the signal such that it can be measured with an Oscilloscope with ??? MT frequency. For all measurements detector "A" was used. The diode is fit for measurements in the wavelength range of 190-1100  nm and ....? Find datasheet and plot wavelength vs signal.
+For detection of the transient signal a custom made detector based on Hamamatsu S1336-8BQ Si photodiode is used in combination with an analogue long pass amplification circuit stretching the signal such that it can be measured with a picoscope 5442D. For all measurements detector "A" was used. The diode is fit for measurements in the wavelength range of 190-1100 nm. The actual quantum efficiency change over the spectral range does not matter in detail, as the variation over the spectral range is slow and for the spectral range of a probe setting does not exceed 10\% change at any point.
 
 \section{UV extended Transient Absorption Microscope Setup}
 This section will address the issues addressed with the extended setup as well as attempted solutions and the final changes to make it work.
@@ -80,20 +82,19 @@ Rear camera shown as coupled out of the standard path, however it is advised to 
 
 \subsection{Cage setup}
 To accommodate the lower wavelengths the objectives have to be exchanged for wavelengths below 350 nm, where absorption reduces the transmission of the objective combination severely. Furthermore only one of the objectives is rated down to 350 nm raising the question of if their achromacity still is a viable assumption.\newline
-The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample as can be seen in fig. \ref{Fig:CageSetup}. This is done to reduce spherical aberration.
+The objectives are replaced with  uncoated 125 nm plano-convex UV fused silica (UVFS) lenses from EKSMA\footnote{?110-1216E?}, with the convex side placed such that the collimated beam enters or exits the convex side. This means that the planar sides of the lenses point towards the sample as can be seen in fig. \protect\ref{Fig:CageSetup}. This is done to reduce spherical aberration.
 \newline
 The plano-convex lenses are neither apochromatic nor achromatic and thus exhibit chromatic aberration, leading to an issue that will be addressed in \ref{SHG-Stage-desc}. \newline
 
 \subsection{Second Harmonic Generation stage}\label{SHG-Stage-desc}
 The Second Harmonic Generation (SHG) stage addresses multiple issues. 
-Firstly the 3H NOPA used for the probe beam does not supply high enough power to 
 \begin{itemize}
 \item The 3H NOPA used for the probe beam does not supply high enough power to allow for stable SHG over the entire output wavelength range of the NOPA without a focusing element increasing the power locally within the crystal. 
-\item The chromatic abberation or focus shift within the cage system means that a degree of freedom on the focus of the probe needs to be included as to allow for adjustments to the pointspread function of the probe.
+\item The chromatic aberration or focus shift within the cage system means that a degree of freedom on the focus of the probe needs to be included as to allow for adjustments to the pointspread function of the probe.
 \end{itemize}
 
 
-The solution to these issues is an adjustable telescope of biconvex lenses, of which the second lens is UV transmissive. To achieve a stable second harmonic generation (SHG) a telescope was built with two spherical lenses. The front lens is a 85 mm lens in a mount adjustable for horizontal and vertical displacement orthogonal to the beam path and the rear lens is a 75 mm UVFS lens on a linear stage, to provide a degree of freedom for the focus of the probe beam, which is necessary to account for the achromacity of the extended setup.
+The solution to these issues is an adjustable telescope of biconvex lenses, of which the second lens has to be UV transmissive. To achieve a stable second harmonic generation (SHG) a telescope was built with two spherical lenses. The front lens is a 85 mm lens in a mount adjustable for horizontal and vertical displacement orthogonal to the beam path and the rear lens is a 75 mm UVFS lens on a linear stage, to provide a degree of freedom for the focus of the probe beam, which is necessary to account for the achromacity of the extended setup.
 \subsubsection{Operation}
 \paragraph{Setting up}
 The task of setting up the SHG stage is non trivial regarding proper alignment and linear stage positioning, such that the ~5 cm of movement are sufficient to adjust for the chromatic aberration within the targeted wavelength range for probe. This task often ends up being trial and error in correspondence to checking multiple wavelengths. The cage lenses have to be in their correct positions first.\newline
@@ -117,13 +118,46 @@ This is emphasized especially by plotting the wavelength dependence of the focal
 \end{equation}
 \begin{figure}[h]
 \centering
-\includegraphics[width = 0.9\linewidth]{images/ChromaticAbberation.png}
-\caption{Refractive index change and focal shift for UVFS plano convex lenses}
+
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width =\textwidth]{images/DispersionUVFS.png} 
+\caption{Refractive index of UV fused silica glass\cite{Malitson:65}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width =\textwidth]{images/ChromaticAberration.png} 
+\caption{Chromatic focal shift}
+\end{subfigure}
+
+\caption{Refractive index change and focal shift for UV fused silica plano-convex lenses used in cage setup}
 \end{figure}
 
-Furthermore the depth of focus may be visualized by plotting the beam waist diameter over distance for several relevant focal lengths in fig. ....
+Furthermore the depth of focus may be visualized by plotting the beam waist diameter over distance from the focal point for several relevant focal lengths in fig. ....
+
 The change of the depth of focus (DOF) and thus the change in beam waist diameter for a specific distance from the focal point of the corresponding wavelength decreases for higher photon energies.
 
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{0.42\textwidth}
+\centering
+\includegraphics[width =\textwidth]{images/BeamWaist_Wavs_2.5mm.png} 
+\subcaption{Beam waist for wavelengths at \mbox{2.5 mm} input beam width}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.42\textwidth}
+\centering
+\includegraphics[width =\textwidth]{images/BeamWaist_inputWidth_653nm.png} 
+\subcaption{Beam waist over input beam width at 653 nm}
+\end{subfigure}
+\\
+\begin{subfigure}[t]{0.5\textwidth}
+\includegraphics[width =\textwidth]{images/DOFintensity_inputWidth_653nm.png} 
+\subcaption{Maximum radiance intensity relative to maximum intensity in focus depending on input beam width at 653 nm[check if this assumption is correct]}
+\end{subfigure}
+\caption{Changes of Gaussian beamprofile width and intensity for cage lenses}
+\end{figure}
 
 This issue is of fundamental nature and a few attempts were made until the final solution in \ref{SampleMirrorCamera} was found.
 \subsubsection{Regular Focusing after Cage}\label{regRearFocus}
@@ -154,7 +188,7 @@ The option that finally won out is decoupling the beams after the frontal cage l
 The rear lens is set to image the sample plane onto the camera as described in \ref{regRearFocus} with a pump adjacent wavelength used to illuminate the sample. This is done to be able to use the pump beam as a reference for the cage system, as the front focus for the sample and the rear focus for the camera are both calibrated using a wavelength with very little chromatic focal shift from it.\\
 A two step process is then used to get the position of the camera in the mirrored sample path correct:
 \begin{enumerate}
-\item Adjust the camera distance so, that the pump beam profile is right before inversion, due to passing through the imaging or focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a bit beyond that point. Attention has to be paid to not go into inversion, which is hard to tell by eye. Later on this could be done by comparing the fitted intensity value/FWHM of the beam profile as long as the pump beam did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile.
+\item Adjust the frontal camera distance so, that the pump beam profile is right before inversion, due to passing through the focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a bit beyond that point. Attention has to be paid to not go into inversion, which is hard to tell by eye. Later on this could be done by comparing the fitted intensity value/FWHM of the beam profile as long as the pump beam did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile.
 \item Set the probe to the same or an adjacent wavelength to the pump and setup overlap using the rear camera. Due to beampaths and thus spherical abberation this may be a tedious process and not completely accurate. Check the overlap on the frontal camera by moving the camera back and forth and observing if the beams cross through their centers. If that is the case the pump probe overlap should be given optimally and the frontal camera can be set to the optimum position of this overlap. Take reference TA measurements to if possible to check if there is an improvement from the purely DMK set position.
 \end{enumerate}
 \paragraph{Setup}
@@ -164,6 +198,7 @@ The 3d printed mount can be seen in fig. ....
 Considerations regarding use of rubber bands or 3d printed fittings were made, however it turns out just by moving the mirror drop-in mount against a solid surface, such as one of the cage plates holding the rails, is sufficiently reproducible for the sensor resolution of the camera used. (alternatively also reference the change in beam diameter according to rayleigh length etc)\\
 
 The lighting for imaging the rear sample onto the camera via the rear lens is done using a ring light with 4 LEDs, which have a spectral intensity distribution close to the targeted pump beam. The spectrum can be seen in fig. ...\\
+It has proven beneficial to illuminate so that a only scattered light is detected, as this equivalent to darkfield microscopy this should improve contrast. As this means reduced total intensity any light not scattered by the sample or reflected from nearby surfaces needs to be blocked. For this carton is placed around the rear cage rails, cutting away any light reflected from the sample mount.
 %The LEDs are mounted onto a square aluminium frame and are angled towards the sample to illuminate it evenly. To properly setup the focus light that not passing through the lens has to be minimized or contrast will be lost. To focus properly a small scratch is introduced to the edge of the sample, which allows better contrast for focusing as well and allows to focus closer to the center to the layer than to the top or bottom of the layer. (eh questionable, think better)
 
 
@@ -197,7 +232,7 @@ Plots the intensity profile of the beams, if both are given, separately with an 
 \subsection{Correction Factor}
 The correction factor aims to equilibrate the dOD of the given pump-probe overlap to one where the pump is constant in radiance over the entire probe area or in a physical description is infinitely larger than the probe beam.
 Thus for very high $\mathrm{\frac{\sigma_{Pump}}{\sigma_{Probe}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
-The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in REF back or in Bromiley, which was used to check correctness.\cite{Bromiley2014} The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
+The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in section \ref{GaussiansDerivation} or in Bromiley\cite{Bromiley2014}, which was used to check correctness. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
 \begin{equation*}
 I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2\cdot\pi}\cdot\sigma_{pump}}
 \end{equation*}, which is 1 due to the intensity taken as a Gaussian or normal distribution. The denominator is the integral over the product of the fitted normal distributions of pump and probe beams called $\mathrm{S_{12}}$.
@@ -283,7 +318,7 @@ X-Y stage actuators & Z825B with Thorlabs Kinesis Cube & • \\
 \end{tabular} 
 
 \chapter{Derivations of formula}
-\section{Produkt of two Gaussians}
+\section{Produkt of two Gaussians}\label{GaussiansDerivation}
 This calculation has been cross checked with Bromiley.
 
 \begin{gather}
