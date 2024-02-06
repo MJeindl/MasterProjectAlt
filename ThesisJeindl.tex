@@ -12,6 +12,10 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{siunitx}
+
 \usepackage[msc]{tugrazthesis}
 
 
@@ -111,6 +115,11 @@ The detectors themselves are the same as described in Robert Schwarzl's master t
 The prism should be placed such that the angle between pump and probe is further increased, as this can help reach full pump rejection without any other filters or beamblocks involved. For each change of the probe the mirror coupling into the prism should be adjusted for maximum intensity of the probe on the detector, which can be monitored using the fourierDetector() matlab program.\\
 The detector has a maximum peak to peak voltage (Vpp) of approximately 3 V, which means that the Vpp should be kept below this value to avoid response problems and thus systematic errors in the measurement.
 \subsection{Adjusting overlap without achromatic optics}
+
+\subsubsection{General overlap adjustment}
+Overlap adjustments are done using a camera onto which the sample plane is imaged. This is combined with a fitting program, which fits a Gaussian pointspread function to the beam image. From this a center position as well as the FWHM of the pointspread function can be determined and used to move the pointspread functions on top of each other. The detailed software explanations and their use is explained in \textbf{REFERENCE}\\
+
+\paragraph{The problem of achromatic optics}
 One of the main issues that had to be addressed was the change from achromatic objectives to uncoated plano-convex lenses within the cage.\newline
 This is emphasized especially by plotting the wavelength dependence of the focal length as defined by the lensmaker equation for the lenses used:
 \begin{equation}
@@ -184,22 +193,28 @@ Overall the attempted projection screen method did not seem viable and thus was 
 
 \subsubsection{Sample mirror path}\label{SampleMirrorCamera}
 The option that finally won out is decoupling the beams after the frontal cage lens and imaging onto a camera that is in the mirror plane of the sample surface. This method requires a method for consistent placement of the mirror within the cage and a way to move the camera into the mirror plane of the sample.\\
-\paragraph{Method}
+\paragraph{Calibration method}
 The rear lens is set to image the sample plane onto the camera as described in \ref{regRearFocus} with a pump adjacent wavelength used to illuminate the sample. This is done to be able to use the pump beam as a reference for the cage system, as the front focus for the sample and the rear focus for the camera are both calibrated using a wavelength with very little chromatic focal shift from it.\\
 A two step process is then used to get the position of the camera in the mirrored sample path correct:
 \begin{enumerate}
-\item Adjust the frontal camera distance so, that the pump beam profile is right before inversion, due to passing through the focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a bit beyond that point. Attention has to be paid to not go into inversion, which is hard to tell by eye. Later on this could be done by comparing the fitted intensity value/FWHM of the beam profile as long as the pump beam did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile.
-\item Set the probe to the same or an adjacent wavelength to the pump and setup overlap using the rear camera. Due to beampaths and thus spherical abberation this may be a tedious process and not completely accurate. Check the overlap on the frontal camera by moving the camera back and forth and observing if the beams cross through their centers. If that is the case the pump probe overlap should be given optimally and the frontal camera can be set to the optimum position of this overlap. Take reference TA measurements to if possible to check if there is an improvement from the purely DMK set position.
+\item Adjust the frontal camera distance so, that the pump beam profile is right before inversion, due to passing through the focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a bit beyond that point. Attention has to be paid to not go into inversion, which is hard to tell by eye. After a first good calibration this could be done by comparing the fitted intensity value/FWHM of the beam profile, as long as the pump beam path did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile.
+\item Set the probe to the same or an adjacent wavelength to the pump and setup overlap using the rear camera. Due to beampaths and thus spherical aberration this may be a tedious process and not completely accurate. Check the overlap on the frontal camera by moving the camera back and forth and observing if the beams cross through their centers. If that is the case the pump probe overlap should be given optimally and the frontal camera can be set to the optimum position of this overlap. Take reference TA measurements to if possible to check if there is an improvement from the purely DMK set position.
 \end{enumerate}
 \paragraph{Setup}
 Former is solved by a 45 degree mirror insert for the cage, which was designed to rest on top of the cage system rails. This drop in mirror mount was 3d printed for adjustability and has proven to be consistent enough to allow for this method to work. \\
-An advantage of PLA as opposed to aluminium with the negative of the rails cut into it is that it allows proper sliding into place, whereas aluminium "gripped" onto the rails making it hard to get consistent placement. This may be improved by cutting the rail negative even slightly bigger. However this still presents one with the problem of how to mount the mirror to the mount. Super glueing  the mirror to the Al mount was attempted for a quick trial, but this proved to not be a long lived connection.\\
+An advantage of PLA as opposed to aluminium with the negative of the rails cut into it is that it allows proper sliding into place, whereas aluminium "gripped" onto the rails making it hard to get consistent placement. This may be improved by cutting the rail negative even slightly bigger. However this still presents one with the problem of how to mount the mirror to the mount. Super glueing  the mirror to a aluminium mount was attempted for a quick trial, but this proved to not be a long lived connection.\\
 The 3d printed mount can be seen in fig. ....
 Considerations regarding use of rubber bands or 3d printed fittings were made, however it turns out just by moving the mirror drop-in mount against a solid surface, such as one of the cage plates holding the rails, is sufficiently reproducible for the sensor resolution of the camera used. (alternatively also reference the change in beam diameter according to rayleigh length etc)\\
 
 The lighting for imaging the rear sample onto the camera via the rear lens is done using a ring light with 4 LEDs, which have a spectral intensity distribution close to the targeted pump beam. The spectrum can be seen in fig. ...\\
-It has proven beneficial to illuminate so that a only scattered light is detected, as this equivalent to darkfield microscopy this should improve contrast. As this means reduced total intensity any light not scattered by the sample or reflected from nearby surfaces needs to be blocked. For this carton is placed around the rear cage rails, cutting away any light reflected from the sample mount.
+It has proven beneficial to illuminate so that a only scattered light is detected, as this should improve contrast. Thus the LED ring is placed behind the sample, on the side of the rear camera. As this means reduced total intensity any light not scattered by the sample or reflected from nearby surfaces needs to be blocked. For this carton is placed around the rear cage rails, cutting away any light reflected from the sample mount.
 %The LEDs are mounted onto a square aluminium frame and are angled towards the sample to illuminate it evenly. To properly setup the focus light that not passing through the lens has to be minimized or contrast will be lost. To focus properly a small scratch is introduced to the edge of the sample, which allows better contrast for focusing as well and allows to focus closer to the center to the layer than to the top or bottom of the layer. (eh questionable, think better)
+
+\paragraph{Use}
+During use care has to be taken that there is no clipping at the drop in mirror, as this would obviously ruin the beamshape. As mentioned before if there is an OD filter directly in front of the camera for one beam fitting, there should be an OD filter there as well for the other beam, as this may cause a change in the observed beam shape.\\
+For high energy SHG light absorptive OD filters have far stronger absorption than for their calibrated range, thus they may need to be swapped for a lower value. With this effect also an "amplification" of observed fundamental light from the SHG stage is introduced, which is further increased by the CMOS sensor having less quantum efficiency at these wavelengths. Thus it is important to check if the fundamental wavelength has a strong influence on the observed pointspread function.\\
+This can be done by introducing more glass filters, in case their absorption of the fundamental is lacking for the wavelength. The glass filters may be removed afterwards if the detector is using the prism setup, which removes the fundamental wavelength from the measurement.\\
+Another option to check is to remove the fundamental filter completely and check the position of the fundamental focus spot in relation to the SHG focus spot, which will be different due to chromatic focal shift.
 
 
 \chapter{Software}
@@ -232,28 +247,24 @@ Plots the intensity profile of the beams, if both are given, separately with an 
 \subsection{Correction Factor}
 The correction factor aims to equilibrate the dOD of the given pump-probe overlap to one where the pump is constant in radiance over the entire probe area or in a physical description is infinitely larger than the probe beam.
 Thus for very high $\mathrm{\frac{\sigma_{Pump}}{\sigma_{Probe}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
-The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in section \ref{GaussiansDerivation} or in Bromiley\cite{Bromiley2014}, which was used to check correctness. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
-\begin{equation*}
-I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2\cdot\pi}\cdot\sigma_{pump}}
-\end{equation*}, which is 1 due to the intensity taken as a Gaussian or normal distribution. The denominator is the integral over the product of the fitted normal distributions of pump and probe beams called $\mathrm{S_{12}}$.
-
+%The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in section \ref{GaussiansDerivation} or in Bromiley\cite{Bromiley2014}, which was used to check correctness. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
+The idea of the factor is a normalisation of the overlap of the beams to an ideal state. This ideal state corresponds to an equal pump intensity over the entire probe beam, that would allow the entire probe to experience the same change in absorption. Thus the correction factor C is chosen as the integral over the product of the ideal pump, an infinite plateau, with the Gaussian probe. The denominator on the other hand is the integral over actual product of the Gaussian fits of pump and probe beam.
 \begin{equation}\label{CorrFactorGaussians}
 C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{probe}(x) \; dx} = \dfrac{c^*\cdot \int I_{probe} dx}{S_{12}} = \dfrac{c*}{S_{12}}
 \end{equation}
+The ideal plateau pump is chosen to be the maximum of the actual pump normal distribution, to decouple correction factor from the pump width??? Rethink and justify the reasoning physically. Mathematically it is needed so that the correction factor does not tend to infinite when S12 goes to zero. Maybe simulate it if you cannot show it physically
+\begin{equation*}
+I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2\cdot\pi}\cdot\sigma_{pump}}
+\end{equation*}
 
-\begin{gather}
-I_1(x)\cdot I_2(x) = I_{12}(x) = S_{12}\cdot \frac{1}{\sqrt{2\pi}\sigma_{new}} exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\cdot\sigma_{12}^2}\right)\label{GaussianProduct}\\
-\int I_{12}(x)\; dx \coloneqq S_{12} \cdot 1\\
-\sigma_{new} = \dfrac{\sigma_1 \cdot \sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}\\
-\mu_{new} = \dfrac{\mu_1\sigma_2^2 + \mu_2\sigma_1^2}{\sigma_1^2 + \sigma_2^2}
-\end{gather}
+$\mathrm{S_{12}}$ is defined as can be seen in eq. \ref{eq:S12CorrectionFactor} and serves as the extra normalisation factor for rewriting the product of the two Gaussians into a single Gaussian. The derivation of the single Gaussian can be seen in \ref{GaussiansDerivation} and has been cross-checked with Bromiley.\cite{Bromiley2014}
 
-
-
-\begin{equation}
+\begin{equation}\label{eq:S12CorrectionFactor}
 S_{12} = \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(-\dfrac{\left(\mu_1 - \mu_2\right)^2}{2\cdot \left(\sigma_1^2+\sigma_2^2\right)}\right)
 \end{equation}
-A few examples of the behavior of the correction factor are shown in fig.
+
+
+A few illustrations of the behaviour of the correction factor are shown in fig.
 
 Furthermore to have all relative $\mathrm{\Delta OD}$ values be directly comparable, the correction factor is divided by the peak radiance value.
 
@@ -293,35 +304,59 @@ Some tests have been done to ascertain the validity and stability of the correct
 
 
 \chapter*{Used materials}
-\begin{tabular}{|c|c|c|}
-\hline 
-Type & Device & SN \\ 
-\hline 
-lambda/2 & 400 nm - 800 nm; 690 nm - 1200 nm AHWPM10-986 & • \\ 
-\hline 
-Wire grid polariizer & WP25W-U5 & - \\ 
-\hline 
-UV-camera & Artray 092UV-WOM & • \\ 
-\hline 
-red LED & 658 nm & • \\ 
-\hline 
-LED driver & LT3080 based 12V input& • \\ 
-\hline 
-Prism & unknown; 300 nm permissive & • \\ 
-\hline 
-Camera & DMK 42AUC03 & • \\ 
-\hline 
-Power meter & Field Mate + head & - / 1019L08R \\ 
-\hline 
-X-Y stage actuators & Z825B with Thorlabs Kinesis Cube & • \\ 
-\hline 
-\end{tabular} 
+\begin{longtable}{p{0.48\textwidth}p{0.48\textwidth}}
+    \caption{List of devices used}
+    \label{tab:devices} \\
+    \toprule 
+    Title & Remarks \\
+    \midrule
+    \endfirsthead
+    \toprule 
+    Title & Remarks \\
+    \midrule
+    \endhead
+    \midrule
+    Continued on next page
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    Light Conversion PHAROS & Yb:KGW femtosecond laser, PH1-20-0400-02-30, L191103; \SI{40}{\kilo\hertz} repetition rate at \SI{400}{\micro\joule} pulse energy \\
+    Light Conversion ORPHEUS N-3H & NOPA, $ \lambda = \SIrange{500}{950}{\nano\meter} $ \\
+    Light Conversion ORPHEUS N-2H & NOPA, $ \lambda = \SIrange{640}{950}{\nano\meter} $ \\
+    Scitec 310 CD with 300CD200HS & Optical chopper, frequency $\approx \SIrange{1000}{55000}{\hertz}$, focusing on chopper wheel using two $f=\SI{125}{\milli\meter}$ plano-convex N-BK7 lenses \\
+    Scitec S310Sync synchroniser & Phase and frequency locking of the chopper to external sources (function generator, laser sync output, frequency divider) \\
+    Thorlabs AHWP05M-600 & \SIrange{400}{800}{\nano\meter} achromatic $\frac{\lambda}{2}$ plate \\
+    Thorlabs AHWP10M-980 & \SIrange{690}{1200}{\nano\meter} achromatic $\frac{\lambda}{2}$ plate \\
+    Thorlabs NExxA series, Thorlabs NDxxA series, Eksma Optics 240-25xx series & Reflective and absorptive neutral density filters, used for coarse power setting \\
+    Reflective variable neutral density filters & Used to set input power exactly \\
+    BG39, UG5 glass filters \\
+    Thorlabs FESH0700, Newport FS-SWF set & Sputtered short-pass filters \\
+    Thorlabs FELH0700 & Sputtered long-pass filter \\
+    Thorlabs WP25M-UB & Ultra-broad wire grid polariser \\
+    Film polarisers (not really) & For visible imaging microscopy \\
+    Olympus UPlan FL N 10x & Focussing objective, 10x magnification, NA=0.3 \\
+    Nikon Plan 10/0.3 160/0.17 & Imaging objective, 10x magnification, NA=0.3 \\
+    EKSMA 110-1216E & plano-convex UVFS lenses\\
+    mounted prism & UV translucent, unknown model\\
+    Linos HighLED White & For visible imaging microscopy \\
+    Sample illumination LED ring & 658 nm (measured), LT3080 current regulation for 12 V input \\
+    The Imaging Source DMK 42AUC03 & Monochrome camera, particularly for spatial overlap alignment, beam shape characterization and orientation on the sample \\
+    Artray ARTCAM-092UV-WOM & UV sensitive CMOS camera, used for spatial overlap\\
+    Detector A & High-speed optical detectors based on Hamamatsu S1336-8BK photodiode, JFET operational amplifiers, an analogue  long-pass filter for signal elongation and impedance converters for calibration \\
+    Picoscope 5442D & Oscilloscope used for data collection from optical detectors \\
+    Coherent LabMax Pro & Pulse measuring head, used for optimizing OPA output \\
+    Coherent FieldMate with OP2-VIS measuring head & Laser power meter, used for setting input power, partially damaged leading to higher low intensity readings (SN: 1019L08R) \\
+    Newport LTA-HS & Delay stage actuator \\
+    Thorlabs Z825B, KDC101 & Microscopy sample stage actuators (horizontal and vertical) \\
+    Various aluminium mirrors & Planar and concave (for focussing onto detectors) \\
+    74HC73 & Dual JK flip-flop for frequency division
+\end{longtable}
 
 \chapter{Derivations of formula}
 \section{Produkt of two Gaussians}\label{GaussiansDerivation}
-This calculation has been cross checked with Bromiley.
-
-\begin{gather}
+This calculation has been cross checked with Bromiley.\\
+Begin with two Gaussian distributions $\mathrm{G_1(x) and G_2(x)}$ and combine the exponential terms.
+\begin{equation*}
 \begin{split}
 G_{12}(x) & =  G_1(x) \cdot G_2(x) \\ 
 & = \frac{1}{2\pi \sigma_1 \sigma_2}
@@ -336,14 +371,19 @@ exp\left(-\frac{1}{2}\left[\frac{\left(x-\mu_1\right)^2}{\sigma_1^2} + \frac{\le
 x^2(\sigma_1^2+\sigma_2^2) - 2x(\mu_1\sigma_2^2 + \mu_2\sigma_1^2) + (\sigma_1^2 \mu_2^2 + \sigma_2^2 \mu_1^2)
 \right] \right)
 \end{split}
-\\
+\end{equation*}
+Simplify with a substitution and add a zero $0 = \epsilon - \epsilon$ into the exponential function.
+\begin{equation*}
 \sigma_{12} \equiv \sqrt{\sigma_1^2+\sigma_2^2}
-\\
+\end{equation*}
+\begin{equation*}
 G_{12}(x) = \frac{1}{2\pi \sigma_1 \sigma_2} exp \left(-\frac{\sigma_{12}^2}{2\sigma_1^2\sigma_2^2}\left[
 x - 2x\frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}} + \frac{\sigma_1^2\mu_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}}
 + \epsilon - \epsilon
 \right]\right)
-\\
+\end{equation*}
+Now find $\epsilon$ to fulfil the binomial theorem of second order within the exponent.
+\begin{gather*}
 \left(\frac{\mu_1 \sigma_2^2 + \mu_2\sigma_1^2}{\sigma_{12}^2}\right)^2 \stackrel{!}{=} \frac{\sigma_1^2\sigma_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}^2} + \epsilon
 \\
 \begin{split}
@@ -351,20 +391,25 @@ x - 2x\frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}} + \frac{\sigma_1^2\mu
 & = - (\mu_1^2\sigma_1^2\sigma_2^2 + \mu_2^2\sigma_1^2\sigma_2^2 - 2 \mu_1\mu_2\sigma_1^2\sigma_2^2)\\
 & = - \sigma_1^2\sigma_2^2(\mu_1-\mu_2)^2
 \end{split}
-\\
+\end{gather*}
+Now one can return to $\mathrm{G_{12}(x)}$ and insert the found value for epsilon. With this the exponential function can be split into a part dependent on x and one independent of it.
+\begin{equation*}
 G_{12}(x) = \frac{1}{2\pi\sigma_1\sigma_2}\cdot exp\left(- \frac{\sigma_{12}^2}{2\sigma_1^2\sigma_2^2\sigma_{12}^4}\sigma_1^2\sigma_2^2\left(\mu_1-\mu_2\right)^2
 \right) \cdot
-exp\left(-\frac{\sigma_1^2+\sigma_2^2}{2\sigma_1^2\sigma_2^2} \left[x - \frac{\mu_1\sigma_2^2+\mu_2\sigma_1^2}{\sigma_{12}^2}\right]^2 \right) \\
-\sigma_{new} = \frac{\sigma_1\sigma_2}{\sigma_{12}}
-\\
+exp\left(-\frac{\sigma_1^2+\sigma_2^2}{2\sigma_1^2\sigma_2^2} \left[x - \frac{\mu_1\sigma_2^2+\mu_2\sigma_1^2}{\sigma_{12}^2}\right]^2 \right)
+\end{equation*}
+Simplifying the equation using the substitutions that specify the $\sigma$ and $\mu$ of the new simplified Gaussian distribution:
+\begin{gather*}
+\sigma_{new} = \frac{\sigma_1\sigma_2}{\sigma_{12}}\\
 \mu_{new} = \frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}^2}
-\\
+\end{gather*}
+\begin{gather*}
 \begin{split}
 G_{12}(x) & = \frac{1}{\sqrt{2\pi}\sigma_{new}}\frac{\sigma_{new}}{\sqrt{2\pi}\sigma_1\sigma_2}\cdot exp\left(- \frac{\left(\mu_1-\mu_2\right)^2}{2\sigma_{12}^2}\right) \cdot
 exp\left(-\frac{\left(x-\mu_{new}\right)^2}{\sigma_{12}^2}\right)\\
 & = S_n \cdot \frac{1}{\sqrt{2\pi}\sigma_{new}} \cdot exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\sigma_{new}^2}\right)
 \end{split}
-\end{gather}
+\end{gather*}
 
 
 
