@@ -49,15 +49,40 @@
 % Academic degree achieved with this thesis, according to your curriculum (check curriculum and select male/female version):
 \academicdegree{Diplom-Ingenieur}
 
+\chapter{Prerequisites}
+\section{Transient pump probe spectroscopy}
+Using two short, in the femtosecond region, laser pulses a samples fast response to excitation is measured. This is observed as a change in optical density. Time resolution of this transient process comes from delaying one of shifting the point in time where one of the pulses passes the sample relative to the other, which is usually done by a simple path length change of one of the pulses.\newline
+First a probe pulse of photon flux within a wavelength range passes through the sample and the remaining intensity is detected as $\mathrm{I_{probe}(\lambda_{probe})}$. \\
+Secondly, after a period of time to allow the sample to relax back to its initial state, a pump pulse $\mathrm{I_{pump}(\lambda_{pump})}$ excites a volume of the sample. This leads to a direct change of the optical density of the excited sample volume, which alters the transmission of the probe photons $\mathrm{I_{pump-probe}(\lambda_{probe}, \lambda_{pump}, \Delta t)}$ depending on the time delay $\Delta t$ between the pulses passing the sample volume and the pump and probe wavelengths $\lambda_{pump}/\lambda_{probe}$ respectively. \\
+The change in absorptive properties of the sample depending on the pump pulse is characterised in the transient absorbance $\mathrm{\Delta A}$, which often is given in orders of magnitude of the optical density. It is defined as seen in eq. \ref{eq:TA}.
+\begin{equation}\label{eq:TA}
+\begin{split}
+\Delta A(\lambda_{\mathrm{pump}}, \lambda_{\mathrm{probe}}, \Delta t)&=-\log _{10}\left(\frac{I_{\mathrm{pump}-\mathrm{probe}}\left(\lambda_{\mathrm{pump}}, \lambda_{\mathrm{probe}}, \Delta t\right)}{I_{\mathrm{probe}}\left(\lambda_{\mathrm{probe}}\right)}\right)\\
+&=-\log _{10}\left(1+\frac{\Delta I_{\mathrm{probe}}\left(\lambda_{\mathrm{pump}}, \lambda_{\mathrm{probe}}, \Delta t\right)}{I_{\mathrm{probe}}\left(\lambda_{\mathrm{probe}}\right)}\right)
+\end{split}
+\end{equation}
+
+\section{Transient effects in pump probe spectroscopy}
+There are several types of contrast within pump probe spectroscopy. Processes like two-photon-fluorescence, second or third harmonic generation (and SRS?) are too high power for our samples and would lead to immediate deactivation. They are thus not going to be addressed further with respect to the sample transient processes. The most relevant ones for this experimental setup are:\cite{10.1063/1.5129123}
+\begin{itemize}
+\item Stimulated Emission (SE): Possible in cases where a state below or at the  excited level has a transition to a lower state corresponding to the other photon wavelength used. This could be either pump or probe exciting and then the other leading to stimulated emission. However as the change in the probe is measured only contrast for pump excitation with probe stimulated emission is possible. The emitted photons are of identical energy to the probe pulse and thus an increase in transmission is observed.
+\item Ground State Depletion (GSD): By moving part of the ground state population to different energy levels the probe pulse sees a smaller absorption cross-section. This is seen as a positive change in transmission. The signal returns by an exponential, sometimes multi-exponential when multiple states are excited, decay to the starting transmission value as the molecules relax back to the ground state.
+\item Excited State Absorption (ESA): Similar to GSB a population transfer from the ground state happens, however with this population transfer now a state previously not accessible with the probe pulse becomes accessible, thus leading to an increase in absorption and a reduction of transmission.
+\item Photothermal Effect: Due to heating from strong absorption of the pump beam a change in the refractive index changes the propagation path of the probe beam. It can be avoided by having a larger numerical aperture in the rear focusing element, the condensor, than for the front focusing element and changing modulation frequency.
+\item Cross Phase Modulation (XPM): Through the optical Kerr effect the refractive index changes when both pump and probe beam are temporally overlapped within the sample. This may be used to check the instrumental response of the transient absorption microscope. It can be avoided like the photothermal effect by a larger condensor numerical aperture.
+\item Stimulated Raman Scattering: In case the energy difference between pump and probe corresponds to a raman active state a photon transfer from the higher energy beam to the lower energy beam may happen. For this there needs to be temporal overlap of the beams
+\end{itemize}
+
+
+Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values
+
 \chapter{Devices and Setup}
-
-
 
 Part of the experimental objective was to extend the range of the transient absorption microscope (TAM) into the UV range via SHG of the probe NOPA output. With the extension a wavelength range of 250 nm to 940 nm, with a gap between 470 nm and 500 nm, is available for probing the sample.\newline
 To achieve this range a few optics, most notably the achromatic objectives used to image the sample, had to be exchanged for optics non absorbing in the UV.
 \section{Regular Transient Absorption Microscope Setup}\label{RegTAM}
 A short description of the experimental setup for the Transient Absorption Microscope (TAM), as it was before attempting an extension to higher photon energies follows. For further details see previous work (cite robert master thesis)\\
-As a laser source a PHAROS femtosecond laser by Light Conversion is used with an output of 400 µJ at 20 kHz with a pulse length in the range of ....? The output is evenly split between two Orpheus Non-Collinear Optical Parametric Amplifiers (NOPAs), where one is setup with second harmonic (2H) for the pump pulses (650 nm - 940 nm) and the other is setup with third harmonic (3H) for the probe pulses (500 nm - 940 nm). Long term output power stability is mainly important for the pump pulse, which is why the setup, including the compressor the PHAROS, is optimized for maximum stability of the 2H NOPA. Meanwhile having little shot to shot fluctuations is important in all cases. PHAROS is the most reliable part of the setup, with exception of the compression setting which may need adjusting every once upon a while.\\
+As a laser source a PHAROS femtosecond laser by Light Conversion is used with an output of 400 µJ at 20 kHz with a pulse length in the range of 270 fs. The output is evenly split between two Orpheus Non-Collinear Optical Parametric Amplifiers (NOPAs), where one is setup with second harmonic (2H) for the pump pulses (650 nm - 940 nm) and the other is setup with third harmonic (3H) for the probe pulses (500 nm - 940 nm). Long term output power stability is mainly important for the pump pulse, which is why the setup, including the compressor the PHAROS, is optimized for maximum stability of the 2H NOPA. Meanwhile having little shot to shot fluctuations is important in all cases. PHAROS is the most reliable part of the setup, with exception of the compression setting which may need adjusting every once upon a while.\\
 
 The light following the pump path goes through several apertures and ND filters, which may be absorptive glass filters or metal coated reflective filters which may also be gradient filters for linear adjustability, until the beam reaches the linear delay stage, which uses a Newpot LTA-HS actuator. The beam path is then led through the chopper by the use of a roughly 1:1 telescope around it, which blocks every second pulse leaving a half frequency signal for the pump. The chopper is synchronised to a signal output of PHAROS, which allows for setting a delay such that there is just a binary on and off modulation of the pump, compared to a partial chopping of beams at full frequency. After passing through a lambda half wave plate the beam enters the common path in the cage with the sample.
 
@@ -342,7 +367,7 @@ Some tests have been done to ascertain the validity and stability of the correct
     Sample illumination LED ring & 658 nm (measured), LT3080 current regulation for 12 V input \\
     The Imaging Source DMK 42AUC03 & Monochrome camera, particularly for spatial overlap alignment, beam shape characterization and orientation on the sample \\
     Artray ARTCAM-092UV-WOM & UV sensitive CMOS camera, used for spatial overlap\\
-    Detector A & High-speed optical detectors based on Hamamatsu S1336-8BK photodiode, JFET operational amplifiers, an analogue  long-pass filter for signal elongation and impedance converters for calibration \\
+    Detector A & High-speed optical detectors based on Hamamatsu S1336-8BQ photodiode, JFET operational amplifiers, an analogue  long-pass filter for signal elongation and impedance converters for calibration \\
     Picoscope 5442D & Oscilloscope used for data collection from optical detectors \\
     Coherent LabMax Pro & Pulse measuring head, used for optimizing OPA output \\
     Coherent FieldMate with OP2-VIS measuring head & Laser power meter, used for setting input power, partially damaged leading to higher low intensity readings (SN: 1019L08R) \\
@@ -372,17 +397,17 @@ x^2(\sigma_1^2+\sigma_2^2) - 2x(\mu_1\sigma_2^2 + \mu_2\sigma_1^2) + (\sigma_1^2
 \right] \right)
 \end{split}
 \end{equation*}
-Simplify with a substitution and add a zero $0 = \epsilon - \epsilon$ into the exponential function.
+Simplify by dividing by the following substitution and add a zero $0 = \epsilon - \epsilon$ into the exponential function.
 \begin{equation*}
-\sigma_{12} \equiv \sqrt{\sigma_1^2+\sigma_2^2}
+\sigma_{12} := \sqrt{\sigma_1^2+\sigma_2^2}
 \end{equation*}
 \begin{equation*}
 G_{12}(x) = \frac{1}{2\pi \sigma_1 \sigma_2} exp \left(-\frac{\sigma_{12}^2}{2\sigma_1^2\sigma_2^2}\left[
-x - 2x\frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}} + \frac{\sigma_1^2\mu_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}}
+x^2 - 2x\frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}^2} + \frac{\sigma_1^2\mu_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}^2}
 + \epsilon - \epsilon
 \right]\right)
 \end{equation*}
-Now find $\epsilon$ to fulfil the binomial theorem of second order within the exponent.
+Now find $\epsilon$ to fulfil the binomial theorem $x^2- 2xb + \tilde{b}^2 + \epsilon - \epsilon= (x-b)^2 - \epsilon$ within the exponent.
 \begin{gather*}
 \left(\frac{\mu_1 \sigma_2^2 + \mu_2\sigma_1^2}{\sigma_{12}^2}\right)^2 \stackrel{!}{=} \frac{\sigma_1^2\sigma_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}^2} + \epsilon
 \\
@@ -398,11 +423,12 @@ G_{12}(x) = \frac{1}{2\pi\sigma_1\sigma_2}\cdot exp\left(- \frac{\sigma_{12}^2}{
 \right) \cdot
 exp\left(-\frac{\sigma_1^2+\sigma_2^2}{2\sigma_1^2\sigma_2^2} \left[x - \frac{\mu_1\sigma_2^2+\mu_2\sigma_1^2}{\sigma_{12}^2}\right]^2 \right)
 \end{equation*}
-Simplifying the equation using the substitutions that specify the $\sigma$ and $\mu$ of the new simplified Gaussian distribution:
+Simplifying the equation using the substitutions that specify the $\sigma$ and $\mu$ of the combined Gaussian distribution:
 \begin{gather*}
-\sigma_{new} = \frac{\sigma_1\sigma_2}{\sigma_{12}}\\
-\mu_{new} = \frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}^2}
+\sigma_{new} := \frac{\sigma_1\sigma_2}{\sigma_{12}}\\
+\mu_{new} := \frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}^2}
 \end{gather*}
+With these the combined Gaussian can be split into a "classical" Gaussian part and a scaling parameter $S_{12}$.
 \begin{gather*}
 \begin{split}
 G_{12}(x) & = \frac{1}{\sqrt{2\pi}\sigma_{new}}\frac{\sigma_{new}}{\sqrt{2\pi}\sigma_1\sigma_2}\cdot exp\left(- \frac{\left(\mu_1-\mu_2\right)^2}{2\sigma_{12}^2}\right) \cdot
@@ -410,8 +436,9 @@ exp\left(-\frac{\left(x-\mu_{new}\right)^2}{\sigma_{12}^2}\right)\\
 & = S_n \cdot \frac{1}{\sqrt{2\pi}\sigma_{new}} \cdot exp\left(-\frac{\left(x-\mu_{new}\right)^2}{2\sigma_{new}^2}\right)
 \end{split}
 \end{gather*}
-
-
+\begin{equation*}
+S_{n} := \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(-\dfrac{\left(\mu_1 - \mu_2\right)^2}{2\cdot \left(\sigma_1^2+\sigma_2^2\right)}\right)
+\end{equation*}
 
 \bibliographystyle{ieeetr}
 \bibliography{MasterThesisPrep}
