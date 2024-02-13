@@ -274,7 +274,7 @@ The correction factor aims to equilibrate the dOD of the given pump-probe overla
 Thus for very high $\mathrm{\frac{\sigma_{Pump}}{\sigma_{Probe}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
 %The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in section \ref{GaussiansDerivation} or in Bromiley\cite{Bromiley2014}, which was used to check correctness. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
 The idea of the factor is a normalisation of the overlap of the beams to an ideal state. This ideal state corresponds to an equal pump intensity over the entire probe beam, that would allow the entire probe to experience the same change in absorption. Thus the correction factor C is chosen as the integral over the product of the ideal pump, an infinite plateau, with the Gaussian probe. The denominator on the other hand is the integral over actual product of the Gaussian fits of pump and probe beam.
-\begin{equation}\label{CorrFactorGaussians}
+\begin{equation}\label{eq:CorrFactorGaussians}
 C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{probe}(x) \; dx} = \dfrac{c^*\cdot \int I_{probe} dx}{S_{12}} = \dfrac{c*}{S_{12}}
 \end{equation}
 The ideal plateau pump is chosen to be the maximum of the actual pump normal distribution, to decouple correction factor from the pump width??? Rethink and justify the reasoning physically. Mathematically it is needed so that the correction factor does not tend to infinite when S12 goes to zero. Maybe simulate it if you cannot show it physically
@@ -288,6 +288,10 @@ $\mathrm{S_{12}}$ is defined as can be seen in eq. \ref{eq:S12CorrectionFactor} 
 S_{12} = \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(-\dfrac{\left(\mu_1 - \mu_2\right)^2}{2\cdot \left(\sigma_1^2+\sigma_2^2\right)}\right)
 \end{equation}
 
+This leaves the full correction factor C to be:
+\begin{equation}\label{eq:fullCorrectionFactor}
+C = \sqrt{\frac{\sigma_1^2+\sigma_2^2}{\sigma_1^2}}\cdot exp \left(\frac{\left(\mu_1-\mu_2\right)^2}{2\cdot \left(\sigma_1^2+\sigma_2^2\right)}\right)
+\end{equation}
 
 A few illustrations of the behaviour of the correction factor are shown in fig.
 
@@ -307,6 +311,30 @@ $2\cdot\sqrt{2 ln(2)}\sigma$       & 1                                          
 0                                     & 2                                           & $\sqrt(\dfrac{4+1}{4}) \approx 1.12$                                                                             
 \end{tabular}
 \end{table}
+
+To ascertain how well this works a numeric variant of the correction factor is considered based on the same principle as eq. \ref{eq:CorrFactorGaussians}:
+\begin{equation*}
+C_{numeric} = \sum_{i=0}^{N_x}\sum_{k=0}^{N_y}\frac{max\left(I_{pump}\right)\cdot I_{probe}(x_i,y_k)}{I_{pump}(x_i,y_k)\cdot I_{probe}(x_i,y_k)}
+\end{equation*}
+where $\mathrm{x_i/y_k}$ are discrete points, which may be associated with single pixels of the camera, of which there are $mathrm{N_x}$ for $\mathrm{x_i}$ and $\mathrm{N_y}$ for $\mathrm{y_k}$. $\mathrm{max\left(I_{pump})\right)}$ once again is the maximum value of $\mathrm{I_{pump}}$ over all $\mathrm{x_i, y_k}$. For this definition $\mathrm{I_{pump}/I_{probe}}$ may be of arbitrary noisy form, which is what will be tested in the following.
+
+Comparing the numeric approach with the analytic fitting approach is done by generating a hypothetical pump and probe Gaussian pair, for which the correction factors are calculated. The analytic value is generated directly from the generating parameters for the numeric discrete map. For $\mathrm{I_{pump} = const}$ the correction factor trivially goes to one as per definition. Since the discrete values strongly depend on the number of bins an approach is chosen, where a density of discrete points per $\mathrm{\sigma}$ of the generating Gaussian distribution is shown. To visualize this the correction factor of a "pump" and "probe" combination, where $\mathrm{\sigma}"$ and $\mathrm{\mu}$ are identical for both distributions, is show over a number of bin sizes is shown in fig. \ref{fig:NumericalCorrectionSNR}. The bin size is chosen so that always a multiple of two discrete values per axis is binned together and the bins are kept square in size. The influence of a noise component, randomly distributed for a specific signal to noise ratio, is also shown.
+
+\begin{figure}[h]\label{fig:NumericalCorrectionSNR}
+\centering
+\includegraphics[width=0.9\linewidth]{images/NumericalCorrectionSNR.png}
+\caption{Comparison of numerical and analytic correction factors for Gaussian distributions of identical parameters.\\For the case of the SNR graphs a random noise was added individually to both distributions.}
+\end{figure}
+
+To check for possible effects regarding offsetting of the distributions from the pixel grid and breaking the symmetry from above the Gaussian distributions are now shifted by 1 $\mathrm{\sigma}$ in both x and y direction from each other in fig. \ref{fig:NumericalCorrectionShift}. Furthermore both distributions together are shifted by an offset from the pixel grid in x direction. Doing this incremental shift in both x and y direction only leads to a small change for large binning sizes. 
+
+\begin{figure}[h]\label{fig:NumericalCorrectionShift}
+\centering
+\includegraphics[width=0.9\linewidth]{images/NumericalCorrectionShiftedBeams.png}
+\caption{same sig, shifted by sig in both x and y respective of each other, incremental offset influence shown}
+\end{figure}
+
+
 \subsection{Artray-LiveFitting}\label{Sec:LiveFitting}
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient, as the variation seems to be constant over time. The background has been recorded with the lens cap on at an exposure of 15 ms, which was chosen after comparing the subtracted quality output of 0.3 ms, 15 ms and 100 ms. 
