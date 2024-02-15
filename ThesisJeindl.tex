@@ -142,7 +142,7 @@ The detector has a maximum peak to peak voltage (Vpp) of approximately 3 V, whic
 \subsection{Adjusting overlap without achromatic optics}
 
 \subsubsection{General overlap adjustment}
-Overlap adjustments are done using a camera onto which the sample plane is imaged. This is combined with a fitting program, which fits a Gaussian pointspread function to the beam image. From this a center position as well as the FWHM of the pointspread function can be determined and used to move the pointspread functions on top of each other. The detailed software explanations and their use is explained in \textbf{REFERENCE}\\
+Overlap adjustments are done using a camera onto which the sample plane is imaged. This is combined with a fitting program, which fits a Gaussian pointspread function to the beam image. From this a center position as well as the FWHM of the pointspread function can be determined and used to move the pointspread functions on top of each other. The detailed software explanations and their use is explained in \ref{chp:Software}\\
 
 \paragraph{The problem of achromatic optics}
 One of the main issues that had to be addressed was the change from achromatic objectives to uncoated plano-convex lenses within the cage.\newline
@@ -193,31 +193,18 @@ The change of the depth of focus (DOF) and thus the change in beam waist diamete
 \caption{Changes of Gaussian beamprofile width and intensity for cage lenses}
 \end{figure}
 
-This issue is of fundamental nature and a few attempts were made until the final solution in \ref{SampleMirrorCamera} was found.
-\subsubsection{Regular Focusing after Cage}\label{regRearFocus}
-This is the option used for the regular TAM setup as described in \ref{RegTAM}. The last mirror in front of the detector is simply removed to reveal a camera behind it. The rear cage objective is focused onto this camera using white light from an LED torch or similar lightsources in transmission. Afterwards the front objective is moved such that a satisfactory pointspread function of the beam is seen from the camera sensor.\\ 
-This is sufficient as the achromatic objectives allow a very similar focus for all wavelengths between 400 nm and 940 nm. The rear objective simply projects the pointspread function of the beams in the plane of the sample to which it was focused to, while moving the front objective adjusts the part of the focusing beam cone, and thus the size of the slice of the beam, which interacts with the sample. This is working for both pump and probe.\\
-Since the focal length of the lenses varies wildly in the UV this is not an option for the UV extension.
-\subsubsection{Dummy Conversion Sample}
-An idea was to use a "dummy" sample acting as a screen to then be imaged onto the camera in the rear using the lens. This method has several requirements:
-\begin{itemize}
-\item The screen needs to allow for diffuse imaging of the sample without disturbing the beamshape too much.
-\item Any UV or near UV light needs to be converted to the visible region, where the focal length difference becomes negligible.
-\end{itemize}
-
-The requirement for diffuse imaging is simple. Any collimation or focusing action of the beam needs to be lost to actually image the sample plane, where the "dummy" is placed at. The requirement is less stringent for wavelengths close to a chosen wavelength to which the setup would be calibrated to, as the lenses would image the beam fine for that wavelength.\\
-
-For the issue of UV conversion a few attempts with different dyes and paper were made, which showed variable success as to their luminescence.\\
-Generally paper combined with orange gel marker (Stabilo No. 70/40) seemed to work best
-Paper soaked with wax to increase transmittance and smooth out scattering alone did not work particularly well unless combined with text marker. Marker has to be applied ahead of the wax and on the other side of the paper, from where the wax will be applied. (I am considering just throwing this all out, though having an off hand comment shouldn't be too bad) 
-
-Using a microscope slide with gelled, specifically at room temperature evaporated, Stabilo marker (No. 70/40) turned out to have decent conversion efficiency, but lacks any diffusivity. This could work, based on adjusting the cage setup to the pump wavelength, so it is correctly imaged. However at that time the rear focus was still set with white light instead of 653 nm pump adjacent light, which would not have allowed for this method. Also this leads to problems as soon as the probe light has long enough wavelengths to simply transmit through the glass slide. It would need to be filtered, which at the time was not possible as longpass filters were not available to us. Another unanswered question is the emission spectrum of the marker gel. (lab notes  starting in june)\\
-Surprisingly the frontal focus point found with this projection method coincides well with the finally used frontal focus point. Consider that the projection screen may not be spaced entirely correctly though. CHECK THICKNESS
-Overall the attempted projection screen method did not seem viable and thus was not pursued further. A main disadvantage, apart from problems with wavelength conversion, is that in the best case the scattering applies a strong averaging to the beam pointspread function, which does not allow for detection of deviations of the beam shape from a Gaussian distribution. Unless a very consistent and fine scattering projection screen with good conversion to a specific wavelength band close to the pump is found it just is infeasible.
-
+This issue is of fundamental nature and a few attempts were made until the following solution was found:
 
 \subsubsection{Sample mirror path}\label{SampleMirrorCamera}
 The option that finally won out is decoupling the beams after the frontal cage lens and imaging onto a camera that is in the mirror plane of the sample surface. This method requires a method for consistent placement of the mirror within the cage and a way to move the camera into the mirror plane of the sample.\\
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width = \linewidth]{images/SHG-focusing-large.png}
+\caption{Detailed focusing setup using a mirror after the first cage lens to image the beam pointspread distributions as it is in the sample plane.
+Pump path is abridged.}
+\end{figure}
+
 \paragraph{Calibration method}
 The rear lens is set to image the sample plane onto the camera as described in \ref{regRearFocus} with a pump adjacent wavelength used to illuminate the sample. This is done to be able to use the pump beam as a reference for the cage system, as the front focus for the sample and the rear focus for the camera are both calibrated using a wavelength with very little chromatic focal shift from it.\\
 A two step process is then used to get the position of the camera in the mirrored sample path correct:
@@ -241,14 +228,38 @@ For high energy SHG light absorptive OD filters have far stronger absorption tha
 This can be done by introducing more glass filters, in case their absorption of the fundamental is lacking for the wavelength. The glass filters may be removed afterwards if the detector is using the prism setup, which removes the fundamental wavelength from the measurement.\\
 Another option to check is to remove the fundamental filter completely and check the position of the fundamental focus spot in relation to the SHG focus spot, which will be different due to chromatic focal shift.
 
+\subsubsection{Regular Focusing after Cage}\label{regRearFocus}
+This is the option used for the regular TAM setup as described in \ref{RegTAM}. The last mirror in front of the detector is simply removed to reveal a camera behind it. The rear cage objective is focused onto this camera using white light from an LED torch or similar lightsources in transmission. Afterwards the front objective is moved such that a satisfactory pointspread function of the beam is seen from the camera sensor.\\ 
+This is sufficient as the achromatic objectives allow a very similar focus for all wavelengths between 400 nm and 940 nm. The rear objective simply projects the pointspread function of the beams in the plane of the sample to which it was focused to, while moving the front objective adjusts the part of the focusing beam cone, and thus the size of the slice of the beam, which interacts with the sample. This is working for both pump and probe.\\
+Since the focal length of the lenses varies wildly in the UV this is not an option for the UV extension.
+\subsubsection{Dummy Conversion Sample}
+An idea, later on abandoned for impracticality, was to use a "dummy" sample acting as a screen to then be imaged onto the camera in the rear using the lens. This method has several requirements:
+\begin{itemize}
+\item The screen needs to allow for diffuse imaging of the sample without disturbing the beamshape too much.
+\item Any UV or near UV light needs to be converted to the visible region, where the focal length difference becomes negligible.
+\end{itemize}
 
-\chapter{Software}
+The requirement for diffuse imaging is simple. Any collimation or focusing action of the beam needs to be lost to actually image the sample plane, where the "dummy" is placed at. The requirement is less stringent for wavelengths close to a chosen wavelength to which the setup would be calibrated to, as the lenses would image the beam fine for that wavelength.\\
+
+For the issue of UV conversion a few attempts with different dyes and paper were made, which showed variable success as to their luminescence.\\
+Generally paper combined with orange gel marker (Stabilo No. 70/40) seemed to work best
+Paper soaked with wax to increase transmittance and smooth out scattering alone did not work particularly well unless combined with text marker. Marker has to be applied ahead of the wax and on the other side of the paper, from where the wax will be applied. (I am considering just throwing this all out, though having an off hand comment shouldn't be too bad) 
+
+Using a microscope slide with gelled, specifically at room temperature evaporated, Stabilo marker (No. 70/40) turned out to have decent conversion efficiency, but lacks any diffusivity. This could work, based on adjusting the cage setup to the pump wavelength, so it is correctly imaged. However at that time the rear focus was still set with white light instead of 653 nm pump adjacent light, which would not have allowed for this method. Also this leads to problems as soon as the probe light has long enough wavelengths to simply transmit through the glass slide. It would need to be filtered, which at the time was not possible as longpass filters were not available to us. Another unanswered question is the emission spectrum of the marker gel. (lab notes  starting in june)\\
+Surprisingly the frontal focus point found with this projection method coincides well with the finally used frontal focus point. The mounts used should be within 0.2 mm of the sample surface position. The projection screens may add some extra extra offset, especially the gel on glass one would need adjustment.
+Overall the attempted projection screen method did not seem viable and thus was not pursued further. A main disadvantage, apart from problems with wavelength conversion, is that in the best case the scattering applies a strong averaging to the beam pointspread function, which does not allow for detection of deviations of the beam shape from a Gaussian distribution. Unless a very consistent and fine scattering projection screen with good conversion to a specific wavelength band close to the pump is found it just is infeasible.
+
+
+
+
+
+\chapter{Software}\label{chp:Software}
 \section{Overlap Compensation}
 Opposed to the old setup, where the achromatic objectives guaranteed relatively consistent overlap of pump and probe, the UV setup has the need to correct the variation between the single measurements, since the diffraction of the dispersive elements in the probe path varies strongly in the UV range and any compensation via the telescope will be imperfect.\newline
 Relevant for this are the beam size of the probe as well as the overlap of the pump and the probe beam in the sample. Variations in those parameters are induced by change of the beamshape due to SHG generation, imperfect alignment of the SHG telescope and correction of the chromatic aberration for different wavelength settings of the probe.\newline
 
 \subsection{Beam Characterisation}
-The python class ArtFit has some options to check for the validity of the data used. Since the data is saved in a raw format, however it is cut and thus an offset for the ROI has to be accounted for. \footnote{NOTE: FOR ARTRAY VER 1.3 CHANGE SO METADATA OF ROI OFFSET IS SAVED, ALSO OF BACKGROUND FILE: may not work like I hoped}
+The python class ArtFit has some options to check for the validity of the data used. Since the data is saved in a raw format, however it is cut and thus an offset for the ROI has to be accounted for.
 
 ArtFit may parse 3 different input types: (think of something different, not meaningful like this)
 \begin{enumerate}
@@ -333,20 +344,65 @@ To check for possible effects regarding offsetting of the distributions from the
 \includegraphics[width=0.9\linewidth]{images/NumericalCorrectionShiftedBeams.png}
 \caption{same sig, shifted by sig in both x and y respective of each other, incremental offset influence shown}
 \end{figure}
-
+\textbf{NOTE SOMEWHERE: the actual size of the pointspread function on the sensor is at about 2-4 points per sig -> not sensible without fitting}
 
 \subsection{Artray-LiveFitting}\label{Sec:LiveFitting}
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient, as the variation seems to be constant over time. The background has been recorded with the lens cap on at an exposure of 15 ms, which was chosen after comparing the subtracted quality output of 0.3 ms, 15 ms and 100 ms. 
 \newline
 For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.\\
+\subsubsection{Fitting principle}
 In version 1.2 the relevant fitting parameters are returned as a numeric overlap integral based on the Gaussian beamshapes. In this version it is still calculated numerically from the fits, however it can be rebased into an analytical form as per eq. \ref{GaussianProduct} which describes the product of two Gaussians.
 \begin{equation}
 overlap = \int \sqrt{f_1(x)*f_2(x)}dx =  \sqrt{\frac{2 \sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}\cdot exp\left(-\frac{\left(\mu_1-\mu_2\right)^2}{4\cdot \left(\sigma_1^2 + \sigma_2^2\right)}\right)
 \end{equation}
-This is calculated separately for both axis of the pixel array and then multiplied for a final value. (CHECK IF THAT IS ACTUALLY FINE AND PROVE IT WITH SIMULATION, same question as for correction factor)
+This is calculated separately for both axis of the pixel array and then multiplied for a final value. 
 This is not directly related to correction factor calculated within the python program to make everything comparable, but is more of a measure of how similar the beams are, which is why only the normal distributions are used without an intensity modifier, thus both beams are weighted identically. \\
 This is reasonable as the best results for the correction factor are achieved when pump and probe beams are similar in size. This overlap integral returns a maximum value of 1 when the beams are identical and falls off quickly if the intensity maxima are shifted and slowly if the FWHM of the beams is different.\\
+\subsubsection{Operation}
+Before startup all needed DLL files need to be in the same folder as the executable.\footnote{alglib.net.dll, ArtCamSdk\_092UV\_WOM.dll, ScottPlot.dll, "ScottPlotWinForms.dll", Python.Runtime.dll,...} need to be in the same folder as the executable. Other
+Upon startup the program should automatically connect to the camera. 
+
+To get an image there are several options in the "Display" drop down menu.
+\begin{itemize}
+\item Preview: starts a livestream within the "Artray Controlled" window.
+\item Snapshot: takes an image and statically shows it. If possible a fit will be shown in the "LiveFit" window.
+\item Callback: starts a livestream with periodic fitting. Preview should be preferred if no fitting is needed or possible for performance reasons.
+\end{itemize}
+
+To adjust the image parameters or camera settings use the "Settings" drop down menu.
+\begin{itemize}
+\item Camera settings: opens a menu to set the image format including size and ROI as well as Color format, which is to be set to "Color 48*bit" for reasons that are explained in raw data output. The effective ROI should be set to 300 pixels vertically and horizontally. The ROI should stay square and not rectangular, as there is a bug preventing correct data manipulation at this moment.
+\item Filter settings: include software settings for brightness, contrast, saturation etc. Influence of Bayer Mode is unknown. Keep the saturation at -255.
+\item Misc: is where custom settings for output parameters as well as exposure can be set. Handing over a "µm per px" value and adjusting the power correctly allows a direct corrected readout of peak radiance and other fit parameters.\\The three exposure values can be quickly jumped to from a drop down menu in the main window and are supposed to help streamline the measurement process.
+\end{itemize}
+As mentioned quick swap exposure settings can be set. They are accessed from the drop down menu "SwitchExp". Upon switching exposure a snapshot is taken, this interrupts all other image acquisition types, and a maximum value is reported in a pop up window, to show if the dynamic range of the camera is being used well. If that is not the case the fitting window either turns blue if the exposure is too low \textbf{(percent of max?)} or turns red if it is too high \textbf{(percent of max?)}. Setting exposure can in cases be slower than readout of the snapshot, thus reporting a value ahead of setting the new exposure value. If that is the case just set exposure again if one wishes to get the maximum pixel intensity value.\\
+
+The file drop down consists of features for saving, opening and comparing data:
+\begin{itemize}
+\item Save: saves a raw txt file of the last captured image. In case of a livestream this is the last shown image. For snapshot it saves the currently shown snapshot.
+\item End: Ends the program, leads mainly to pain due to accidental clicking
+\item Reference: sends a reference image, behavior is like with save regarding livestreams, to the "LiveFit" window. There a fit of the reference is shown as a red graph, which when not set is flat.
+\item Open: works like reference, however it opens the reference snapshot from a raw txt file of choice via file dialog.
+\item Background: sets a background to subtract from the images for live fitting. Setting background does not alter the behavior of Save. Saved files are still plain raw unaltered data from the sensor. The background file location is automatically loaded within a session and is saved within the \textbf{windows filesystem? don't remember the name of the feature}
+\end{itemize}
+\subsubsection{Inner workings of the software}
+The software package is based on the SDK provided freely by Artray in C\#, specifically the code example \textbf{"find name"}. 
+
+\paragraph{raw data output}
+Data is handled as one dimensional byte arrays by the SDK and has to be processed into a workable format. The camera specifications allow for a maximum bit depth of 12 bit. To be able to access this bit depth the video format of "Color 48bit*" has to be set, as the monochrome formats do not allow higher bit depth. Adjusted software by the manufacturer was attempted, but abandoned on our side due to troubleshooting issues. The single pixel data for the "Color 48 bit*" setting is encoded as 2 byte per colour channel per pixel. Since, even though this is a monochrome camera, the colour output was not the same colour values for all returned subpixel types, meaning RGB, the saturation of the camera was set to be minimal in software (-255). This leads to identical red, green and blue subpixel values. From these 3 colour values red is arbitrarily chosen for further processing.
+The data formatting is explained with the help of fig. \ref{fig:ByteArtrayOut}. Both bytes are formatted as big endian or most significant bit first. The second byte holds the most significant bit, with the first hex value and thus 4 bits being empty. The first bit holds the remaining 8 bit of the 12 bit value.
+
+\begin{figure}[hbtp]\label{fig:ByteArtrayOut}
+\centering
+\includegraphics[scale=1]{images/ArtrayByteImage.png}
+\caption{Data scheme of periodic byte structure of artray output with hexadecimal placeholders\\
+$\mathrm{H_{22}}$ holds the 4 most significant bit and byte 1 is simply appended\\
+$\mathrm{0_{21}}$ of byte 2 is always empty.}
+\end{figure}
+
+The via bitwise operations processed value is then assigned to a short integer array. Notably for processing the region of interest (ROI) needs to be known. It is not included in any of the raw data itself.
+
 
 \chapter{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
@@ -403,6 +459,25 @@ Some tests have been done to ascertain the validity and stability of the correct
     Thorlabs Z825B, KDC101 & Microscopy sample stage actuators (horizontal and vertical) \\
     Various aluminium mirrors & Planar and concave (for focussing onto detectors) \\
     74HC73 & Dual JK flip-flop for frequency division
+\end{longtable}
+\begin{longtable}{p{0.48\textwidth}p{0.48\textwidth}}
+    \caption{List of software used}
+    \label{tab:devices} \\
+    \toprule 
+    Title & Remarks \\
+    \midrule
+    \endfirsthead
+    \toprule 
+    Title & Remarks \\
+    \midrule
+    \endhead
+    \midrule
+    Continued on next page
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    Spectrometer software spectraLight & Light Conversion; malfunctioned with update and superseded by Waves \\
+    Spectrometer software Waves & BROADCOM; Version 2.2.2.0\\
 \end{longtable}
 
 \chapter{Derivations of formula}
