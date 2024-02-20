@@ -15,6 +15,7 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{siunitx}
+\usepackage{gensymb}
 
 \usepackage[msc]{tugrazthesis}
 
@@ -73,9 +74,24 @@ There are several types of contrast within pump probe spectroscopy. Processes li
 \item Stimulated Raman Scattering: In case the energy difference between pump and probe corresponds to a raman active state a photon transfer from the higher energy beam to the lower energy beam may happen. For this there needs to be temporal overlap of the beams
 \end{itemize}
 
+\textbf{
+Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values}
+\subsection{Polarization angles}
+Pump probe measurements of same polarization obviously return the highest signal in any case. However when working with liquids or (solid) solutions like PMMA in this case the molecules, if relatively unperturbed by the environment, may rotate over time and thus change the direction of their transition dipole moments relative to where they would be in their zero time direction. This leads to a measurable signal change over time.\\
+The rotation in the sample is given by the anisotropy at detection:\textbf{find better source}
+\begin{equation*}
+r = \frac{I_{\parallel}-I_{\perp}}{I_{\parallel}+2I_{\perp}}
+\end{equation*}
+where $\mathrm{I_\parallel}$ is the component, where pump and probe are parallel polarizations, and $\mathrm{I_\perp}$ is the component perpendicular to the pump polarization. The reason for the factor 2 in the enumerator is that the original polarization can rotate into two perpendicular directions, which are projected into a direction perpendicular to the pump polarization.???\\
+By measuring at the so called "magic angle" of $\theta = 54.7 \degree$ the parallel and orthogonal polarization components are polarized and the measurement is made isotropic. This is based on the transmission of polarized light through a polarizer $I(\theta) = I_0 cos^2(\theta)$.\\
+Alternatively this isotropic output may also be achieved by measuring parallel and orthogonal polarisations and using an arithmetic correction. The total intensity is $I_T = I_x+I_y+I_z = 2\cdot I_\perp + I_\parallel$. To now correct for both rotation directions out of parallel plane the signal may be corrected to $I = \frac{I_\parallel + 2I_\perp}{3}$, which corresponds to the isotropic signal.\cite{Zheng2020}
 
-Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values
+%Depending on the rate at which the sample decays we should be able to ignore that?
+%Our sample is isotropic, so that means we would see, if it was the case that transition dipole of the excited state for the probe was perpendicular to our pump polarization and we still probe parallel to pump, the signal would be rising and still be able to detect if there was a state at that point. Check maybe I have a perpendicular measurement where I can check the rise time, it was relatively quick I remember. Main problem with magic angle is loss of the transient absorption edge, which we like to compare to since we usually use very anisotropic samples.
 
+\subsection{Squaraines}
+\subsubsection{SQIB in PMMA}
+\textbf{Manuela transmission plot of 1\% sample}
 \chapter{Devices and Setup}
 
 Part of the experimental objective was to extend the range of the transient absorption microscope (TAM) into the UV range via SHG of the probe NOPA output. With the extension a wavelength range of 250 nm to 940 nm, with a gap between 470 nm and 500 nm, is available for probing the sample.\newline
@@ -280,7 +296,7 @@ Shows an intensity contour plot of both beams on top of each other. If only one 
 \item plotGauss()\\
 Plots the intensity profile of the beams, if both are given, separately with an overlayed contour plot of the fits, to allow to ascertain the validity of the fit. Needs to have already fitted data with plainFit() to show the Gaussian distribution. Fitted data may be printed to console by setting printData = True for the options. The intensity profile is shown by default without background subtraction and can be shown with subtracted background by handing over a boolean. The fits are always done with subtracted background, the profile just is not shown background subtracted by default.
 \end{itemize}
-\subsection{Correction Factor}
+\subsection{Correction Factor}\label{sec:CorrFactor}
 The correction factor aims to equilibrate the dOD of the given pump-probe overlap to one where the pump is constant in radiance over the entire probe area or in a physical description is infinitely larger than the probe beam.
 Thus for very high $\mathrm{\frac{\sigma_{Pump}}{\sigma_{Probe}} \rightarrow \infty}$ the correction factor tends to 1, which is the smallest value.\\
 %The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in section \ref{GaussiansDerivation} or in Bromiley\cite{Bromiley2014}, which was used to check correctness. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
@@ -360,8 +376,21 @@ This is calculated separately for both axis of the pixel array and then multipli
 This is not directly related to correction factor calculated within the python program to make everything comparable, but is more of a measure of how similar the beams are, which is why only the normal distributions are used without an intensity modifier, thus both beams are weighted identically. \\
 This is reasonable as the best results for the correction factor are achieved when pump and probe beams are similar in size. This overlap integral returns a maximum value of 1 when the beams are identical and falls off quickly if the intensity maxima are shifted and slowly if the FWHM of the beams is different.\\
 \subsubsection{Operation}
-Before startup all needed DLL files need to be in the same folder as the executable.\footnote{alglib.net.dll, ArtCamSdk\_092UV\_WOM.dll, ScottPlot.dll, "ScottPlotWinForms.dll", Python.Runtime.dll,...} need to be in the same folder as the executable. Other
-Upon startup the program should automatically connect to the camera. 
+Before startup all needed DLL files need to be in the same folder as the executable.\footnote{alglib.net.dll, ArtCamSdk\_092UV\_WOM.dll, ScottPlot.dll, "ScottPlotWinForms.dll", Python.Runtime.dll,...} need to be in the same folder as the executable. Upon startup the program should automatically connect to the camera. \\
+The main forms shown upon startup are the camera control form in fig. \ref{fig:ArtrayMain} and the fitting form in fig. \ref{fig:ArtrayFitting}.
+
+\begin{figure}[hbtp]\label{fig:ArtrayMain}
+\centering
+\includegraphics[width = 0.5\linewidth]{images/ArtrayExamplePics/ArtrayControlledMain.PNG}
+\caption{Artray Controlled window}
+\end{figure}
+
+\begin{figure}[hbtp]\label{fig:ArtrayFitting}
+\centering
+\includegraphics[width = 0.5\linewidth]{images/ArtrayExamplePics/FittingForm.PNG}
+\caption{Fitting form artray}
+\end{figure}
+
 
 To get an image there are several options in the "Display" drop down menu.
 \begin{itemize}
@@ -406,7 +435,12 @@ The via bitwise operations processed value is then assigned to a short integer a
 
 \chapter{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
+\section{Power settings}
+For measurements to be valid there should be a linear correspondence of pump power and the measured absorbance. To test this multiple pump and probe power combinations were tested, at the same sample position with the same pump probe overlap. The linearity of the sample is shown for powers up to \textbf{use radiance instead} 10 µW pump and.... probe combinations. \textbf{Show the relatively linear plot}
 
+\section{Correction value accuracy}
+As laid out in section \ref{sec:CorrFactor} a correction factor is calculated for every measurement point to compensate error in lateral position as well as in relative size of pump and probe beam.\\
+To check this measurements with varying overlap were taken, the pump was left at the same position. 
 
 
 
@@ -510,7 +544,7 @@ x^2 - 2x\frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}^2} + \frac{\sigma_1^
 + \epsilon - \epsilon
 \right]\right)
 \end{equation*}
-Now find $\epsilon$ to fulfil the binomial theorem $x^2- 2xb + \tilde{b}^2 + \epsilon - \epsilon= (x-b)^2 - \epsilon$ within the exponent.
+Now find $\epsilon$ to fulfil the binomial theorem $x^2- 2xb + \tilde{b}^2 + \epsilon - \epsilon= (x-b)^2 - \epsilon$ within the exponent, where $\epsilon$ is used to compensate such that $\mathrm{b^2 = \tilde{b}^2 + \epsilon}$.
 \begin{gather*}
 \left(\frac{\mu_1 \sigma_2^2 + \mu_2\sigma_1^2}{\sigma_{12}^2}\right)^2 \stackrel{!}{=} \frac{\sigma_1^2\sigma_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}^2} + \epsilon
 \\
