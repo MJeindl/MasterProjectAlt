@@ -74,8 +74,9 @@ There are several types of contrast within pump probe spectroscopy. Processes li
 \item Stimulated Raman Scattering: In case the energy difference between pump and probe corresponds to a raman active state a photon transfer from the higher energy beam to the lower energy beam may happen. For this there needs to be temporal overlap of the beams
 \end{itemize}
 
+These processes may manifest at the same time, thus concealing other processes with the opposite influence on the transient opacity. This is not so much of concern for processes like XPM or stimulated raman scattering, because they require temporal overlap of pump and probe pulse and thus only influence a short range within the time delay based on the pulse lengths. \\
 \textbf{
-Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values}
+Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values; maybe do in reliability}
 \subsection{Polarization angles}
 Pump probe measurements of same polarization obviously return the highest signal in any case. However when working with liquids or (solid) solutions like PMMA in this case the molecules, if relatively unperturbed by the environment, may rotate over time and thus change the direction of their transition dipole moments relative to where they would be in their zero time direction. This leads to a measurable signal change over time.\\
 The rotation in the sample is given by the anisotropy at detection:\textbf{find better source}
@@ -376,18 +377,18 @@ This is calculated separately for both axis of the pixel array and then multipli
 This is not directly related to correction factor calculated within the python program to make everything comparable, but is more of a measure of how similar the beams are, which is why only the normal distributions are used without an intensity modifier, thus both beams are weighted identically. \\
 This is reasonable as the best results for the correction factor are achieved when pump and probe beams are similar in size. This overlap integral returns a maximum value of 1 when the beams are identical and falls off quickly if the intensity maxima are shifted and slowly if the FWHM of the beams is different.\\
 \subsubsection{Operation}
-Before startup all needed DLL files need to be in the same folder as the executable.\footnote{alglib.net.dll, ArtCamSdk\_092UV\_WOM.dll, ScottPlot.dll, "ScottPlotWinForms.dll", Python.Runtime.dll,...} need to be in the same folder as the executable. Upon startup the program should automatically connect to the camera. \\
+Before startup all needed DLL files need to be in the same folder as the executable.\footnote{alglib.net.dll, ArtCamSdk\_092UV\_WOM.dll, ScottPlot.dll, "ScottPlotWinForms.dll", Python.Runtime.dll,...} need to be in the same folder as the executable. Additionally .NET Framework 3.5 is required. Upon startup the program should automatically connect to the camera. \\
 The main forms shown upon startup are the camera control form in fig. \ref{fig:ArtrayMain} and the fitting form in fig. \ref{fig:ArtrayFitting}.
 
 \begin{figure}[hbtp]\label{fig:ArtrayMain}
 \centering
-\includegraphics[width = 0.5\linewidth]{images/ArtrayExamplePics/ArtrayControlledMain.PNG}
+\includegraphics[width = 0.6\linewidth]{images/ArtrayExamplePics/ArtrayControlledMain.PNG}
 \caption{Artray Controlled window}
 \end{figure}
 
 \begin{figure}[hbtp]\label{fig:ArtrayFitting}
 \centering
-\includegraphics[width = 0.5\linewidth]{images/ArtrayExamplePics/FittingForm.PNG}
+\includegraphics[width = 0.6\linewidth]{images/ArtrayExamplePics/FittingForm.PNG}
 \caption{Fitting form artray}
 \end{figure}
 
@@ -401,22 +402,40 @@ To get an image there are several options in the "Display" drop down menu.
 
 To adjust the image parameters or camera settings use the "Settings" drop down menu.
 \begin{itemize}
-\item Camera settings: opens a menu to set the image format including size and ROI as well as Color format, which is to be set to "Color 48*bit" for reasons that are explained in raw data output. The effective ROI should be set to 300 pixels vertically and horizontally. The ROI should stay square and not rectangular, as there is a bug preventing correct data manipulation at this moment.
+\item Camera settings: opens a menu to set the image format including size and ROI as well as Color format, which is to be set to "Color 48*bit" for reasons that are explained in raw data output. The effective ROI should be set to 300 pixels vertically and horizontally. The ROI should stay square and not rectangular, as there is a bug preventing correct data manipulation at this moment. An example of the settings can be seen in fig. 
 \item Filter settings: include software settings for brightness, contrast, saturation etc. Influence of Bayer Mode is unknown. Keep the saturation at -255.
-\item Misc: is where custom settings for output parameters as well as exposure can be set. Handing over a "µm per px" value and adjusting the power correctly allows a direct corrected readout of peak radiance and other fit parameters.\\The three exposure values can be quickly jumped to from a drop down menu in the main window and are supposed to help streamline the measurement process.
+\item Analog settings: consist of gain and exposure. Also has the option to mirror image vertically and horizontally, which should not done after calibration. There is no way of telling from raw output data at which setting a snapshot was taken.
+\item Misc: is where custom settings for output parameters as well as exposure can be set. Assigning a "µm per px" value and adjusting the power correctly allows a readout directly corrected peak radiance and other fit parameters such as the FWHM.\\The three exposure values can be quickly jumped to from a drop down menu in the main window and are supposed to help streamline the measurement process. The menu can be seen in fig. 
 \end{itemize}
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width = 0.6\linewidth]{images/ArtrayExamplePics/StreamProperties.PNG}
+\caption{Menu for camera settings given by Artray\\ Example settings to get good data output within a square ROI.}
+\end{figure}
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[scale=1]{images/ArtrayExamplePics/DefaultMiscSettings.PNG}
+\caption{Miscellaneous menu for setting quick change exposure values and additional constants to correct fitting output.\\
+Default value of µm per px means that the fitting form only shows the FWHM and related values in units of pixels.\\
+The exposure values are in 0.1 µs steps, as this is what the camera allows. Only integer input is supported.}
+\end{figure}
+
+
+
 As mentioned quick swap exposure settings can be set. They are accessed from the drop down menu "SwitchExp". Upon switching exposure a snapshot is taken, this interrupts all other image acquisition types, and a maximum value is reported in a pop up window, to show if the dynamic range of the camera is being used well. If that is not the case the fitting window either turns blue if the exposure is too low \textbf{(percent of max?)} or turns red if it is too high \textbf{(percent of max?)}. Setting exposure can in cases be slower than readout of the snapshot, thus reporting a value ahead of setting the new exposure value. If that is the case just set exposure again if one wishes to get the maximum pixel intensity value.\\
 
 The file drop down consists of features for saving, opening and comparing data:
 \begin{itemize}
 \item Save: saves a raw txt file of the last captured image. In case of a livestream this is the last shown image. For snapshot it saves the currently shown snapshot.
 \item End: Ends the program, leads mainly to pain due to accidental clicking
-\item Reference: sends a reference image, behavior is like with save regarding livestreams, to the "LiveFit" window. There a fit of the reference is shown as a red graph, which when not set is flat.
-\item Open: works like reference, however it opens the reference snapshot from a raw txt file of choice via file dialog.
-\item Background: sets a background to subtract from the images for live fitting. Setting background does not alter the behavior of Save. Saved files are still plain raw unaltered data from the sensor. The background file location is automatically loaded within a session and is saved within the \textbf{windows filesystem? don't remember the name of the feature}
+\item Reference: sends a reference image, behaviour is like with save regarding livestreams, to the "LiveFit" window. There a fit of the reference is shown as a red graph, which when not set is flat.
+\item Open: works like reference, however it opens the reference snapshot from a raw txt file of choice via file dialogue.
+\item Background: sets a background to subtract from the images for live fitting. Setting background does not alter the behaviour of Save. Saved files are still plain raw unaltered data from the sensor. The background file location is automatically loaded when starting a session and is saved in the windows registry. under $\mathrm{"Computer \backslash HKEY_CURRENT_USER \backslash SOFTWARE \backslash LiveFit"}$as BACKGROUND\_FILE. The LiveFit subkey needs to be created manually, possible with regedit, ahead of use. The BACKGROUND\_FILE subkey is automatically added or handled.
 \end{itemize}
 \subsubsection{Inner workings of the software}
-The software package is based on the SDK provided freely by Artray in C\#, specifically the code example \textbf{"find name"}. 
+The software package is based on the SDK provided freely by Artray in C\#, specifically on the CS.NET\_Graphic example software. 
 
 \paragraph{raw data output}
 Data is handled as one dimensional byte arrays by the SDK and has to be processed into a workable format. The camera specifications allow for a maximum bit depth of 12 bit. To be able to access this bit depth the video format of "Color 48bit*" has to be set, as the monochrome formats do not allow higher bit depth. Adjusted software by the manufacturer was attempted, but abandoned on our side due to troubleshooting issues. The single pixel data for the "Color 48 bit*" setting is encoded as 2 byte per colour channel per pixel. Since, even though this is a monochrome camera, the colour output was not the same colour values for all returned subpixel types, meaning RGB, the saturation of the camera was set to be minimal in software (-255). This leads to identical red, green and blue subpixel values. From these 3 colour values red is arbitrarily chosen for further processing.
@@ -432,16 +451,25 @@ $\mathrm{0_{21}}$ of byte 2 is always empty.}
 
 The via bitwise operations processed value is then assigned to a short integer array. Notably for processing the region of interest (ROI) needs to be known. It is not included in any of the raw data itself.
 
+\chapter{Results}
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=\linewidth]{images/TimeResolvedWavelengthScanSQIB1perc_PMMA.png}
+\caption{Time resolved (fitted) transient absorbancy of 1\% SQIB PMMA}
+\end{figure}
 
 \chapter{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
 \section{Power settings}
-For measurements to be valid there should be a linear correspondence of pump power and the measured absorbance. To test this multiple pump and probe power combinations were tested, at the same sample position with the same pump probe overlap. The linearity of the sample is shown for powers up to \textbf{use radiance instead} 10 µW pump and.... probe combinations. \textbf{Show the relatively linear plot}
+For measurements to be valid there should be a linear correspondence of pump power and the measured absorbancy. Main concern here is that pump power is under the threshold radiance for any two photon processes within the sample to have a meaningful influence, which would affect the linearity of pump power dependence. Meanwhile for the probe pulse it is important, that its intensity does not saturate the sample by itself leading to a GSB.\\
+To test this multiple pump and probe power combinations were tested, at the same sample position with the same pump probe overlap. The linearity of the sample is shown for powers up to \textbf{use radiance instead} 10 µW pump and.... probe combinations. \textbf{Show the relatively linear plot}
 
 \section{Correction value accuracy}
 As laid out in section \ref{sec:CorrFactor} a correction factor is calculated for every measurement point to compensate error in lateral position as well as in relative size of pump and probe beam.\\
 To check this measurements with varying overlap were taken, the pump was left at the same position. 
 
+\section{Sample degradation}
 
 
 
