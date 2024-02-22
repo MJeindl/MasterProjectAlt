@@ -113,7 +113,7 @@ This section will address the issues addressed with the extended setup as well a
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.9\linewidth]{images/ComponentLibrary_svg/TAM-SetupUV.png}
+\includegraphics[width=0.9\linewidth]{images/ComponentLibrary_svg/experimental_tam_shg_swapped.png}
 \caption{UV extended TAM\\Pump adjustable for 650 nm to 940 nm
 \\Probe adjustable between 500 nm and 940 nm with the option of separate range of 250 nm and 470 nm via SHG crystal\\
 SHG stage shown including optional filters to remove white light from NOPA (ahead of SHG crystal) and fundamental wavelength of SHG (after SHG crystal)\\ Cage setup in further detail in fig. \ref{Fig:CageSetup}}
@@ -121,7 +121,7 @@ SHG stage shown including optional filters to remove white light from NOPA (ahea
 
 \begin{figure}[h]\label{Fig:CageSetup}
 \centering
-\includegraphics[width=0.9\linewidth]{images/ComponentLibrary_svg/TAM_Setup-SHGandDetector.png}
+\includegraphics[width=0.9\linewidth]{images/ComponentLibrary_svg/SHG-focusing-large.png}
 \caption{Detail view of new components in TAM\\ Ahead of first show probe lens white light remainder from NOPA may be filtered and after the second lens the fundamental may be filtered\\
 Rear camera shown as coupled out of the standard path, however it is advised to instead have the rear camera in the standard detector path and only insert the mirror coupling into the mirror when doing measurements.}
 \end{figure}
@@ -191,13 +191,13 @@ The change of the depth of focus (DOF) and thus the change in beam waist diamete
 
 \begin{figure}[h]
 \centering
-\begin{subfigure}[t]{0.42\textwidth}
+\begin{subfigure}[t]{0.5\textwidth}
 \centering
 \includegraphics[width =\textwidth]{images/BeamWaist_Wavs_2.5mm.png} 
 \subcaption{Beam waist for wavelengths at \mbox{2.5 mm} input beam width}
 \end{subfigure}
 \hfill
-\begin{subfigure}[t]{0.42\textwidth}
+\begin{subfigure}[t]{0.5\textwidth}
 \centering
 \includegraphics[width =\textwidth]{images/BeamWaist_inputWidth_653nm.png} 
 \subcaption{Beam waist over input beam width at 653 nm}
@@ -259,10 +259,13 @@ An idea, later on abandoned for impracticality, was to use a "dummy" sample acti
 The requirement for diffuse imaging is simple. Any collimation or focusing action of the beam needs to be lost to actually image the sample plane, where the "dummy" is placed at. The requirement is less stringent for wavelengths close to a chosen wavelength to which the setup would be calibrated to, as the lenses would image the beam fine for that wavelength.\\
 
 For the issue of UV conversion a few attempts with different dyes and paper were made, which showed variable success as to their luminescence.\\
-Generally paper combined with orange gel marker (Stabilo No. 70/40) seemed to work best
-Paper soaked with wax to increase transmittance and smooth out scattering alone did not work particularly well unless combined with text marker. Marker has to be applied ahead of the wax and on the other side of the paper, from where the wax will be applied. (I am considering just throwing this all out, though having an off hand comment shouldn't be too bad) 
+Generally paper combined with orange gel marker (Stabilo No. 70/40) seemed to work best for conversion of UV to visible light.
+Paper soaked with wax to increase transmittance and smooth out scattering alone did not work particularly well for conversion, unless combined with text marker. Marker has to be applied ahead of the wax and on the other side of the paper, from where the wax will be applied. (I am considering just throwing this all out, though having an off hand comment shouldn't be too bad) 
 
-Using a microscope slide with gelled, specifically at room temperature evaporated, Stabilo marker (No. 70/40) turned out to have decent conversion efficiency, but lacks any diffusivity. This could work, based on adjusting the cage setup to the pump wavelength, so it is correctly imaged. However at that time the rear focus was still set with white light instead of 653 nm pump adjacent light, which would not have allowed for this method. Also this leads to problems as soon as the probe light has long enough wavelengths to simply transmit through the glass slide. It would need to be filtered, which at the time was not possible as longpass filters were not available to us. Another unanswered question is the emission spectrum of the marker gel. (lab notes  starting in june)\\
+Using a microscope slide with gelled, specifically at room temperature evaporated, Stabilo marker (No. 70/40) turned out to have decent conversion efficiency, but lacks any diffusivity.  This could work, based on adjusting the cage setup to the pump wavelength, so it is correctly imaged. However at that time the rear focus was still set with white light instead of 653 nm pump adjacent light, which would not have allowed for this method. This also leads to problems as soon as the probe light has long enough wavelengths to simply transmit through the glass slide. It would need to be filtered and one would have to rely on conversion of those wavelengths via the marker to produce sensible output, which is a big gamble. An attempt at texturing the slide surface was not made, due to unavailability of suitable processing methods (I think I tried scratching etc, got to check notes). Another unanswered question is the emission spectrum of the marker gel. (lab notes  starting in june)\\
+
+Another idea was to use thin coloured PMMA on top of a glass slide or simply. Fluorescence of an orange PMMA was given, however not better than the marker. On top of that it proved insoluble in acetone making coating impossible.\\
+
 Surprisingly the frontal focus point found with this projection method coincides well with the finally used frontal focus point. The mounts used should be within 0.2 mm of the sample surface position. The projection screens may add some extra extra offset, especially the gel on glass one would need adjustment.
 Overall the attempted projection screen method did not seem viable and thus was not pursued further. A main disadvantage, apart from problems with wavelength conversion, is that in the best case the scattering applies a strong averaging to the beam pointspread function, which does not allow for detection of deviations of the beam shape from a Gaussian distribution. Unless a very consistent and fine scattering projection screen with good conversion to a specific wavelength band close to the pump is found it just is infeasible.
 
@@ -367,7 +370,7 @@ To check for possible effects regarding offsetting of the distributions from the
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient, as the variation seems to be constant over time. The background has been recorded with the lens cap on at an exposure of 15 ms, which was chosen after comparing the subtracted quality output of 0.3 ms, 15 ms and 100 ms. 
 \newline
-For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape.\\
+For all measurements included here version 1.2 was used. The  ALGLIB software package is used and (version number)\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape. Scottplot 4 is used to display the fitted data.\\
 \subsubsection{Fitting principle}
 In version 1.2 the relevant fitting parameters are returned as a numeric overlap integral based on the Gaussian beamshapes. In this version it is still calculated numerically from the fits, however it can be rebased into an analytical form as per eq. \ref{GaussianProduct} which describes the product of two Gaussians.
 \begin{equation}
@@ -389,7 +392,7 @@ The main forms shown upon startup are the camera control form in fig. \ref{fig:A
 \begin{figure}[hbtp]\label{fig:ArtrayFitting}
 \centering
 \includegraphics[width = 0.6\linewidth]{images/ArtrayExamplePics/FittingForm.PNG}
-\caption{Fitting form artray}
+\caption{Fitting form artray\\Scottplot 4 is used to generate the output for this figure.}
 \end{figure}
 
 
@@ -451,7 +454,13 @@ $\mathrm{0_{21}}$ of byte 2 is always empty.}
 
 The via bitwise operations processed value is then assigned to a short integer array. Notably for processing the region of interest (ROI) needs to be known. It is not included in any of the raw data itself.
 
-\chapter{Results}
+\chapter{SQIB in PMMA}
+
+
+\section{Wavelength dependence of 1\% SQIB in PMMA}
+The sample is 1wt\% SQIB in a PMMA solid solution. The sample is not annealed and shows fluorescence if illuminated by white light, implying the influence of neighbouring molecules is not strong enough to quench the fluorescence at this concentration. \\
+An average nearest neighbour distance for this concentration may be taken as 2.36 nm, however the actual spread of distances is a large distribution. Thus there is an expectation of some quenching of effects such as fluorescence as well as decay times of excited states. However all effects are still observed due to the distribution of nearest neighbour distances as well as random rotation of nearest neighbours to each other, leading to inefficient charge transport or quenching.\textbf{look at model and see if it even is applicable}\cite{Zheng2020} \\
+Collective effects like davydov splitting, which are dependent on a macroscopic crystalline orientation of molecules, are negligible for samples that are not annealed at this kind of concentration.
 
 \begin{figure}[hbtp]
 \centering
