@@ -191,13 +191,13 @@ The change of the depth of focus (DOF) and thus the change in beam waist diamete
 
 \begin{figure}[h]
 \centering
-\begin{subfigure}[t]{0.5\textwidth}
+\begin{subfigure}[t]{0.46\textwidth}
 \centering
 \includegraphics[width =\textwidth]{images/BeamWaist_Wavs_2.5mm.png} 
 \subcaption{Beam waist for wavelengths at \mbox{2.5 mm} input beam width}
 \end{subfigure}
 \hfill
-\begin{subfigure}[t]{0.5\textwidth}
+\begin{subfigure}[t]{0.46\textwidth}
 \centering
 \includegraphics[width =\textwidth]{images/BeamWaist_inputWidth_653nm.png} 
 \subcaption{Beam waist over input beam width at 653 nm}
@@ -291,7 +291,7 @@ Loads a JSON characterising the background file, including a set offset of ROI, 
 ROI offset has to be identical and is again defined by a JSON file with background location.
 \end{enumerate}
 
-To get meaningful data for correction of data the pump power has to be set using setPumpPower() and the scale can optionally be overwritten from the background file with setScale(). Fitting is done by calling plainFit(id), where id = 1 for probe (first path handed over) and id = 2 for pump (second path).
+To get meaningful data for correction of data the pump power has to be set using setPumpPower() and the scale can optionally be overwritten from the background file with setScale(). Fitting is done by calling plainFit(id), where id = 1 for probe (first filepath handed over) and id = 2 for pump (second filepath).
 
 Some options to show 
 \begin{itemize}
@@ -435,7 +435,7 @@ The file drop down consists of features for saving, opening and comparing data:
 \item End: Ends the program, leads mainly to pain due to accidental clicking
 \item Reference: sends a reference image, behaviour is like with save regarding livestreams, to the "LiveFit" window. There a fit of the reference is shown as a red graph, which when not set is flat.
 \item Open: works like reference, however it opens the reference snapshot from a raw txt file of choice via file dialogue.
-\item Background: sets a background to subtract from the images for live fitting. Setting background does not alter the behaviour of Save. Saved files are still plain raw unaltered data from the sensor. The background file location is automatically loaded when starting a session and is saved in the windows registry. under $\mathrm{"Computer \backslash HKEY_CURRENT_USER \backslash SOFTWARE \backslash LiveFit"}$as BACKGROUND\_FILE. The LiveFit subkey needs to be created manually, possible with regedit, ahead of use. The BACKGROUND\_FILE subkey is automatically added or handled.
+\item Background: sets a background to subtract from the images for live fitting. Setting background does not alter the behaviour of Save. Saved files are still plain raw unaltered data from the sensor. The background file location is automatically loaded when starting a session and is saved in the windows registry. under $\mathrm{"Computer \backslash HKEY\_CURRENT\_USER \backslash SOFTWARE \backslash LiveFit"}$as BACKGROUND\_FILE. The LiveFit subkey needs to be created manually, possible with regedit, ahead of use. The BACKGROUND\_FILE subkey is automatically added or handled.
 \end{itemize}
 \subsubsection{Inner workings of the software}
 The software package is based on the SDK provided freely by Artray in C\#, specifically on the CS.NET\_Graphic example software. 
@@ -454,7 +454,7 @@ $\mathrm{0_{21}}$ of byte 2 is always empty.}
 
 The via bitwise operations processed value is then assigned to a short integer array. Notably for processing the region of interest (ROI) needs to be known. It is not included in any of the raw data itself.
 
-\chapter{SQIB in PMMA}
+\chapter{SQIB in PMMA/Results}
 
 
 \section{Wavelength dependence of 1\% SQIB in PMMA}
@@ -479,8 +479,15 @@ As laid out in section \ref{sec:CorrFactor} a correction factor is calculated fo
 To check this measurements with varying overlap were taken, the pump was left at the same position. 
 
 \section{Sample degradation}
+The main loss of sample response is suspected to be dependent on the pump pulse, as it is right at the CW absorption peak. That combined with the higher peak radiance of the pump pulse makes it the prime candidate of photo bleaching.\textbf{enough reasoning to state this as a guess?} This also would be supported by the circumstance, that a pump probe wavelength combination fully on the main absorption peak always showed a lower GSD response than expected. Reasoning for that is an extremely fast degradation of the sample spot where pump and probe coincide in their peak radiances.\\
+Because the pump pulse on the main absorption peak is expected as the main degrading component for most of the probe spectrum as long as low probe peak radiances are used. For high probe photon energies this may no longer be the case, however from the spectra recorded so far no indication of a strong influence is seen \textbf{consider the shape of the spectra which have the quick decay for higher photon energies, could this be part of degradation? Since it isn't permanent/reproduced for every single scan it is unlikely}\\
+Thus reduction of transient response at a pump peak radiance of $\mathrm{(1580\pm 80) \ \frac{W}{m^2}}$ at 653 nm combined with a probe wavelength of 493 nm at $\mathrm{(350 \pm 50)\ \frac{W}{m^2}}$, which is close to the main absorption peak of the first ESA transition of the monomer. Probe peak radiance is .The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. \textbf{see if I can see a peculiarity in the measurement on the change of the delay scan behaviour}. This mainly serves to confirm the typical measurement behaviour, to make an attempt at correcting for the response loss due to photo bleaching.
 
-
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=\linewidth]{images/DegradationPump653Probe493.png}
+\caption{Sample response over measurement time (need to redo with better fit)}
+\end{figure}
 
 
 \chapter*{Used materials}
@@ -552,9 +559,9 @@ To check this measurements with varying overlap were taken, the pump was left at
 \end{longtable}
 
 \chapter{Derivations of formula}
-\section{Produkt of two Gaussians}\label{GaussiansDerivation}
-This calculation has been cross checked with Bromiley.\\
-Begin with two Gaussian distributions $\mathrm{G_1(x) and G_2(x)}$ and combine the exponential terms.
+\section{Product of two Gaussians}\label{GaussiansDerivation}
+This calculation has been cross checked with Bromiley.\cite{Bromiley2014}\\
+Begin with two Gaussian distributions $\mathrm{G_1(x)\ and \ G_2(x)}$ and combine the exponential terms.
 \begin{equation*}
 \begin{split}
 G_{12}(x) & =  G_1(x) \cdot G_2(x) \\ 
