@@ -77,6 +77,7 @@ There are several types of contrast within pump probe spectroscopy. Processes li
 These processes may manifest at the same time, thus concealing other processes with the opposite influence on the transient opacity. This is not so much of concern for processes like XPM or stimulated raman scattering, because they require temporal overlap of pump and probe pulse and thus only influence a short range within the time delay based on the pulse lengths. \\
 \textbf{
 Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values; maybe do in reliability}
+\textbf{insert image from source}
 \subsection{Polarization angles}
 Pump probe measurements of same polarization obviously return the highest signal in any case. However when working with liquids or (solid) solutions like PMMA in this case the molecules, if relatively unperturbed by the environment, may rotate over time and thus change the direction of their transition dipole moments relative to where they would be in their zero time direction. This leads to a measurable signal change over time.\\
 The rotation in the sample is given by the anisotropy at detection:\textbf{find better source}
@@ -87,12 +88,15 @@ where $\mathrm{I_\parallel}$ is the component, where pump and probe are parallel
 By measuring at the so called "magic angle" of $\theta = 54.7 \degree$ the parallel and orthogonal polarization components are polarized and the measurement is made isotropic. This is based on the transmission of polarized light through a polarizer $I(\theta) = I_0 cos^2(\theta)$.\\
 Alternatively this isotropic output may also be achieved by measuring parallel and orthogonal polarisations and using an arithmetic correction. The total intensity is $I_T = I_x+I_y+I_z = 2\cdot I_\perp + I_\parallel$. To now correct for both rotation directions out of parallel plane the signal may be corrected to $I = \frac{I_\parallel + 2I_\perp}{3}$, which corresponds to the isotropic signal.\cite{Zheng2020}
 
+\textbf{Attempting to plot polarization dependence of simulated molecules rotating, so far does not seem to work like it should}
+
 %Depending on the rate at which the sample decays we should be able to ignore that?
 %Our sample is isotropic, so that means we would see, if it was the case that transition dipole of the excited state for the probe was perpendicular to our pump polarization and we still probe parallel to pump, the signal would be rising and still be able to detect if there was a state at that point. Check maybe I have a perpendicular measurement where I can check the rise time, it was relatively quick I remember. Main problem with magic angle is loss of the transient absorption edge, which we like to compare to since we usually use very anisotropic samples.
 
 \subsection{Squaraines}
 \subsubsection{SQIB in PMMA}
 \textbf{Manuela transmission plot of 1\% sample}
+Not sure if to skip this here and just do it in the back with the results
 \chapter{Devices and Setup}
 
 Part of the experimental objective was to extend the range of the transient absorption microscope (TAM) into the UV range via SHG of the probe NOPA output. With the extension a wavelength range of 250 nm to 940 nm, with a gap between 470 nm and 500 nm, is available for probing the sample.\newline
@@ -218,7 +222,7 @@ The option that finally won out is decoupling the beams after the frontal cage l
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width = \linewidth]{images/SHG-focusing-large.png}
-\caption{Detailed focusing setup using a mirror after the first cage lens to image the beam pointspread distributions as it is in the sample plane.
+\caption{\textbf{duplicate, probably keep first}Detailed focusing setup using a mirror after the first cage lens to image the beam pointspread distributions as it is in the sample plane.
 Pump path is abridged.}
 \end{figure}
 
@@ -229,14 +233,16 @@ A two step process is then used to get the position of the camera in the mirrore
 \item Adjust the frontal camera distance so, that the pump beam profile is right before inversion, due to passing through the focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a bit beyond that point. Attention has to be paid to not go into inversion, which is hard to tell by eye. After a first good calibration this could be done by comparing the fitted intensity value/FWHM of the beam profile, as long as the pump beam path did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile.
 \item Set the probe to the same or an adjacent wavelength to the pump and setup overlap using the rear camera. Due to beampaths and thus spherical aberration this may be a tedious process and not completely accurate. Check the overlap on the frontal camera by moving the camera back and forth and observing if the beams cross through their centers. If that is the case the pump probe overlap should be given optimally and the frontal camera can be set to the optimum position of this overlap. Take reference TA measurements to if possible to check if there is an improvement from the purely DMK set position.
 \end{enumerate}
+
+\textbf{Why is the resulting um/px not identical to the 5.6 $\mu$ pixel size? Can I use this to further estimate errors?}
 \paragraph{Setup}
 Former is solved by a 45 degree mirror insert for the cage, which was designed to rest on top of the cage system rails. This drop in mirror mount was 3d printed for adjustability and has proven to be consistent enough to allow for this method to work. \\
 An advantage of PLA as opposed to aluminium with the negative of the rails cut into it is that it allows proper sliding into place, whereas aluminium "gripped" onto the rails making it hard to get consistent placement. This may be improved by cutting the rail negative even slightly bigger. However this still presents one with the problem of how to mount the mirror to the mount. Super glueing  the mirror to a aluminium mount was attempted for a quick trial, but this proved to not be a long lived connection.\\
 The 3d printed mount can be seen in fig. ....
 Considerations regarding use of rubber bands or 3d printed fittings were made, however it turns out just by moving the mirror drop-in mount against a solid surface, such as one of the cage plates holding the rails, is sufficiently reproducible for the sensor resolution of the camera used. (alternatively also reference the change in beam diameter according to rayleigh length etc)\\
 
-The lighting for imaging the rear sample onto the camera via the rear lens is done using a ring light with 4 LEDs, which have a spectral intensity distribution close to the targeted pump beam. The spectrum can be seen in fig. ...\\
-It has proven beneficial to illuminate so that a only scattered light is detected, as this should improve contrast. Thus the LED ring is placed behind the sample, on the side of the rear camera. As this means reduced total intensity any light not scattered by the sample or reflected from nearby surfaces needs to be blocked. For this carton is placed around the rear cage rails, cutting away any light reflected from the sample mount.
+The lighting for imaging the rear sample onto the camera via the rear lens is done using a ring light with 4 LEDs, which have a spectral intensity distribution close to the intended pump beam. The spectrum can be seen in fig. ...\\
+It has proven beneficial to illuminate so that a only scattered light is detected, as this \textbf{should} improve contrast. Thus the LED ring is placed behind the sample, on the side of the rear camera. As this means reduced total intensity any light not scattered by the sample or reflected from nearby surfaces needs to be blocked. For this carton is placed around the rear cage rails, cutting away any light reflected from the sample mount.
 %The LEDs are mounted onto a square aluminium frame and are angled towards the sample to illuminate it evenly. To properly setup the focus light that not passing through the lens has to be minimized or contrast will be lost. To focus properly a small scratch is introduced to the edge of the sample, which allows better contrast for focusing as well and allows to focus closer to the center to the layer than to the top or bottom of the layer. (eh questionable, think better)
 
 \paragraph{Use}
@@ -308,7 +314,7 @@ The idea of the factor is a normalisation of the overlap of the beams to an idea
 \begin{equation}\label{eq:CorrFactorGaussians}
 C = \dfrac{\int I_{pump}^*\cdot I_{probe}(x) \;dx}{\int I_{pump}(x)\cdot I_{probe}(x) \; dx} = \dfrac{c^*\cdot \int I_{probe} dx}{S_{12}} = \dfrac{c*}{S_{12}}
 \end{equation}
-The ideal plateau pump is chosen to be the maximum of the actual pump normal distribution, to decouple correction factor from the pump width??? Rethink and justify the reasoning physically. Mathematically it is needed so that the correction factor does not tend to infinite when S12 goes to zero. Maybe simulate it if you cannot show it physically
+The ideal plateau pump is chosen to be the maximum of the actual pump normal distribution, to decouple correction factor from the pump width. \textbf{Rethink and justify the reasoning physically.} Mathematically it is needed so that the correction factor does not tend to infinite when S12 goes to zero. Maybe simulate it if you cannot show it physically
 \begin{equation*}
 I_{pump}^* = c^* = max(I_{pump}(x)) = \frac{1}{\sqrt{2\cdot\pi}\cdot\sigma_{pump}}
 \end{equation*}
@@ -460,19 +466,33 @@ The via bitwise operations processed value is then assigned to a short integer a
 \section{Wavelength dependence of 1\% SQIB in PMMA}
 The sample is 1wt\% SQIB in a PMMA solid solution. The sample is not annealed and shows fluorescence if illuminated by white light, implying the influence of neighbouring molecules is not strong enough to quench the fluorescence at this concentration. \\
 An average nearest neighbour distance for this concentration may be taken as 2.36 nm, however the actual spread of distances is a large distribution. Thus there is an expectation of some quenching of effects such as fluorescence as well as decay times of excited states. However all effects are still observed due to the distribution of nearest neighbour distances as well as random rotation of nearest neighbours to each other, leading to inefficient charge transport or quenching.\textbf{look at model and see if it even is applicable}\cite{Zheng2020} \\
-Collective effects like davydov splitting, which are dependent on a macroscopic crystalline orientation of molecules, are negligible for samples that are not annealed at this kind of concentration.
+Collective effects like davydov splitting, which are dependent on a macroscopic crystalline orientation of molecules, are negligible for samples that are not annealed at this kind of concentration.\\
+
+Even though the sample is intended to be relatively homogeneous, there are variations in sample response over the area surveyed. For the wavelength scans shown in context of the SHG setup sample spots without strong variations in the vicinity were preferred, however this is resolution and area limited with scans being very time intensive. An attempt to linearly compensate the difference in response has been made at for some measurements and will be explicitly stated when applied. Since exposure of the single spots is rather short no discernible sample degradation is expected from these mapping operations.\textbf{show map used for the final wavelength scan}
 
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=\linewidth]{images/TimeResolvedWavelengthScanSQIB1perc_PMMA.png}
-\caption{Time resolved (fitted) transient absorbancy of 1\% SQIB PMMA}
+\caption{Time resolved (fitted) transient absorbance of 1\% SQIB PMMA}
 \end{figure}
 
+
+
 \chapter{Examination of reliability}
-Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM.
-\section{Power settings}
-For measurements to be valid there should be a linear correspondence of pump power and the measured absorbancy. Main concern here is that pump power is under the threshold radiance for any two photon processes within the sample to have a meaningful influence, which would affect the linearity of pump power dependence. Meanwhile for the probe pulse it is important, that its intensity does not saturate the sample by itself leading to a GSB.\\
-To test this multiple pump and probe power combinations were tested, at the same sample position with the same pump probe overlap. The linearity of the sample is shown for powers up to \textbf{use radiance instead} 10 µW pump and.... probe combinations. \textbf{Show the relatively linear plot}
+Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM. The same 1wt\% SQIB in PMMA sample is used for following measurements.
+\section{Power density dependence}
+For measurements to be valid there should be a linear correspondence of pump power and the measured absorbance. Main concern here is that pump power is under the threshold radiance for any two photon processes within the sample to have a meaningful influence, which would affect the linearity of pump power dependence. Meanwhile for the probe pulse it is important, that its intensity does not saturate the sample by itself leading to a GSB.\\
+To test this multiple pump and probe power combinations were tested, at the same sample position with the same pump probe overlap. The linearity of the sample is shown for powers up to $\mathrm{5900\ \frac{W}{m^2}}$ pump and $\mathrm{3600 \ \frac{W}{m^2}}$ probe combinations. To note is that these were measured at the same spot, thus sample degradation is a factor to consider.\textbf{Show the relatively linear plot}
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[width=\linewidth]{images/PowerVariationNotCorrected.png}
+\caption{Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm\\
+Every point shown is the average of a triple measurement fitted with a single exponential decay\\
+In the left plot the sample response for different pump peak radiances can be seen. To note is that for the pump peak radiance of $\mathrm{(620 \pm 50})\ \frac{W}{m^2}$ three different probe peak radiances of 450 to 1820 $\mathrm{\frac{W}{m^2}}$, showing minimal spread in response.\\
+On the right probe power is varied at a pump power density of 4430 $\mathrm{\frac{W}{m^2}}$. The spread is due to sample degradation and has yet to be corrected \textbf{working on it, showing both}}
+\end{figure}
+
 
 \section{Correction value accuracy}
 As laid out in section \ref{sec:CorrFactor} a correction factor is calculated for every measurement point to compensate error in lateral position as well as in relative size of pump and probe beam.\\
@@ -481,14 +501,14 @@ To check this measurements with varying overlap were taken, the pump was left at
 \section{Sample degradation}
 The main loss of sample response is suspected to be dependent on the pump pulse, as it is right at the CW absorption peak. That combined with the higher peak radiance of the pump pulse makes it the prime candidate of photo bleaching.\textbf{enough reasoning to state this as a guess?} This also would be supported by the circumstance, that a pump probe wavelength combination fully on the main absorption peak always showed a lower GSD response than expected. Reasoning for that is an extremely fast degradation of the sample spot where pump and probe coincide in their peak radiances.\\
 Because the pump pulse on the main absorption peak is expected as the main degrading component for most of the probe spectrum as long as low probe peak radiances are used. For high probe photon energies this may no longer be the case, however from the spectra recorded so far no indication of a strong influence is seen \textbf{consider the shape of the spectra which have the quick decay for higher photon energies, could this be part of degradation? Since it isn't permanent/reproduced for every single scan it is unlikely}\\
-Thus reduction of transient response at a pump peak radiance of $\mathrm{(1580\pm 80) \ \frac{W}{m^2}}$ at 653 nm combined with a probe wavelength of 493 nm at $\mathrm{(350 \pm 50)\ \frac{W}{m^2}}$, which is close to the main absorption peak of the first ESA transition of the monomer. Probe peak radiance is .The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. \textbf{see if I can see a peculiarity in the measurement on the change of the delay scan behaviour}. This mainly serves to confirm the typical measurement behaviour, to make an attempt at correcting for the response loss due to photo bleaching.
+Thus reduction of transient response at a pump peak radiance of $\mathrm{(1580\pm 80) \ \frac{W}{m^2}}$ at 653 nm combined with a probe wavelength of 493 nm at $\mathrm{(350 \pm 50)\ \frac{W}{m^2}}$, which is close to the main absorption peak of the first ESA transition of the monomer. The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. \textbf{see if I can see a peculiarity in the measurement on the change of the delay scan behaviour}. This mainly serves to confirm the typical measurement behaviour, to make an attempt at correcting for the response loss due to photo bleaching.
 
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=\linewidth]{images/DegradationPump653Probe493.png}
 \caption{Sample response over measurement time (need to redo with better fit)}
 \end{figure}
-
+An actual model for this degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile.
 
 \chapter*{Used materials}
 \begin{longtable}{p{0.48\textwidth}p{0.48\textwidth}}

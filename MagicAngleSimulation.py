@@ -35,15 +35,15 @@ vector[:,0] = vector[:,0]
 vector[:,1] = vector[:,1]
 vector[:,2] = dotProd(pumpVec, vector, n_molecules)
 
-amplitude_vector_parallel[:,0] = vector[:,2]
-amplitude_vector_parallel[:,0] = dotProd(orthVec, vector, n_molecules)
-amplitude_vector_magic[:,0] = dotProd(magicVec, vector, n_molecules)
+amplitude_vector_parallel[:,0] = vector[:,2]**2
+amplitude_vector_parallel[:,0] = dotProd(orthVec, vector, n_molecules)**2
+amplitude_vector_magic[:,0] = dotProd(magicVec, vector, n_molecules)**2
 
 for t in range(1,timesteps,1):
     vector[:,0] = np.mod(rotation[:,0]+vector[:,0], 1)
-    amplitude_vector_parallel[:,t] = dotProd(pumpVec, vector, n_molecules)
-    amplitude_vector_orthogonal[:,t] = dotProd(orthVec, vector, n_molecules)
-    amplitude_vector_magic[:,t] = dotProd(magicVec, vector, n_molecules)
+    amplitude_vector_parallel[:,t] = dotProd(pumpVec, vector, n_molecules)**2
+    amplitude_vector_orthogonal[:,t] = dotProd(orthVec, vector, n_molecules)**2
+    amplitude_vector_magic[:,t] = dotProd(magicVec, vector, n_molecules)**2
 
 
 #print(np.sum(amplitude_vector_parallel, axis = 0)/np.sum(amplitude_vector_parallel[:,0])
@@ -52,7 +52,8 @@ amplitude_vector_parallel = np.sum(amplitude_vector_parallel, axis = 0)
 amplitude_vector_orthogonal = np.sum(amplitude_vector_orthogonal, axis = 0)
 amplitude_vector_magic = np.sum(amplitude_vector_magic, axis = 0)
 fig, axs = plt.subplots(3,1)
-axs[0].plot(amplitude_vector_parallel/max(amplitude_vector_parallel), color='r')
-axs[1].plot(amplitude_vector_orthogonal/max(amplitude_vector_orthogonal), color='b')
-axs[2].plot(amplitude_vector_magic/max(amplitude_vector_magic), color='g')
+axs[0].plot(amplitude_vector_parallel/max(amplitude_vector_parallel), color='r', label='parallel')
+axs[1].plot(amplitude_vector_orthogonal/max(amplitude_vector_orthogonal), color='b', label ='orthogonal')
+axs[2].plot(amplitude_vector_magic/max(amplitude_vector_magic), color='g', label='magic angle')
+plt.legend()
 plt.show()
