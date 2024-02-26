@@ -16,6 +16,7 @@
 \usepackage{booktabs}
 \usepackage{siunitx}
 \usepackage{gensymb}
+\usepackage{makecell}
 
 \usepackage[msc]{tugrazthesis}
 
@@ -497,6 +498,17 @@ On the right probe power is varied at a pump power density of 4430 $\mathrm{\fra
 \section{Correction value accuracy}
 As laid out in section \ref{sec:CorrFactor} a correction factor is calculated for every measurement point to compensate error in lateral position as well as in relative size of pump and probe beam.\\
 To check this measurements with varying overlap were taken, the pump was left at the same position. 
+
+\begin{table}[!hb]
+\caption{Tabulated calculated corrected values from fitted biexponential decay at time 0\\ uncertainty of dOD fits is not included, maybe only do uncertainty of dOD fits}
+\begin{tabular}{llllll}
+x$\sigma_1/\sigma_2$ / px & y$\mathrm{\Delta}\mu$ / px & x$\mathrm{\Delta}\mu$ / px & y$\mathrm{\Delta}\mu$ / px & dOD / $mOD \cdot \frac{W}{m^2}$ & \begin{tabular}[c]{@{}l@{}}uncertainty\\ (missing dOD uncertainty)\end{tabular} \\
+$0.89 \pm 0.02$           & $0.71 \pm 0.01$            & $0.31 \pm 0.05$            & $0.25 \pm 0.02$            & $7.6 \cdot 10^{-4}$             & $2.3 \cdot 10^{-4}$                                                             \\
+$0.90 \pm 0.02$           & $0.74 \pm 0.01$            & $3.00 \pm 0.05$            & $0.15 \pm 0.02$            & $4.5 \cdot 10^{-4}$             & $1.6 \cdot 10^{-4}$                                                             \\
+$1.64 \pm 0.04$           & $1.21 \pm 0.02$            & $0.03 \pm 0.05$            & $0.12 \pm 0.04$            & $6.7 \cdot 10^{-4}$             & $2.6 \cdot 10^{-4}$                                                             \\
+$0.72 \pm 0.02$           & $0.58 \pm 0.01$            & $0.00 \pm 0.04$            & $0.02 \pm 0.02$            & $7.2 \cdot 10^{-4}$             & $2.8 \cdot 10^{-4}$                                                            
+\end{tabular}
+\end{table}
 
 \section{Sample degradation}
 The main loss of sample response is suspected to be dependent on the pump pulse, as it is right at the CW absorption peak. That combined with the higher peak radiance of the pump pulse makes it the prime candidate of photo bleaching.\textbf{enough reasoning to state this as a guess?} This also would be supported by the circumstance, that a pump probe wavelength combination fully on the main absorption peak always showed a lower GSD response than expected. Reasoning for that is an extremely fast degradation of the sample spot where pump and probe coincide in their peak radiances.\\
