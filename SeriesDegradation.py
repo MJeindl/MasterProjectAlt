@@ -21,6 +21,9 @@ from argparse import ArgumentParser
 import plotHelperLatex
 plotHelperLatex.setMatplotSettings()
 
+#so all of these functions should take the filename without leading \ if you use a dirPath
+#if they don't I am sorry and it slipped by me in one of the many revisions
+#need to fix it so it gives the full filepath instead of something without directory
 def parseTime(time):
     '''takes time in hh:mm:ss and returns a value in s'''
     if type(time) == str():
@@ -40,28 +43,36 @@ def parseTime(time):
     times[0] = 0
     return times
 
-def parseSummaryFileToArray(filenameArray, directoryPath=r""):
-    '''takes or filearray and returns T, delay'''
+def parseFilenames(filenameArray, directoryPath):
     if type(filenameArray) != type(str()):
         filenames = []
         #parsing for summary files
         for file in filenameArray:
-            file = loadmat(directoryPath + file)
-            if 'delay' not in file.keys():
+            tempfile = loadmat(directoryPath + r"\\"[0] + file)
+            if 'delay' not in tempfile.keys():
                 #only works in same directory
-                file = file['filenames'][0]
+                file = tempfile['filenames'][0]
                 for subFile in file:
                     #filenames.append(directoryPath + r"\\"[0] + subFile[0] + ".mat")
                     filenames.append(r"\\"[0] + subFile[0] + ".mat")
+            else:
+                filenames.append(r"\\"[0] + file + ".mat")
     else:
-        summaryfile = loadmat(directoryPath + filenameArray)
+        summaryfile = loadmat(directoryPath + r"\\"[0] + filenameArray)
         directoryPath = os.path.dirname(os.path.abspath(filenameArray))
         filenames = summaryfile['filenames'][0,:]
 
+    return filenames
+        
+def parseSummaryFileToArray(filenameArray, directoryPath=r""):
+    '''takes or filearray and returns T, delay'''
+
+    filenames = parseFilenames(filenameArray, directoryPath)
 
     for ind, file in enumerate(filenames):
         #if os.path.isfile(directoryPath + r'\\' + file[0]) == False:
         #    continue
+
         if isinstance(file, np.ndarray):
             file = file[0]
         tempFile = loadmat(directoryPath + r'\\'[0] + file)
@@ -70,29 +81,16 @@ def parseSummaryFileToArray(filenameArray, directoryPath=r""):
             datArray = np.zeros((len(filenames), len(delay)))
         datArray[ind, :] = removeBackground(tempFile['d_vec'], 10)[0]
 
+
     return datArray, delay  
         
 def getTimes(filenameArray, dirPath):
     '''moved out of degradationCompensation for general use'''
-    if type(filenameArray) != type(str()):
-        filenames = []
-        #parsing for summary files
-        for file in filepaths:
-            file = loadmat(dirPath + file)
-            if 'delay' not in file.keys():
-                #only works in same directory
-                file = file['filenames'][0]
-                for subFile in file:
-                    #filenames.append(directoryPath + r"\\"[0] + subFile[0] + ".mat")
-                    filenames.append(r"\\"[0] + subFile[0] + ".mat")
-    else:
-        summaryfile = loadmat(directoryPath + filenameArray)
-        directoryPath = os.path.dirname(os.path.abspath(filenameArray))
-        filenames = summaryfile['filenames'][0,:]
+    filenames = parseFilenames(filenameArray, dirPath)
     #test if file has keys for single TA measurement
     subTimes = []
     for ind, filename in enumerate(filenames):
-        tempLoad = loadmat(filename)
+        tempLoad = loadmat(dirPath + r"\\"[0] + filename)
         if 'delay' in tempLoad.keys() and 'd_vec' in tempLoad.keys():
             #this part can easily be broken by a matlab update
             #load time
@@ -116,12 +114,13 @@ def getTimes(filenameArray, dirPath):
                 #subTimes[ind,2] = timeArray[2]##ss with milisecond
     return np.array(subTimes, dtype = float)
     
+'''
 def degradationCompensation(degradePerSecond, times, decaysteps, powerDensities=1):
-    '''returns correction factor for each measurement\\
+    ''''''returns correction factor for each measurement\\
         degradePerSecond is a linear fit of degradation per second per W/m^2 peak\\
         filepathArray is ordered array of measurements after each other\\
         powerdensities is either a single number (int/float) or array of powerdensities of size of filepathArray\\
-        not optimal but a linear approximation is about as good as I can do it with the data available'''
+        not optimal but a linear approximation is about as good as I can do it with the data available''''''
 
     meanTime = 0
     for i in range(len(times)-1):
@@ -140,15 +139,15 @@ def degradationCompensation(degradePerSecond, times, decaysteps, powerDensities=
     print("corrShape")
     print(degradationCorrection)
     return degradationCorrection
-
+'''
 def plotTrend(filePaths, dirPath=r"", figsize=(8,4)):
     #basepath = lambda num: r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TA_fourier_"+str(num)+r".mat"
     #basepath = lambda num: dirPath + r"TA_fourier_" + str(num) + r".mat"
     
     #readData(r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TA_fourier_6778.mat")
-    
+
     #need to switch getTimes to the same system as parseSummary to allow any type of input
-    times = getTimes(filePaths)
+    times = getTimes(filePaths, dirPath)
     dArray, delay = parseSummaryFileToArray(filePaths, dirPath)
     dArray, OD, _ = removeBackground(dArray, 10)
     #get delta t of times
@@ -165,6 +164,7 @@ def plotTrend(filePaths, dirPath=r"", figsize=(8,4)):
 
 #degradationCompensation(1, [r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\saturation_2024-01-19_16-14.mat"], 1)
 if __name__ == "__main__":
+    """
     parser = ArgumentParser(description="Shows response trend over mulitple adjacent measurements")
     parser.add_argument("startFileNumber")
     parser.add_argument("endFileNumber")
@@ -174,7 +174,8 @@ if __name__ == "__main__":
 
     start = int(args.startFileNumber)
     stop = int(args.endFileNumber)
-    plotTrend(args.pathDir, start, stop)
+    plotTrend(args.pathDir, start, stop)"""
+    
 
 def fitDegradation(inputArray, times, powerDensity=1, sliding_window_len = 5):
     '''only works for single series without interruptions'''
@@ -209,54 +210,77 @@ def removeBackground(T, numEntries: int = 20) -> float:
     A = -1000 * np.log10(T)
     return T, A, backgroundLevel
 
+def ignore():
+    #this is the constant pump power and probe power variation
+    filenames=[]
+    for x in range(6645,6654,1):
+        filenames.append("TA_fourier_%4d" %(x))
+    dirPath = r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\STD-680\2023.12.22_PumpPowerVar"
 
-#this is the constant pump power and probe power variation
-filenames=[]
-for x in range(6645,6654,1):
-    filenames.append("TA_fourier_%4d" %(x))
-dirPath = r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\STD-680\2023.12.22_PumpPowerVar"
+
+    dirPath = r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation"
+    filenames = [r"\saturation_2024-01-19_16-14"]
+        
+    dArray, delay = parseSummaryFileToArray(filenames, dirPath)
+
+    for ind in range(len(filenames)):
+        filenames[ind] = dirPath +r"\\"[0] + filenames[ind]
+    dtime = getTimes(filenames, dirPath)
+    dtime = parseTime(dtime)
+    #dOD = powerVar['dOD / mOD']
+    print(np.shape(dArray))
+    dArray, aArray, _ = removeBackground(dArray, 20)
+    popt, pcov = fitDegradation(aArray[:,:], dtime[:])
+
+    print(popt)
+    print(np.sqrt(pcov))
 
 
+
+    file = open(r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TAfitPump653Probe493_OUTPUT.JSON")
+    entries = json.load(file)['entries']
+    entries_files = []
+    timeAt = np.array([0,1e3,5e3]) #fs
+    dOD = np.zeros((len(entries), len(timeAt)))
+    expDecay = lambda ampTau1, ampTau2, t: ampTau1[0]*np.exp(-t/ampTau1[1])+ampTau2[0]*np.exp(-t/ampTau2[1])
+
+    fig, ax = plt.subplots(1,1, figsize=(plotHelperLatex.figSizer(2,3)), dpi = 144)
+
+    indices = [20,25,40]
+    print(np.shape(aArray))
+    #print(aArray)
+    for i in indices:
+        ax.plot(dtime, aArray[:,i], label='std')
+        ax.plot(dtime, aArray[:,i]*np.exp(dtime/popt))
+    #print((1-degradationCompensation(popt, dtime, np.shape(aArray)[0])[:,0])/abs(aArray[:,0]))
+    #print(np.exp(dtime/popt))
+    #print(aArray)
+    #ax.plot(dtime, aArray[:,50]*np.exp(dtime/popt))
+    ax.legend()
+    ax.set_xlabel('time / s')
+    ax.set_ylabel('absorbance / mOD')
+
+    plt.show()
+
+def numberFileGenerator(start, stop, namePrefix=r"TA_fourier_", nameSuffix=r""):
+    ''''generate TA_fourier_02364 style names in list form'''
+    vec = np.arange(start, stop+1,1)
+    filenames = []
+    for number in vec:
+        filenames.append(namePrefix + str(number)+ nameSuffix)
+    return filenames
+
+import numpy as np
+from matplotlib import pyplot as plt
+import plotHelperLatex
+plotHelperLatex.setMatplotSettings()
+
+
+
+start = 6778
+stop = 6787
 dirPath = r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation"
-filenames = [r"\saturation_2024-01-19_16-14"]
-    
-dArray, delay = parseSummaryFileToArray(filenames, dirPath)
-
-for ind in range(len(filenames)):
-    filenames[ind] = dirPath +r"\\"[0] + filenames[ind]
-dtime = getTimes(filenames)
-dtime = parseTime(dtime)
-#dOD = powerVar['dOD / mOD']
-print(np.shape(dArray))
-dArray, aArray, _ = removeBackground(dArray, 20)
-popt, pcov = fitDegradation(aArray[:,:], dtime[:])
-
-print(popt)
-print(np.sqrt(pcov))
 
 
-
-file = open(r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TAfitPump653Probe493_OUTPUT.JSON")
-entries = json.load(file)['entries']
-entries_files = []
-timeAt = np.array([0,1e3,5e3]) #fs
-dOD = np.zeros((len(entries), len(timeAt)))
-expDecay = lambda ampTau1, ampTau2, t: ampTau1[0]*np.exp(-t/ampTau1[1])+ampTau2[0]*np.exp(-t/ampTau2[1])
-
-fig, ax = plt.subplots(1,1, figsize=(plotHelperLatex.figSizer(2,3)), dpi = 144)
-
-indices = [20,25,40]
-print(np.shape(aArray))
-#print(aArray)
-for i in indices:
-    ax.plot(dtime, aArray[:,i], label='std')
-    ax.plot(dtime, aArray[:,i]*np.exp(dtime/popt))
-#print((1-degradationCompensation(popt, dtime, np.shape(aArray)[0])[:,0])/abs(aArray[:,0]))
-#print(np.exp(dtime/popt))
-#print(aArray)
-#ax.plot(dtime, aArray[:,50]*np.exp(dtime/popt))
-ax.legend()
-ax.set_xlabel('time / s')
-ax.set_ylabel('absorbance / mOD')
-
-plt.show()
+#got to fix the input to the changed plotTrend function
+plotTrend(numberFileGenerator(start, stop), dirPath, plotHelperLatex.figSizer(1))
