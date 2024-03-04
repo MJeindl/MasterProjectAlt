@@ -61,7 +61,8 @@ def parseFilenames(filenameArray, directoryPath):
         summaryfile = loadmat(directoryPath + r"\\"[0] + filenameArray)
         directoryPath = os.path.dirname(os.path.abspath(filenameArray))
         filenames = summaryfile['filenames'][0,:]
-
+    for i in range(len(filenames)):
+        filenames[i] = directoryPath + filenames[i]
     return filenames
         
 def parseSummaryFileToArray(filenameArray, directoryPath=r""):
@@ -75,7 +76,7 @@ def parseSummaryFileToArray(filenameArray, directoryPath=r""):
 
         if isinstance(file, np.ndarray):
             file = file[0]
-        tempFile = loadmat(directoryPath + r'\\'[0] + file)
+        tempFile = loadmat(file)
         delay = tempFile['delay'][0]
         if ind == 0:
             datArray = np.zeros((len(filenames), len(delay)))
@@ -90,7 +91,7 @@ def getTimes(filenameArray, dirPath):
     #test if file has keys for single TA measurement
     subTimes = []
     for ind, filename in enumerate(filenames):
-        tempLoad = loadmat(dirPath + r"\\"[0] + filename)
+        tempLoad = loadmat(filename)
         if 'delay' in tempLoad.keys() and 'd_vec' in tempLoad.keys():
             #this part can easily be broken by a matlab update
             #load time
