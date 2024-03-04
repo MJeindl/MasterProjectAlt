@@ -1,126 +1,139 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 from scipy import constants as const
+from scipy.io import loadmat
+import os
 import numpy as np
 from datetime import timedelta
-import sys
-from scipy import io
-from argparse import ArgumentParser
-sys.path.insert(1, r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm")
-from TA_EdgeFit import readData
+import json
+from scipy.optimize import curve_fit
 
-#plt.rcParams['text.usetex'] = True
-#font = {'size': 20}
-#plt.rc('font', **font)
+import sys
+import plotHelperLatex
+plotHelperLatex.setMatplotSettings()
+sys.path.insert(1, r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm")
+from ShowDelayScan import main
+
+from argparse import ArgumentParser
+
+
+
+import plotHelperLatex
+plotHelperLatex.setMatplotSettings()
 
 def parseTime(time):
     '''takes time in hh:mm:ss and returns a value in s'''
-    times = np.zeros(len(time), dtype = int)
-    hh, mm, ss = str(time[0]).split(":")
-    times[0] = int(hh)*3600+int(mm)*60+int(ss)
-    for i in range(len(time)-1):
-        hh, mm, ss = str(time[i+1]).split(":")
-        times[i+1] = int(hh)*3600+int(mm)*60+int(ss) - times[0]
+    if type(time) == str():
+        times = np.zeros(len(time), dtype = int)
+        hh, mm, ss = float(str(time[0]).split(":"))
+    else:
+        times = np.zeros(np.shape(time)[0])
+        hh = time[:,0]
+        mm = time[:,1]
+        ss = time[:,2]
+
+    times[0] = int(hh[0])*3600+int(mm[0])*60+int(ss[0])
+    for i in range(1,np.shape(time)[0],1):
+        #hh, mm, ss = str(time[i+1]).split(":")
+        times[i] = int(hh[i])*3600+int(mm[i])*60+int(ss[i]) - times[0]
 
     times[0] = 0
     return times
 
+def parseSummaryFileToArray(filenameArray, directoryPath=r""):
+    '''takes or filearray and returns T, delay'''
+    if type(filenameArray) != type(str()):
+        filenames = []
+        #parsing for summary files
+        for file in filenameArray:
+            file = loadmat(directoryPath + file)
+            if 'delay' not in file.keys():
+                #only works in same directory
+                file = file['filenames'][0]
+                for subFile in file:
+                    #filenames.append(directoryPath + r"\\"[0] + subFile[0] + ".mat")
+                    filenames.append(r"\\"[0] + subFile[0] + ".mat")
+    else:
+        summaryfile = loadmat(directoryPath + filenameArray)
+        directoryPath = os.path.dirname(os.path.abspath(filenameArray))
+        filenames = summaryfile['filenames'][0,:]
+
+
+    for ind, file in enumerate(filenames):
+        #if os.path.isfile(directoryPath + r'\\' + file[0]) == False:
+        #    continue
+        if isinstance(file, np.ndarray):
+            file = file[0]
+        tempFile = loadmat(directoryPath + r'\\'[0] + file)
+        delay = tempFile['delay'][0]
+        if ind == 0:
+            datArray = np.zeros((len(filenames), len(delay)))
+        datArray[ind, :] = removeBackground(tempFile['d_vec'], 10)[0]
+
+    return datArray, delay  
+        
 def getTimes(filepath):
     '''moved out of degradationCompensation for general use'''
-    tempLoad = io.loadmat(filepath)
+    if type(filepath) != type(str()):
+        #array
+        filenames = filepath
+    else:
+        summaryfile = loadmat(directoryPath + filepath)
+        directoryPath = os.path.dirname(os.path.abspath(filepath))
+        filenames = summaryfile['filenames'][0,:]
     #test if file has keys for single TA measurement
-
-    if 'delay' in tempLoad.keys() and 'd_vec' in tempLoad.keys():
-        #this part can easily be broken by a matlab update
-        #load time
-        timeString = str(tempLoad['__header__']).split("Created on: ")[1]
-        timeString = timeString.split(' ')[3]
-        #print(timeString)
-        subTimes = np.zeros((1,3), dtype=float)
-        subTimes[:] = timeString.split(':')[:3]
-
-    elif 'dates' in tempLoad.keys():
-        subDates = tempLoad['dates'][0]
-        subTimes = np.zeros((len(subDates), 3), dtype=float)
-        for ind, timeArray in enumerate(subDates):
-            #print(timeArray[0][3:6])
-            timeArray = timeArray[0][3:6]
-            #print(timeArray)
-            subTimes[ind,0] = timeArray[0]#hh
-            subTimes[ind,1] = timeArray[1]##mm
-            subTimes[ind,2] = timeArray[2]##ss with miliseconds
-    return subTimes
-    
-def degradationCompensation(degradePerSecond, filepathArray, powerDensities):
-    '''returns correction factor for each measurement\\
-        degradePerSecond is a linear fit of degradation per second per W/m^2 peak\\
-        filepathArray is ordered array of measurements after each other\\
-        powerdensities is either a single number (int/float) or array of powerdensities of size of filepathArray\\
-        not optimal but a linear approximation is about as good as I can do it with the data available'''
-    from scipy import io 
-    timesInSecond = np.zeros(len(filepathArray))
-    AllTimes = [] #list so I can append
-    for path in filepathArray:
-        #need to differentiate between the summary of TA scans and TA scans
-        #do not mix and match please
-        #try:
-        
-        tempLoad = io.loadmat(path)
-        #test if file has keys for single TA measurement
-
+    subTimes = []
+    for ind, filename in enumerate(filenames):
+        tempLoad = loadmat(filename)
         if 'delay' in tempLoad.keys() and 'd_vec' in tempLoad.keys():
             #this part can easily be broken by a matlab update
             #load time
             timeString = str(tempLoad['__header__']).split("Created on: ")[1]
             timeString = timeString.split(' ')[3]
             #print(timeString)
-            subTimes = np.zeros((1,3), dtype=float)
-            subTimes[:] = timeString.split(':')[:3]
+            #subTimes = np.zeros((1,3), dtype=float)
+            tSplit = np.array(timeString.split(':')[:3], dtype=float)
+            subTimes.append([tSplit[0], tSplit[1], tSplit[2]])
 
         elif 'dates' in tempLoad.keys():
             subDates = tempLoad['dates'][0]
-            subTimes = np.zeros((len(subDates), 3), dtype=float)
+            #subTimes = np.zeros((len(subDates), 3), dtype=float)
             for ind, timeArray in enumerate(subDates):
                 #print(timeArray[0][3:6])
-                timeArray = timeArray[0][3:6]
+                timeArray = np.array(timeArray[0][3:6], dtype=float)
                 #print(timeArray)
-                subTimes[ind,0] = timeArray[0]#hh
-                subTimes[ind,1] = timeArray[1]##mm
-                subTimes[ind,2] = timeArray[2]##ss with miliseconds
-
-        
-        AllTimes.append(subTimes)
-
-
-        #except: 
-        #    print("dooters")
-    #print(AllTimes)
-    timesFromZero = np.zeros(np.shape(AllTimes)[:2])
-    degradationCorrection = np.zeros(np.shape(AllTimes)[:2])
-
-    #grab the zero time
-    zeroTime = np.array(AllTimes[0][0])
+                subTimes.append([timeArray[0], timeArray[1], timeArray[2]])
+                #subTimes[ind,0] = timeArray[0]#hh
+                #subTimes[ind,1] = timeArray[1]##mm
+                #subTimes[ind,2] = timeArray[2]##ss with milisecond
+    return np.array(subTimes, dtype = float)
     
-    if type(powerDensities) != type(np.ndarray):
-        powerDensities = np.ones(np.shape(AllTimes)[0])
-        
+def degradationCompensation(degradePerSecond, times, decaysteps, powerDensities=1):
+    '''returns correction factor for each measurement\\
+        degradePerSecond is a linear fit of degradation per second per W/m^2 peak\\
+        filepathArray is ordered array of measurements after each other\\
+        powerdensities is either a single number (int/float) or array of powerdensities of size of filepathArray\\
+        not optimal but a linear approximation is about as good as I can do it with the data available'''
 
-    for ind in range(np.shape(AllTimes)[0]):
-        for subindex in range(np.shape(AllTimes[ind])[0]):
-            #hours
-            timesFromZero[ind,subindex] = (AllTimes[ind][subindex][0]-zeroTime[0])*3600
-            #check for day-tickover
-            if timesFromZero[ind,subindex] < 0:
-                timesFromZero[ind,subindex] += 24*3600
-            #minutes
-            timesFromZero[ind,subindex] += (AllTimes[ind][subindex][1]-zeroTime[1])*60
-            #seconds
-            timesFromZero[ind,subindex] += AllTimes[ind][subindex][2]-zeroTime[2]
-            degradationCorrection[ind, subindex] = 1/(1-degradePerSecond*timesFromZero[ind,subindex]*powerDensities[ind])
+    meanTime = 0
+    for i in range(len(times)-1):
+        meanTime = times[i+1]-times[i]
+        meanTime = meanTime/(len(times)-1)
         
-    return degradationCorrection, timesFromZero
+    degradationCorrection = np.zeros(len(times))
 
-def plotTrend(directoryPath, start, stop):
+    
+    if type(powerDensities) == type(int()):
+        powerDensities = np.ones(np.shape(times)[0])
+        
+    degradationCorrection = np.zeros((len(times), decaysteps))
+    for i in range(len(times)):
+        degradationCorrection[i] = 1/(1-degradePerSecond*(times[i]+meanTime*np.linspace(0,1, decaysteps))*powerDensities[i])
+    print("corrShape")
+    print(degradationCorrection)
+    return degradationCorrection
+
+def plotTrend(directoryPath, start, stop, figsize):
     #basepath = lambda num: r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TA_fourier_"+str(num)+r".mat"
     basepath = lambda num: directoryPath + r"TA_fourier_" + str(num) + r".mat"
 
@@ -172,3 +185,87 @@ if __name__ == "__main__":
     start = int(args.startFileNumber)
     stop = int(args.endFileNumber)
     plotTrend(args.pathDir, start, stop)
+
+def fitDegradation(inputArray, times, powerDensity=1, sliding_window_len = 5):
+    '''only works for single series without interruptions'''
+    #find the mean time to adjust for the final part of the measurement
+    for i in range(len(times)-1):
+        dtime = times[i+1]-times[i]
+    dtime = dtime/(len(times)-1)
+    times = np.array(times)
+
+    working_array = np.zeros((len(times), np.shape(inputArray)[1]-sliding_window_len+1))
+    for i in range(len(times)):
+        working_array[i,:] = np.convolve(inputArray[i,:], np.ones(sliding_window_len)/sliding_window_len, mode = 'valid')
+
+
+    def costFunction(times, tau):
+        time_fit = lambda time: -time/tau
+        residual = 0
+
+        for delayInd in range(np.shape(working_array)[1]):
+            residual += abs(np.sum(np.log(abs(working_array[:,delayInd]/working_array[0,delayInd]))-time_fit(times)))**2
+        return residual
+
+    popt, pcov = curve_fit(costFunction, times, np.zeros(np.shape(working_array[0,:]),dtype=float))
+
+    return popt, pcov[0,0]
+
+
+def removeBackground(T, numEntries: int = 20) -> float:
+    backgroundLevel = np.mean(T[:numEntries])
+    T += 1 - backgroundLevel
+    A = -1000 * np.log10(T)
+    return T, A, backgroundLevel
+
+
+#this is the constant pump power and probe power variation
+filenames=[]
+for x in range(6645,6654,1):
+    filenames.append("TA_fourier_%4d" %(x))
+dirPath = r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\STD-680\2023.12.22_PumpPowerVar"
+
+
+dirPath = r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation"
+filenames = [r"\saturation_2024-01-19_16-14"]
+    
+dArray, delay = parseSummaryFileToArray(filenames, dirPath)
+
+for ind in range(len(filenames)):
+    filenames[ind] = dirPath +r"\\"[0] + filenames[ind]
+dtime = getTimes(filenames)
+dtime = parseTime(dtime)
+#dOD = powerVar['dOD / mOD']
+print(np.shape(dArray))
+dArray, aArray, _ = removeBackground(dArray, 20)
+popt, pcov = fitDegradation(aArray[:,:], dtime[:])
+
+print(popt)
+print(np.sqrt(pcov))
+
+
+
+file = open(r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TAfitPump653Probe493_OUTPUT.JSON")
+entries = json.load(file)['entries']
+entries_files = []
+timeAt = np.array([0,1e3,5e3]) #fs
+dOD = np.zeros((len(entries), len(timeAt)))
+expDecay = lambda ampTau1, ampTau2, t: ampTau1[0]*np.exp(-t/ampTau1[1])+ampTau2[0]*np.exp(-t/ampTau2[1])
+
+fig, ax = plt.subplots(1,1, figsize=(plotHelperLatex.figSizer(2,3)), dpi = 144)
+
+indices = [20,25,40]
+print(np.shape(aArray))
+#print(aArray)
+for i in indices:
+    ax.plot(dtime, aArray[:,i], label='std')
+    ax.plot(dtime, aArray[:,i]*np.exp(dtime/popt))
+#print((1-degradationCompensation(popt, dtime, np.shape(aArray)[0])[:,0])/abs(aArray[:,0]))
+#print(np.exp(dtime/popt))
+#print(aArray)
+#ax.plot(dtime, aArray[:,50]*np.exp(dtime/popt))
+ax.legend()
+ax.set_xlabel('time / s')
+ax.set_ylabel('absorbance / mOD')
+
+plt.show()
