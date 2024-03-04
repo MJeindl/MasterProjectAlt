@@ -72,14 +72,22 @@ def parseSummaryFileToArray(filenameArray, directoryPath=r""):
 
     return datArray, delay  
         
-def getTimes(filepath):
+def getTimes(filenameArray, dirPath):
     '''moved out of degradationCompensation for general use'''
-    if type(filepath) != type(str()):
-        #array
-        filenames = filepath
+    if type(filenameArray) != type(str()):
+        filenames = []
+        #parsing for summary files
+        for file in filepaths:
+            file = loadmat(dirPath + file)
+            if 'delay' not in file.keys():
+                #only works in same directory
+                file = file['filenames'][0]
+                for subFile in file:
+                    #filenames.append(directoryPath + r"\\"[0] + subFile[0] + ".mat")
+                    filenames.append(r"\\"[0] + subFile[0] + ".mat")
     else:
-        summaryfile = loadmat(directoryPath + filepath)
-        directoryPath = os.path.dirname(os.path.abspath(filepath))
+        summaryfile = loadmat(directoryPath + filenameArray)
+        directoryPath = os.path.dirname(os.path.abspath(filenameArray))
         filenames = summaryfile['filenames'][0,:]
     #test if file has keys for single TA measurement
     subTimes = []
@@ -133,36 +141,18 @@ def degradationCompensation(degradePerSecond, times, decaysteps, powerDensities=
     print(degradationCorrection)
     return degradationCorrection
 
-def plotTrend(directoryPath, start, stop, figsize):
+def plotTrend(filePaths, dirPath=r"", figsize=(8,4)):
     #basepath = lambda num: r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TA_fourier_"+str(num)+r".mat"
-    basepath = lambda num: directoryPath + r"TA_fourier_" + str(num) + r".mat"
-
-    start = int(start)
-    stop = int(stop)
-
-    file_vec = np.arange(start, stop+1, 1)
-    OD = []
-    times = np.zeros((stop-start+1, 3))
+    #basepath = lambda num: dirPath + r"TA_fourier_" + str(num) + r".mat"
+    
     #readData(r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\TA_fourier_6778.mat")
-    for ind, number in enumerate(file_vec):
-        delay, tempdata = readData(basepath(number))
-        OD.append(tempdata)
-        times[ind] = getTimes(basepath(number))
-    OD = np.array(OD)
-
+    
+    #need to switch getTimes to the same system as parseSummary to allow any type of input
+    times = getTimes(filePaths)
+    dArray, delay = parseSummaryFileToArray(filePaths, dirPath)
+    dArray, OD, _ = removeBackground(dArray, 10)
     #get delta t of times
-    timesFromZero = np.zeros(np.shape(times)[0])
-    zeroTime = times[0]
-    for ind, time in enumerate(times):
-        #hours
-        timesFromZero[ind] = (times[ind][0]-zeroTime[0])*3600
-        #check for day-tickover
-        if timesFromZero[ind] < 0:
-            timesFromZero[ind] += 24*3600
-        #minutes
-        timesFromZero[ind] += (times[ind][1]-zeroTime[1])*60
-        #seconds
-        timesFromZero[ind] += times[ind][2]-zeroTime[2]
+    timesFromZero = parseTime(times)
 
     delays, measurementTimes = np.meshgrid(delay, timesFromZero)
     fig, ax = plt.subplots(1,1, figsize=(8,4), dpi = 200)
@@ -213,6 +203,7 @@ def fitDegradation(inputArray, times, powerDensity=1, sliding_window_len = 5):
 
 
 def removeBackground(T, numEntries: int = 20) -> float:
+    '''returns T, A and Background levels\\numEntries is how many of the points are to be taken as background'''
     backgroundLevel = np.mean(T[:numEntries])
     T += 1 - backgroundLevel
     A = -1000 * np.log10(T)
