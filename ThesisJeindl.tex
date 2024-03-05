@@ -554,7 +554,7 @@ A quick TA measurement for PMMA only was done for probe wavelengths of 370 nm an
 
 \chapter{Examination of reliability}
 Some tests have been done to ascertain the validity and stability of the corrections devised for the UV extended TAM. The same 1wt\% SQIB in PMMA sample is used for following measurements.
-\section{Power density dependence}
+\section{Power density dependence}\label{sec:powerVar}
 For measurements to be valid there should be a linear correspondence of pump power and the measured absorbance. Main concern here is that pump power is under the threshold radiance for any two photon processes within the sample to have a meaningful influence, which would affect the linearity of pump power dependence. Meanwhile for the probe pulse it is important, that its intensity does not saturate the sample by itself leading to a GSB, which would introduce an unwelcome degree of freedome to the measurements.\\
 To test this multiple pump and probe power combinations were tested, at the same sample position with the same pump probe overlap. The linearity of the sample is shown for powers up to $\mathrm{5900\ \frac{W}{m^2}}$ pump and $\mathrm{3600 \ \frac{W}{m^2}}$ probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically in graph showing the probe peak radiance dependence shows sample degredation due to the high pump power.\textbf{Show the relatively linear plot}
 
@@ -578,7 +578,7 @@ On the right probe power is varied at a pump power density of 4430 $\mathrm{\fra
 \begin{subfigure}[t]{0.45\textwidth}
 \centering
 \includegraphics[scale=1]{images/PowerVarHighPumpVariedProbe.png} 
-\caption{Peak pump radiance \SI{4430}{\radiance}\\TA\_fourier measurements:\\ 6645-6653}
+\caption{Peak pump radiance \SI{4430}{\radiance}\\TA\_fourier measurements:\\ 6645-6653\label{fig:PowerVarR}}
 \end{subfigure}
 \caption{Power variation raw transient absorption data\\
 For both subplots the probe power density is varied. The influence on the decay of signal response on the right subplot is due to high powers inducing stronger degradation in the sample.}
@@ -601,7 +601,7 @@ $0.72 \pm 0.02$           & $0.58 \pm 0.01$            & $0.00 \pm 0.04$        
 
 \section{Sample degradation}
 The main loss of sample response is suspected to be dependent on the pump pulse, as it is right at the CW absorption peak. That combined with the higher peak radiance of the pump pulse makes it the prime candidate of photo bleaching.\textbf{enough reasoning to state this as a guess?} This also would be supported by the circumstance, that a pump probe wavelength combination fully on the main absorption peak always showed a lower GSD response than expected. Reasoning for that is an extremely fast degradation of the sample spot where pump and probe coincide in their peak radiances.\\
-Because the pump pulse on the main absorption peak is expected as the main degrading component for most of the probe spectrum as long as low probe peak radiances are used. For high probe photon energies this may no longer be the case, however from the spectra recorded so far no indication of a strong influence is seen \textbf{consider the shape of the spectra which have the quick decay for higher photon energies, could this be part of degradation? No easily visible change of those over the scan series}\\
+Because the pump pulse on the main absorption peak is expected as the main degrading component for most of the probe spectrum as long as low probe peak radiances are used. For high probe photon energies this may no longer be the case, however from the spectra recorded so far no indication of a strong influence is seen.\\
 Thus reduction of transient response at a pump peak radiance of $\mathrm{(1580\pm 80) \ \frac{W}{m^2}}$ at 653 nm combined with a probe wavelength of 493 nm at $\mathrm{(350 \pm 50)\ \frac{W}{m^2}}$, which is close to the main absorption peak of the first ESA transition of the monomer. The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. This mainly serves to confirm the typical measurement behaviour and to make an attempt at correcting for the response loss due to photo bleaching.
 
 \begin{figure}[hbtp]
@@ -610,17 +610,52 @@ Thus reduction of transient response at a pump peak radiance of $\mathrm{(1580\p
 \caption{Raw data from degradation series of identical measurements at same spot\\
 Time at start on the y axis corresponds to the starting time of the measurement\label{fig:rawDegradation}}
 \end{figure}
-Usually photobleaching would be modelled as an exponential decay as a function of time exposed. The measurements above could not be fit sufficiently well over all delay times, even when using a moving mean to smooth out the irregularities slightly. Fitting was attempted with the raw data, not with fitted values shown in fig. \ref{fig:degradationfit}.
-
-
+Usually photobleaching is be modelled as an exponential decay as a function of time exposed. A fit is made to the decay of the absorbance $\frac{A\left(t\right)}{A\left(t=0\right)} = exp(-\frac{t}{\tau}$. \textbf{How does power change this?}
+All datapoints, which are background subtracted, after the temporal overlap are used in fitting. This avoids strong variations in the pre temporal overlap area, where the absorbance values vary mildly around 0 mOD leading to a strong variation of their ratio and an ill conditioned fit. A least squares approach with numpy curve\_fit is used. A residual is defined as
+\begin{equation}
+residual = \sum_{t_i,d_i} \left(ln\left(\lvert\frac{\Delta A(t_i,d_i)}{\Delta A(t=0,d_i)}\rvert\right)- \frac{t_i}{\tau}\right)^2
+\end{equation}
+is used, where $t_i$ is the time at the start of the scan, $d_i$ is the delay between pump and probe pulses and $\tau$ is the decay parameter fitted. The absolute value of change in absorbance is taken to avoid negative values in the logarithm, even though they are unlikely when only $d_i$ after temporal overlap are used. The correction assumes an equal time for each measurement point based on the time between two delay scans and the number of points in the scan. This simplification is needed as only starting times of delay scans are collected. A moving mean may be used to smoothe particularly noisy data. Used fits use a moving mean of 5 measurement points, however this did not change the qualitative fit result and thus is not considered relevant.\\
+In fig. \ref{fig:degradationCorrectionComparison} a comparison of raw and corrected data is shown. The decay corrected data shows a far lower spread in absorbance values making the fitting a valid option.\\
 
 \begin{figure}[hbtp]
 \centering
-\includegraphics[width=\linewidth]{images/DegradationAtDelays.png}
-\caption{Sample response over measurement time from fit results\\
-The measurements have been slightly overfitted to more accurately represent the measurements shape, without a strict physical reasoning. As the usual averaging over more than one decay scan is missing, the data is a bit more noisy as can be seen in fig. \ref{fig:rawDegradation}.\label{fig:degradationfit}}
+\begin{subfigure}[t]{0.4\linewidth}
+\centering
+\includegraphics[scale=1]{images/DegradationRAWPump653Probe493-Graph.png}
+\caption{Raw data as in fig. \ref{fig:rawDegradation}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.4\linewidth}
+\centering
+\includegraphics[scale=1]{images/DegradationCorrectedPump653Probe493-Graph.png}
+\caption{Exponential decay corrected data\\
+Decay constant $\tau_{1/e}$ = \SI{14100}{\second}}
+\end{subfigure}
+\caption{Comparison of raw data and decay corrected data for measurements TA\_fourier: \mbox{6778 - 6787}.\label{fig:degradationCorrectionComparison}}
 \end{figure}
-An actual model for this degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile. The high power density area on the sample however would also decay quicker, because photodamage usually depends linearly on the power density. \textbf{find source}
+
+Another aspect to consider is the power density influence on degradation, for which the measurements from sec. \ref{sec:powerVar} are used.  Their decay constant shows $\tau_{1/e}\left(\SI{4400}{\radiance}\right)=$\SI{7600}{\second}  opposed to the $\tau_{1/e}\left(\SI{1580}{\radiance}\right)=$\SI{14100}{\second}. The effect of the constants on the measurements is shown in fig. \ref{fig:powerVarCorrection}.
+
+\textbf{TODO triple plot}
+\begin{figure}[hbtp]
+\centering
+\begin{subfigure}[t]{0.4\linewidth}
+\centering
+\includegraphics[scale=1]{images/DegradationRAWPump653Probe493-Graph.png}
+\caption{Raw data as in fig. \ref{fig:rawDegradation}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.4\linewidth}
+\centering
+\includegraphics[scale=1]{images/DegradationCorrectedPump653Probe493-Graph.png}
+\caption{Exponential decay corrected data\\
+Decay constant $\tau_{1/e}$ = \SI{14100}{\second}}
+\end{subfigure}
+\caption{Comparison of raw data and decay corrected data for measurements TA\_fourier: \mbox{6645 - 6653}.\label{fig:powerVarCorrection}}
+\end{figure}
+
+A not so naive model for degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile. The high power density area on the sample however would also decay quicker, because photodamage usually depends linearly on the power density. \textbf{find source}
 
 \chapter*{Used materials}
 \begin{longtable}{p{0.48\textwidth}p{0.48\textwidth}}
