@@ -22,17 +22,22 @@ from fileParsingMethods import getTimes, parseTime, parseSummaryFileToArray, par
 import plotHelperLatex
 plotHelperLatex.setMatplotSettings()
 
-    
+
+def autoCompensation(filenames, degConst, p_ratio, dirPath=r"", backgroundMean = 15):
+    '''assumes they are continuous measurements/saturation type file, will not work properly if they are not\\ 
+    returns absorbance and transmittance arrays + correction factor array'''
+    deltaTimes = parseTime(getTimes(filenames, dirPath))
+    dArray, delay = parseSummaryFileToArray(filenames, dirPath)
+    dArray, aArray, _ = removeBackground(dArray, backgroundMean)
+    correctionFactors = degradationCompensation(degConst, deltaTimes, len(delay), p_ratio)
+    return aArray, dArray, correctionFactors
 
 def degradationCompensation(degConstant, times, decaysteps, powerDensities=1):
     '''returns correction factor for each measurement\\
         not sure what to do with powerDensities, got to try a few things and see if they work but also read up on it
         '''
 
-    meanTime = 0
-    for i in range(len(times)-1):
-        meanTime = times[i+1]-times[i]
-        meanTime = meanTime/(len(times)-1)
+    meanTime = np.mean((times[1:]-times[:-1]))
         
     Correction = np.zeros((len(times), decaysteps))
 
@@ -40,9 +45,9 @@ def degradationCompensation(degConstant, times, decaysteps, powerDensities=1):
         powerDensities = np.ones(np.shape(times)[0])
     #should also correct for within a measurement, though that part is more estimate (should be fine for long decay times)
     Correction = np.zeros((len(times), decaysteps))
-    for i in range(len(times)):
-        Correction[i] = np.exp((times[i]+meanTime*np.linspace(0,1, decaysteps))*powerDensities[i]/degConstant)
-
+    for i in range(len(times)-1):
+        Correction[i] = np.exp((times[i]+(times[i+1]-times[i])*np.linspace(0,1, decaysteps))*powerDensities[i]/degConstant)
+    Correction[len(times)-1] = np.exp((times[len(times)-1]+meanTime*np.linspace(0,1, decaysteps))*powerDensities[i]/degConstant)
     return Correction
 
 
