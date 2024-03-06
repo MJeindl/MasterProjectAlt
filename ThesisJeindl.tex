@@ -262,11 +262,13 @@ An advantage of PLA as opposed to aluminium with the negative of the rails cut i
 \begin{figure}[hbtp]
 \centering
 \begin{subfigure}[t]{0.3\textwidth}
+\centering
 \includegraphics[width=\columnwidth]{images/TAM/MirrorDropInFront.jpg}
 \end{subfigure}
 \hfill
 \centering
 \begin{subfigure}[t]{0.3\textwidth}
+\centering
 \includegraphics[width=\columnwidth]{images/TAM/MirrorDropInBack.jpg}
 \end{subfigure}
 \caption{3d printed drop-in mount with mirror\\
@@ -564,7 +566,7 @@ To test this multiple pump and probe power combinations were tested, at the same
 \caption{Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm\\
 Every point shown is the average of a triple measurement fitted with a single exponential decay\\
 In the left plot the sample response for different pump peak radiances can be seen. To note is that for the pump peak radiance of $\mathrm{(620 \pm 50})\ \frac{W}{m^2}$ three different probe peak radiances of 450 to 1820 $\mathrm{\frac{W}{m^2}}$, showing minimal spread in response. See raw data in fig. \ref{fig:PowerVarL}\\
-On the right probe power is varied at a pump power density of 4430 $\mathrm{\frac{W}{m^2}}$. The spread is due to sample degradation and has yet to be corrected \textbf{working on it, showing both}}
+On the right probe power is varied at a pump power density of 4430 $\mathrm{\frac{W}{m^2}}$. The spread is due to sample degradation and has yet to be corrected \textbf{working on it, showing both}\label{fig:PowerVarRaw}}
 \end{figure}
 
 \begin{figure}[hbtp]
@@ -610,13 +612,13 @@ Thus reduction of transient response at a pump peak radiance of $\mathrm{(1580\p
 \caption{Raw data from degradation series of identical measurements at same spot\\
 Time at start on the y axis corresponds to the starting time of the measurement\label{fig:rawDegradation}}
 \end{figure}
-Usually photobleaching is be modelled as an exponential decay as a function of time exposed. A fit is made to the decay of the absorbance $\frac{A\left(t\right)}{A\left(t=0\right)} = exp(-\frac{t}{\tau}$. \textbf{How does power change this?}
+Usually photobleaching is be modelled as an exponential decay as a function of time exposed. A fit is made to the decay of the absorbance $\frac{A\left(t\right)}{A\left(t=0\right)} = exp(-\frac{t}{\tau})$. \textbf{How does power change this?}
 All datapoints, which are background subtracted, after the temporal overlap are used in fitting. This avoids strong variations in the pre temporal overlap area, where the absorbance values vary mildly around 0 mOD leading to a strong variation of their ratio and an ill conditioned fit. A least squares approach with numpy curve\_fit is used. A residual is defined as
 \begin{equation}
 residual = \sum_{t_i,d_i} \left(ln\left(\lvert\frac{\Delta A(t_i,d_i)}{\Delta A(t=0,d_i)}\rvert\right)- \frac{t_i}{\tau}\right)^2
 \end{equation}
-is used, where $t_i$ is the time at the start of the scan, $d_i$ is the delay between pump and probe pulses and $\tau$ is the decay parameter fitted. The absolute value of change in absorbance is taken to avoid negative values in the logarithm, even though they are unlikely when only $d_i$ after temporal overlap are used. The correction assumes an equal time for each measurement point based on the time between two delay scans and the number of points in the scan. This simplification is needed as only starting times of delay scans are collected. A moving mean may be used to smoothe particularly noisy data. Used fits use a moving mean of 5 measurement points, however this did not change the qualitative fit result and thus is not considered relevant.\\
-In fig. \ref{fig:degradationCorrectionComparison} a comparison of raw and corrected data is shown. The decay corrected data shows a far lower spread in absorbance values making the fitting a valid option.\\
+is used, where $t_i$ is the time at the start of the scan, $d_i$ is the delay between pump and probe pulses and $\tau$ is the decay parameter fitted. The absolute value of change in absorbance is taken to avoid negative values in the logarithm, even though they are unlikely when only $d_i$ after temporal overlap are used. The correction assumes an equal time for each measurement point based on the time between two delay scans and the number of points in the scan. This simplification is needed as only starting times of delay scans are collected. A moving mean may be used to smoothe particularly noisy data. Used fits use a moving mean of 5 measurement points. Comparison to no smoothing mean does not change the fit result in a significant way, though the data is not particularly noisy.\\
+In fig. \ref{fig:degradationCorrectionComparison} a comparison of raw and corrected data is shown. The decay corrected data shows a far lower spread in absorbance values making the fitting a valid option. \\
 
 \begin{figure}[hbtp]
 \centering
@@ -635,27 +637,46 @@ Decay constant $\tau_{1/e}$ = \SI{14100}{\second}}
 \caption{Comparison of raw data and decay corrected data for measurements TA\_fourier: \mbox{6778 - 6787}.\label{fig:degradationCorrectionComparison}}
 \end{figure}
 
-Another aspect to consider is the power density influence on degradation, for which the measurements from sec. \ref{sec:powerVar} are used.  Their decay constant shows $\tau_{1/e}\left(\SI{4400}{\radiance}\right)=$\SI{7600}{\second}  opposed to the $\tau_{1/e}\left(\SI{1580}{\radiance}\right)=$\SI{14100}{\second}. The effect of the constants on the measurements is shown in fig. \ref{fig:powerVarCorrection}.
 
-\textbf{TODO triple plot}
+
 \begin{figure}[hbtp]
 \centering
-\begin{subfigure}[t]{0.4\linewidth}
+\begin{subfigure}[t]{0.3215\linewidth}
 \centering
-\includegraphics[scale=1]{images/DegradationRAWPump653Probe493-Graph.png}
-\caption{Raw data as in fig. \ref{fig:rawDegradation}}
+\includegraphics[width=\columnwidth]{images/PowerVarHigh_Raw.png}
+\caption{Raw data as in fig. \ref{fig:PowerVarR}}
 \end{subfigure}
 \hfill
-\begin{subfigure}[t]{0.4\linewidth}
+\begin{subfigure}[t]{0.3215\linewidth}
 \centering
-\includegraphics[scale=1]{images/DegradationCorrectedPump653Probe493-Graph.png}
-\caption{Exponential decay corrected data\\
-Decay constant $\tau_{1/e}$ = \SI{14100}{\second}}
+\includegraphics[width=\columnwidth]{images/PowerVarHigh_CorrNative7800.png} 
+\caption{Corrected per native fit at $\tau_{1/e}=$\SI{7800}{\second}}
 \end{subfigure}
-\caption{Comparison of raw data and decay corrected data for measurements TA\_fourier: \mbox{6645 - 6653}.\label{fig:powerVarCorrection}}
+\hfill
+\begin{subfigure}[t]{0.3215\linewidth}
+\centering
+\includegraphics[width=\columnwidth]{images/PowerVarHigh_CorrEstimate14100_2.8.png} 
+\caption{Corrected from degradation fit fig. \ref{fig:degradationCorrectionComparison}\\
+$\tau_{1/e}=$\SI{14100}{\second}, $P_{ratio}=\frac{P_{\SI{680}{\nano\meter}}}{P_{\SI{497}{\nano\meter}}} = \frac{4430}{1580}= 2.8$}
+\end{subfigure}
+\caption{Comparison of pump \SI{653}{\nano\meter} probe \SI{680}{\nano\meter} raw, corrected by direct fit and corrected by applying the decay constant gathered from fig. \ref{fig:degradationCorrectionComparison}\\Applying the power correction as a ratio factor of used measurement power density divided by fitting power density as follows $\Delta OD(t) = \Delta OD(t=0)\cdot e^{\frac{t*P_{ratio}}{\tau}}$, where $P_ratio =1$ if the power density is the same as for the measurement where degradation is fitted and t is the ellapsed times since start of the measurement. Note that the measurements gathered here have different probe power densities.\label{fig:powerVarCorrection}}
 \end{figure}
+\paragraph{Probe wavelengths}
+Note that the probe wavelengths compared here correspond to different processes within the molecules. The degradation of the first ESA transition corresponds to an effect of inactivation of the excited state reachable from the pumped state or to a reduction of molecules which can be pumped. The GSD measurement instead just directly measures the reduction in Squaraine absorption, with the probe wavelength likely just adding to the pump power of degradation with a weighting factor of the different absorption cross-section. If their degradation times coincide then the likelihood of the degradation pathway is relatively high. Additionally the probe wavelength may also introduce another degradation pathway or mediate a faster degradation via the same pathway as the GSD pathway. The single exponential degradation is only justified by it seemingly providing a decent output as well as the use case and measurement data not warranting better modelling. A description of different pathways for organic fluorophores may be found along with behaviors, however they strongly vary for different molecules making them unpredictable for untested molecules.\cite{Demchenko_2020}
 
-A not so naive model for degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile. The high power density area on the sample however would also decay quicker, because photodamage usually depends linearly on the power density. \textbf{find source}
+
+A simple naive assumption for power dependence of photobleaching is same bleaching for same total dose. This ignores photobleaching pathways and power density dependencies. It is unknown if this is applicable for the used peak powers, since references for other fluorophores usually used CW methods and pulsed operation with similarly high peak powers may well behave differently. Since the actual power dependence here is beyond the scope of the paper the naive assumption is attempted. Here the dependence of photo degradation is a direct product of the power density on the exposure time for total dose the sample exposed to $\sim e^{-\frac{t*P}{\tau}}$.\cite{Eggeling1998}
+
+
+With this a comparison of the degradation in from the measurements in fig. \ref{fig:degradationCorrectionComparison} with a probe wavelength of \SI{497}{\nano\meter} and fig. \ref{fig:powerVarCorrection}.
+
+
+Another aspect to consider is the power density influence on degradation, for which the measurements from sec. \ref{sec:powerVar} are used.  Their decay constant shows $\tau_{1/e}\left(\SI{4400}{\radiance}\right)=$\SI{7600}{\second}  opposed to the $\tau_{1/e}\left(\SI{1580}{\radiance}\right)=$\SI{14100}{\second}. The effect of the constants on the measurements is shown in fig. \ref{fig:powerVarCorrection}.
+
+A not so naive model for degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile. The high power density area on the sample however would also decay quicker, because photodamage can depend linearly on the total dose.
+
+
+
 
 \chapter*{Used materials}
 \begin{longtable}{p{0.48\textwidth}p{0.48\textwidth}}
