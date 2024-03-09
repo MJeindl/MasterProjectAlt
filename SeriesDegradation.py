@@ -23,11 +23,11 @@ import plotHelperLatex
 plotHelperLatex.setMatplotSettings()
 
 
-def autoCompensation(filenames, degConst, p_ratio, dirPath=r"", backgroundMean = 15):
+def autoCompensation(filenames, degConst, p_ratio, dirPath=r"", backgroundMean = 15, linearBg = False):
     '''assumes they are continuous measurements/saturation type file, will not work properly if they are not\\ 
     returns absorbance and transmittance arrays + correction factor array'''
     deltaTimes = parseTime(getTimes(filenames, dirPath))
-    dArray, delay = parseSummaryFileToArray(filenames, dirPath)
+    dArray, delay = parseSummaryFileToArray(filenames, dirPath, linearBackgroundSubtract=linearBg, backgroundLen=backgroundMean)
     dArray, aArray, _ = removeBackground(dArray, backgroundMean)
     correctionFactors = degradationCompensation(degConst, deltaTimes, len(delay), p_ratio)
     return aArray, dArray, correctionFactors
