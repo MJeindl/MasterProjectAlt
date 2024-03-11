@@ -106,6 +106,8 @@ def removeBackgroundLinearFit(Ipumpprobe, Iprobe, delay, numEntries: int = 20):
     for meas_ind in range(np.shape(Ipumpprobe)[0]):
         plt.plot(delay, Iprobe[meas_ind,:], 'r')
         plt.plot(delay, Ipumpprobe[meas_ind,:], 'b')
+        #temppopt = np.polyfit(delay, Iprobe[meas_ind,:], deg=3)
+        #plt.plot(delay, np.polyval(temppopt, delay))
         
 
     #popt[1] = 0
@@ -128,7 +130,7 @@ def parseSummaryFileToArray(filenameArray, directoryPath=r"", linearBackgroundSu
     if linearBackgroundSubtract == True:
             #splitting it like this becaues the lower part already works and I do not want to touch it before I know how to proceed
             #I cannot have a linear subtraction of background and it be different for every measurement
-            print(len(filenames))
+            #print(len(filenames))
             for ind, file in enumerate(filenames):
                 if isinstance(file, np.ndarray):
                     file = file[0]
@@ -159,6 +161,30 @@ def parseSummaryFileToArray(filenameArray, directoryPath=r"", linearBackgroundSu
 
 
     return datArray, delay
+
+def parseSummaryFiletoRaw(filenameArray, directoryPath=r""):
+    '''takes or filearray and returns Ipumpprobe, Iprobeonly, delay'''
+
+    filenames = parseFilenames(filenameArray, directoryPath)
+    #splitting it like this becaues the lower part already works and I do not want to touch it before I know how to proceed
+    #I cannot have a linear subtraction of background and it be different for every measurement
+    #print(len(filenames))
+    for ind, file in enumerate(filenames):
+        if isinstance(file, np.ndarray):
+            file = file[0]
+        tempFile = loadmat(file)
+        delay = tempFile['delay'][0]
+        if ind == 0:
+            I1_array = np.zeros((len(filenames), len(delay)))
+            I2_array = np.zeros((len(filenames), len(delay)))
+        I1_array[ind,:] = tempFile['I1_vec']
+        I2_array[ind,:] = tempFile['I2_vec']
+        #d_vec = I1_vec/I2_vec
+
+            
+
+
+    return I1_array, I2_array, delay
 
 
         
