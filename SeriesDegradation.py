@@ -15,7 +15,7 @@ sys.path.insert(1, r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\U
 from ShowDelayScan import main
 
 from argparse import ArgumentParser
-from fileParsingMethods import getTimes, parseTime, parseSummaryFileToArray, parseFilenames, removeBackground
+from fileParsingMethods import getTimes, parseTime, parseSummaryFileToArray, parseFilenames, removeBackground, parseSummaryFiletoRaw
 
 
 
@@ -27,10 +27,11 @@ def autoCompensation(filenames, degConst, p_ratio, dirPath=r"", backgroundMean =
     '''assumes they are continuous measurements/saturation type file, will not work properly if they are not\\ 
     returns absorbance and transmittance arrays + correction factor array'''
     deltaTimes = parseTime(getTimes(filenames, dirPath))
-    dArray, delay = parseSummaryFileToArray(filenames, dirPath, linearBackgroundSubtract=linearBg, backgroundLen=backgroundMean)
-    dArray, aArray, _ = removeBackground(dArray, backgroundMean)
+    dArray, delay, backgroundParameters = parseSummaryFileToArray(filenames, dirPath, linearBackgroundSubtract=linearBg, backgroundLen=backgroundMean)
+    dArray, aArray, _,  = removeBackground(dArray, backgroundMean)
     correctionFactors = degradationCompensation(degConst, deltaTimes, len(delay), p_ratio)
-    return aArray, dArray, correctionFactors
+    return aArray, dArray, correctionFactors,delay, backgroundParameters
+
 
 def degradationCompensation(degConstant, times, decaysteps, powerDensities=1):
     '''returns correction factor for each measurement\\
@@ -110,6 +111,7 @@ def fitDegradation(inputArray, times, powerDensity=1, sliding_window_len = 5, t0
     popt, pcov = curve_fit(costFunction, times, np.zeros(np.shape(working_array)[0],dtype=float), p0 = [1e4])
 
     return popt, pcov[0,0]
+
 
 
 
