@@ -27,31 +27,32 @@ def parseTime(time):
     return times
 
 
-def parseFilenames(filenameArray, directoryPath):
+def parseFilenames(filenameArray, directoryPath = r""):
     if directoryPath != r"":
         pathInsert = r"\\"[0]
     else:
         pathInsert = r""
     filenames = [] 
-
     if type(filenameArray) != type(str()):
         #parsing for summary files
         for file in filenameArray:
             tempfile = loadmat(directoryPath + pathInsert+ file)
             if 'delay' not in tempfile.keys():
                 #only works in same directory, multiple summary files
-                file = tempfile['filenames'][0]
-                for subFile in file:
+                #can swap to having a directoryPath array instead in the future
+                file_current = tempfile['filenames'][0]
+                for subFile in file_current:
                     #filenames.append(directoryPath + r"\\"[0] + subFile[0] + ".mat")
-                    filenames.append(pathInsert + subFile[0] + ".mat")
+                    filenames.append(r"\\"[0] + subFile[0] + ".mat")
             else:
                 #TA_fourier style file
                 filenames.append(pathInsert + file + ".mat")
+        OutdirectoryPath = os.path.dirname(os.path.abspath(filenameArray[0]))
     else:
         #if single saturation file
         summaryfile = loadmat(directoryPath + pathInsert + filenameArray)
 
-        directoryPath = os.path.dirname(os.path.abspath(directoryPath + pathInsert + filenameArray))
+        OutdirectoryPath = os.path.dirname(os.path.abspath(directoryPath + pathInsert + filenameArray))
         #print(summaryfile['filenames'])
         for fname in summaryfile['filenames'][0,:]:
             if isinstance(fname, np.ndarray):
@@ -60,7 +61,7 @@ def parseFilenames(filenameArray, directoryPath):
             filenames.append(r"\\"[0] + fname)
 
     for i in range(len(filenames)):
-        filenames[i] = directoryPath + filenames[i]
+        filenames[i] = OutdirectoryPath + filenames[i]
     return filenames
 
 def removeBackground(T, numEntries: int = 20) -> float:
@@ -92,7 +93,7 @@ def removeBackgroundLinearFit(T_vec, delay, numEntries: int = 20):
 
         
 def parseSummaryFileToArray(filenameArray, directoryPath=r"", linearBackgroundSubtract = False, backgroundLen = 15, absorbance = False):
-    '''takes or filearray and returns T, delay'''
+    '''takes or filearray and returns T/A, delay, background'''
 
     filenames = parseFilenames(filenameArray, directoryPath)
     if linearBackgroundSubtract == True:

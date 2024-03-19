@@ -56,17 +56,18 @@ def degradationCompensation(degConstant, times, decaysteps, powerDensities=1):
 def plotTrend(filePaths, dirPath=r"", figsize=(8,4)):
     #need to switch getTimes to the same system as parseSummary to allow any type of input
     times = getTimes(filePaths, dirPath)
-    dArray, delay = parseSummaryFileToArray(filePaths, dirPath)
+    dArray, delay, _ = parseSummaryFileToArray(filePaths, dirPath)
     dArray, OD, _ = removeBackground(dArray, 10)
     #get delta t of times
-    timesFromZero = parseTime(times)
+    timesFromZero = np.array(parseTime(times), dtype=int)
 
     delays, measurementTimes = np.meshgrid(delay, timesFromZero)
     fig, ax = plt.subplots(1,1, figsize=(8,4), dpi = 200)
     map = ax.pcolor(delays, measurementTimes, OD, cmap="plasma")
     ax.set_xlabel('delay time / fs')
     ax.set_ylabel('total time elapsed at start / s')
-    fig.colorbar(map, ax=ax)
+    fig.colorbar(map, ax=ax, label=r"$\Delta OD$ / a.u.")
+    ax.set_yticks(timesFromZero-(timesFromZero[1]-timesFromZero[0])/2, timesFromZero)
     plt.tight_layout()
     plt.show()
 

@@ -9,7 +9,7 @@ def setMatplotSettings():
 def figSizer(fractionWidth, aspectRatio=1.618,  scale = 1):
     '''scale = 0.5 means that the plot is meant to be used at scale = 0.5 in latex\\
         fractionwidth means fraction of textwidth in latex'''
-    latexwidth = 5.78 # inches
+    latexwidth = 5.788 # inches
     targetWidth = latexwidth/(fractionWidth*scale)
     targetHeight = targetWidth/aspectRatio
     return (targetWidth, targetHeight)
