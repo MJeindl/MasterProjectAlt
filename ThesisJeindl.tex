@@ -90,6 +90,29 @@ There are several types of contrast within pump probe spectroscopy. Processes li
 
 These processes may manifest at the same time, thus concealing other processes with the opposite influence on the transient opacity. This is not so much of concern for processes like XPM or stimulated raman scattering, because they require temporal overlap of pump and probe pulse and thus only influence a short range within the time delay based on the pulse lengths. \\
 
+\begin{figure}[hbtp]
+\centering
+\begin{subfigure}[t]{0.3\textwidth}
+\centering
+\includegraphics[width=\linewidth]{images/TA-explanationProbeOnly.png}
+\caption{Probing of sample in groundstate at $t-t_{sample\, pump} < 0$ at two different photon energies.\label{fig:probeOnly}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.3\textwidth}
+\centering
+\includegraphics[width=\linewidth]{images/TA-explanationPumpOnly.png}
+\caption{Pumping of sample in groundstate}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.3\textwidth}
+\centering
+\includegraphics[width=\linewidth]{images/TA-explanationProbeAfterPump.png}
+\caption{Probing of sample  after pump at $t-t_{sample\, pump} > 0$ at two different photon energies. Green experiences ESA and red experiences GSD.\label{fig:probeAfterPump}}
+\end{subfigure}
+\caption{Principle of pump probe spectroscopy with ESA and GSD. GS is the groundstate of the sample without excitation. A is a low energy state that may be excited from GS. B is a higher energy excited state that may be populated from both GS and A, however selection rules may apply. Fig. \ref{fig:probeOnly} shows the probe passing the sample at a time where no excitation has happened yet. This is the case both for the reference probe only measurement as well as for the pump-probe measurement ahead of temporal overlap.\label{fig:CompendiumTA}}
+\end{figure}
+
+
 \textbf{
 Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values; maybe do in reliability}
 \textbf{insert image from source}
@@ -104,6 +127,23 @@ A single measurement point usually consists of multiple delay scans averaged tog
 \end{enumerate}
 The background plateau is simply used to subtract any non probe signal detected, such as stray pump light. This also serves as an indicator of lateral pump movement with stage movement, which can be problematic depending on the geometry. If it is a slow change regarding delay setting it may be subtracted linearly.\\
 Rising signal edge follows an error-function of the pump pulse, as femtosecond pulses usually have a Gaussian temporal shape which cumulatively excites the sample for the probe pulse to detect. This rise allows for an estimate of the temporal pulse length.
+
+\begin{figure}[hbtp]
+\centering
+\begin{subfigure}[t]{\textwidth}
+\centering
+\includegraphics[scale=1]{images/TA_delayscan_493RAW.png}
+\caption{Pump \SI{653}{\nano\meter} Probe \SI{493}{\nano\meter} ESA TA\_fourier 6767-6769}
+\end{subfigure}
+\begin{subfigure}[t]{\textwidth}
+\centering
+\includegraphics[scale=1]{images/TA_delayscan_680RAW.png}
+\caption{Pump \SI{653}{\nano\meter} Probe \SI{680}{\nano\meter} GSD TA\_fourier 6677-6679}
+\end{subfigure}
+\caption{Examples of measurement series featuring ESA or GSD for 1wt\% SQIB in PMMA\\ Raw measurements without any correction are shown. Each curve is a single measurement belonging to the series plotted in the corresponding figure. Measurements are done in series, thus delay range is scanned for each of the scans.}
+\end{figure}
+
+
 \subsection{Polarization angles}
 Pump probe measurements of same polarization obviously return the highest signal in any case. However when working with liquids or (solid) solutions like PMMA in this case the molecules, if relatively unperturbed by the environment, may rotate over time and thus change the direction of their transition dipole moments relative to where they would be in their zero time direction. This leads to a measurable signal change over time.\\
 The rotation in the sample is given by the anisotropy at detection:\textbf{find better source}possibly from here\cite{Schalk2010}
@@ -369,7 +409,7 @@ Due to inhomogeneities of the sample the response varies over its area. This is 
 
 \section{Background subtraction}
 All measurements carry a constant background offsetting the measurement ahead of pump and probe temporal overlap, thus probe passing through the sample ahead of pump. This mainly is due to stray light of the pump beam reaching the sample. \textbf{are there other detector influences?} A correction is made by shifting the $\mathrm{\frac{I_{pump-probe}}{I_{probe\, only}}}$ in such a way, that it is 1 ahead of the temporal overlap point. \\
-However sometimes a linear component, for example from minor pump movement due to imperfections of the stage along its travel, is observed. If the linear component is small enough it may similarly to a static offset be corrected by a linear fit of the ratio. Once the component is too large a measurement has to be considered faulty. Depending on how large the linear component is decay constants may not be viable, however the immediate response after temporal overlap may be considered correct after subtracting the linear component.\\
+However sometimes a linear component, for example from minor pump movement due to imperfections of the stage along its travel, is observed. If the linear component is small enough it may similarly to a static offset be corrected by a linear fit of the ratio $\mathrm{\frac{I_{pump-probe}}{I_{probe\, only}}}$. Once the component is too large a measurement has to be considered faulty. Depending on how large the linear component is decay constants may not be viable, however the immediate response after temporal overlap may be considered correct after subtracting the linear component.\\
 
 Theoretically the correct way of applying a background subtraction, under assumption that it indeed only is stray pump light, would be to only subtract the background from $\mathrm{I_{pump-probe}}$. This is not possible however, due to temporal variations in probe intensity, which do cancel for the ratio $\mathrm{\frac{I_{pump-probe}}{I_{probe\, only}}}$.
 
@@ -433,17 +473,19 @@ A few illustrations of the behaviour of the correction factor are shown in fig.
 Furthermore to have all relative $\mathrm{\Delta OD}$ values be directly comparable, the correction factor is divided by the peak radiance value.
 
 \begin{table}[h]
-\begin{tabular}{l|llllll}
+\caption{Illustrative one dimensional correction values for fitted Gaussians}
+\centering
+\begin{tabular}{c|rrrrrr}\toprule
 $\Delta \mu$ / $\sigma$                     & 0          & 0             & 0              & 0             & 1              & $2\cdot\sqrt{2 ln(2)}$ \\
 $\dfrac{\sigma_{pump}}{\sigma_{probe}}$ / 1 & 1          & 3             & 2              & 1/2           & 1              & 1                      \\
-Correction Factor                           & $\sqrt{2}$ & $\approx1.05$ & $\approx 1.12$ & $\approx 2.24$ & $\approx 1.82$ & $\approx 5.66$        
+Correction Factor                           & $\sqrt{2}$ & $\approx1.05$ & $\approx 1.12$ & $\approx 2.24$ & $\approx 1.82$ & $\approx 5.66$ \\ \bottomrule       
 \end{tabular}
 \end{table}
 
 
 To ascertain how well this works a numeric variant of the correction factor is considered based on the same principle as eq. \ref{eq:CorrFactorGaussians}:
 \begin{equation*}
-C_{numeric} = \sum_{i=0}^{N_x}\sum_{k=0}^{N_y}\frac{max\left(I_{pump}\right)\cdot I_{probe}(x_i,y_k)}{I_{pump}(x_i,y_k)\cdot I_{probe}(x_i,y_k)}
+C_{numeric} = \sum_{i=0}^{N_x}\sum_{k=0}^{N_y}\frac{\mathrm{max}\left(I_{pump}\right)\cdot I_{probe}(x_i,y_k)}{I_{pump}(x_i,y_k)\cdot I_{probe}(x_i,y_k)}
 \end{equation*}
 where $\mathrm{x_i/y_k}$ are discrete points, which may be associated with single pixels of the camera, of which there are $\mathrm{N_x}$ for $\mathrm{x_i}$ and $\mathrm{N_y}$ for $\mathrm{y_k}$. $\mathrm{max\left(I_{pump})\right)}$ once again is the maximum value of $\mathrm{I_{pump}}$ over all $\mathrm{x_i, y_k}$. For this definition $\mathrm{I_{pump}/I_{probe}}$ may be of arbitrary noisy form, which is what will be tested in the following.
 
@@ -452,7 +494,7 @@ Comparing the numeric approach with the analytic fitting approach is done by gen
 \begin{figure}[h]
 \centering
 \includegraphics[scale = 1]{images/NumericalCorrectionSNR.png}
-\caption{Comparison of numerical and analytic correction factors for Gaussian distributions of identical parameters.\\For the case of the SNR graphs a random noise was added individually to both distributions.\label{fig:NumericalCorrectionSNR}}
+\caption{Comparison of numerical and analytic correction factors for radial-symmetric Gaussian distributions of identical parameters. \\$\frac{\sigma_{pump}}{\sigma_{probe}}=1$,$\Delta\mu = 0$\\For the case of the SNR graphs a random noise was added individually to both distributions.\label{fig:NumericalCorrectionSNR}}
 \end{figure}
 
 To check for possible effects regarding offsetting of the distributions from the pixel grid and breaking the symmetry from above the Gaussian distributions are now shifted by 1 $\mathrm{\sigma}$ in both x and y direction from each other in fig. \ref{fig:NumericalCorrectionShift}. Furthermore both distributions together are shifted by an offset from the pixel grid in x direction. Doing this incremental shift in both x and y direction only leads to a small change for large binning sizes. 
@@ -460,7 +502,8 @@ To check for possible effects regarding offsetting of the distributions from the
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\linewidth]{images/NumericalCorrectionShiftedBeams.png}
-\caption{same sig, shifted by sig in both x and y respective of each other, incremental offset influence shown\label{fig:NumericalCorrectionShift}}
+\caption{Comparison of analytic  and numeric overlap correction factor with varying shift regarding simulated pixel lattice in x direction
+\\$\frac{\sigma_{x-pump}}{\sigma_{x-probe}}=0.8;\frac{\sigma_{x-pump}}{\sigma_{x-probe}}=2.0;\Delta\mu = \sqrt{2}$\label{fig:NumericalCorrectionShift}}
 \end{figure}
 \textbf{NOTE SOMEWHERE: the actual size of the point spread function on the sensor is at about 2-4 points per sig -> not sensible without fitting}
 
@@ -470,9 +513,9 @@ Issues with our system are that for our specific camera or system setup a period
 \newline
 For all measurements included here version 1.2 was used. The  ALGLIB software package is used and \textbf{(version number)}\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape. Scottplot 4 is used to display the fitted data.\\
 \subsubsection{Fitting principle}
-In version 1.2 the relevant fitting parameters are returned as a numeric overlap integral based on the Gaussian beamshapes. In this version it is still calculated numerically from the fits, however it can be rebased into an analytical form as per eq. \ref{GaussianProduct} which describes the product of two Gaussians.
+In version 1.2 the relevant fitting parameters are returned as a numeric overlap integral based on the Gaussian beamshapes. In this version it is still calculated numerically from the fits, however it can be rebased into an analytical form as per eq. \ref{eq:GaussianProduct} which describes the product of two Gaussians.
 \begin{equation}
-overlap = \int \sqrt{f_1(x)*f_2(x)}dx =  \sqrt{\frac{2 \sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}\cdot exp\left(-\frac{\left(\mu_1-\mu_2\right)^2}{4\cdot \left(\sigma_1^2 + \sigma_2^2\right)}\right)
+\mathrm{overlap} = \int \sqrt{f_1(x)*f_2(x)}dx =  \sqrt{\frac{2 \sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}\cdot exp\left(-\frac{\left(\mu_1-\mu_2\right)^2}{4\cdot \left(\sigma_1^2 + \sigma_2^2\right)}\right)\label{eq:GaussianProdcut}
 \end{equation}
 This is calculated separately for both axis of the pixel array and then multiplied for a final value. 
 This is not directly related to correction factor calculated within the python program to make everything comparable, but is more of a measure of how similar the beams are, which is why only the normal distributions are used without an intensity modifier, thus both beams are weighted identically. \\
@@ -504,9 +547,9 @@ To get an image there are several options in the "Display" drop down menu.
 To adjust the image parameters or camera settings use the "Settings" drop down menu.
 \begin{itemize}
 \item Camera settings: opens a menu to set the image format including size and ROI as well as Color format, which is to be set to "Color 48*bit" for reasons that are explained in raw data output. The effective ROI should be set to 300 pixels vertically and horizontally. The ROI should stay square and not rectangular, as there is a bug preventing correct data manipulation at this moment. An example of the settings can be seen in fig. 
-\item Filter settings: include software settings for brightness, contrast, saturation etc. Influence of Bayer Mode is unknown. Keep the saturation at -255.
-\item Analog settings: consist of gain and exposure. Also has the option to mirror image vertically and horizontally, which should not done after calibration. There is no way of telling from raw output data at which setting a snapshot was taken.
-\item Misc: is where custom settings for output parameters as well as exposure can be set. Assigning a "µm per px" value and adjusting the power correctly allows a readout directly corrected peak radiance and other fit parameters such as the FWHM.\\The three exposure values can be quickly jumped to from a drop down menu in the main window and are supposed to help streamline the measurement process. The menu can be seen in fig. 
+\item Filter settings: include software settings for brightness, contrast, saturation etc. Influence of Bayer Mode on the monochromatic sensor is unknown, as it does not show an obvious difference in output. Keep the saturation at -255.
+\item Analog settings: consist of gain and exposure. Also has the option to mirror image vertically and horizontally, which should not be done after calibration. There is no way of telling from raw output data at which setting a snapshot was taken.
+\item Misc: is where custom settings for output parameters as well as exposure can be set. Assigning a "µm per px" value and adjusting the power correctly allows a readout directly corrected peak radiance and other fit parameters such as the FWHM.\\The three exposure values can be quickly jumped to from a drop down menu in the main window and are supposed to help streamline the measurement process. The menu can be seen in fig. \ref{LiveFitting:MiscMenu}.
 \end{itemize}
 
 \begin{figure}[hbtp]
@@ -520,20 +563,20 @@ To adjust the image parameters or camera settings use the "Settings" drop down m
 \includegraphics[scale=1]{images/ArtrayExamplePics/DefaultMiscSettings.PNG}
 \caption{Miscellaneous menu for setting quick change exposure values and additional constants to correct fitting output.\\
 Default value of µm per px means that the fitting form only shows the FWHM and related values in units of pixels.\\
-The exposure values are in 0.1 µs steps, as this is what the camera allows. Only integer input is supported.}
+The exposure values are in 0.1 µs steps, as this is what the camera allows. Only integer input is supported.\label{LiveFitting:MiscMenu}}
 \end{figure}
 
 
 
-As mentioned quick swap exposure settings can be set. They are accessed from the drop down menu "SwitchExp". Upon switching exposure a snapshot is taken, this interrupts all other image acquisition types, and a maximum value is reported in a pop up window, to show if the dynamic range of the camera is being used well. If that is not the case the fitting window either turns blue if the exposure is too low (30\% of max) or turns red if it is too high (95\% of max). Setting exposure can in cases be slower than readout of the snapshot, thus reporting a value ahead of setting the new exposure value. If that is the case just set exposure again if one wishes to get the maximum pixel intensity value.\\
+As mentioned quick swap exposure settings can be set. They are accessed from the drop down menu "SwitchExp". Upon switching exposure a snapshot is taken, this interrupts all other image acquisition types, and a maximum pixel intensity is reported in a pop up window, to show if the dynamic range of the camera is being used well. If that is not the case the fitting window either turns blue if the exposure is too low (30\% of max) or turns red if it is too high (95\% of max). Setting exposure can in cases be slower than readout of the snapshot, thus reporting a value ahead of setting the new exposure value. If that is the case just set exposure again if one wishes to get the maximum pixel intensity value.\\
 
 The file drop down consists of features for saving, opening and comparing data:
 \begin{itemize}
 \item Save: saves a raw txt file of the last captured image. In case of a livestream this is the last shown image. For snapshot it saves the currently shown snapshot.
-\item End: Ends the program, leads mainly to pain due to accidental clicking
+\item End: Ends the program
 \item Reference: sends a reference image, behaviour is like with save regarding livestreams, to the "LiveFit" window. There a fit of the reference is shown as a red graph, which when not set is flat.
 \item Open: works like reference, however it opens the reference snapshot from a raw txt file of choice via file dialogue.
-\item Background: sets a background to subtract from the images for live fitting. Setting background does not alter the behaviour of Save. Saved files are still plain raw unaltered data from the sensor. The background file location is automatically loaded when starting a session and is saved in the windows registry. under $\mathrm{"Computer \backslash HKEY\_CURRENT\_USER \backslash SOFTWARE \backslash LiveFit"}$as BACKGROUND\_FILE. The LiveFit subkey needs to be created manually, possible with regedit, ahead of use. The BACKGROUND\_FILE subkey is automatically added or handled.
+\item Background: sets a background to subtract from the images for live fitting. Setting background does not alter the behaviour of Save. Saved files are still plain raw unaltered data from the sensor. The background file location is automatically loaded when starting a session and is saved in the windows registry. under $\mathrm{"Computer \backslash HKEY\_CURRENT\_USER \backslash SOFTWARE \backslash LiveFit"}$as BACKGROUND\_FILE. The LiveFit subkey needs to be created manually, possible with regedit\textbf{AUTOMATE}, ahead of use. The BACKGROUND\_FILE subkey is automatically added or handled.
 \end{itemize}
 
 
@@ -545,8 +588,8 @@ The sample is 1wt\% SQIB in a PMMA solid solution. The sample is not annealed an
 
 Opposed to liquid solutions like $\mathrm{CHCL_3}$ there is no quick solvent reorganisation for n-butyl terminated squaraine molecules within PMMA. It is assumed that the relatively fixed structure of the squaraine hinders structural rearrangement within the rigid PMMA matrix. With similar bulkiness of the isobutyl sidechains used here there also should be no fast solvent reorganisation. \cite{Zheng2020}
 
-An average nearest neighbour distance for this concentration may be taken as 2.36 nm according to Zheng et al. \cite{Zheng2020}, who based the calculation on poisson statistics\cite{Krider2003}. The actual spread of nearest neighbour distances is a large distribution. Thus there is an expectation of some quenching of effects such as fluorescence as well as decay times of excited states. However all effects are still observed due to the distribution of nearest neighbour distances as well as random rotation of nearest neighbours to each other, leading to inefficient charge transport or quenching.\cite{Zheng2020} \\
-Collective effects like davydov splitting, which are dependent on a macroscopic crystalline orientation of molecules, are negligible for samples that are not annealed at this kind of concentration and are not observed.\\
+An average nearest neighbour distance for this concentration may be taken as \SI{2.36}{\nano\meter} according to Zheng et al. \cite{Zheng2020}, who based the calculation on poisson statistics\cite{Krider2003}. The actual spread of nearest neighbour distances is a large distribution. Thus there is an expectation of some quenching of effects such as fluorescence as well as decay times of excited states. However all effects are still observed due to the distribution of nearest neighbour distances as well as random rotation of nearest neighbours to each other, leading to inefficient charge transport or quenching.\cite{Zheng2020} \\
+Collective effects like Davydov splitting, which are dependent on a relative orientation of transition dipole moments of subunits, are negligible for samples that are not annealed at this kind of concentration and are not observed.\\
 
 \begin{figure}[!htp]
 \centering
@@ -570,14 +613,15 @@ Measurements are done in parallel pump and probe polarization.
 \end{figure}
 
 The correction for variation of the sample response at different measurement points is accounted for as as a factor normalised by the mean sample response, of the used points of the probe wavelength scan, for a pump 653 nm probe 680 nm. Uncertainty estimation is unavailable due lacking resolution of the map.\\
-The UV extended transient behaviour of the sample is shown in fig. \ref{fig:SQIB_PMMAwavelengthscan}, where fitted delay points are shown to see the immediate transient behaviour. They are fitted using a nonlinear curve\_fit from scipy.optimize to fit eq. \ref{eq:transientDecay}. 
+The UV extended transient behaviour of the sample is shown in fig. \ref{fig:SQIB_PMMAwavelengthscan}, where fitted delay points are shown to see the immediate transient behaviour. They are fitted using a nonlinear curve\_fit from scipy.optimize to fit eq. \ref{eq:transientDecay}. The number of exponential components may be automatically determined by fitting, however within this thesis they are set by hand.
 \begin{equation}\label{eq:transientDecay}
-f(t) = A\cdot exp(\frac{-(t-t_0)}{\tau})\cdot \int_{-\infty}^t exp\left(-\frac{(t-t_0)^2}{2\sigma^2}\right)
+f(t) = \left[\sum_{n=0}^{n_{max}} A_n\cdot exp \left(\frac{-(t-t_0)}{\tau_n}\right)\right]\cdot \int_{-\infty}^t exp\left(-\frac{(t-t_0)^2}{2\sigma^2}\right)
 \end{equation}
 The data is corrected for the mentioned map irregularities, degradation of the sample over measurement time and overlap of pump and probe beams. Of note should be, that the fits generally work well visually or regarding residuals, however uncertainties from the fits are not applicable, as the sample response decays far too slowly to realise good decay constants with available delay lengths of the setup. Thus the fits are applied such, that they replicate the data as well as possible. Choice of a single or bi-exponential decay is made for optimising the residuals, especially near the important temporal overlap edge. The power densities used in the wavelength scan are shown in tab. \ref{tab:powersWavScan} and wavelength scans shown here are normalised by their power densities, assuming the linearity of the response to the pump peak radiance.
 
 \begin{table}[htb]
 \caption{Power densities used for wavelength scan\\ At \SI{6500}{\radiance} linearity of measurements to pump power density may already deviate, however it may still be used to check for signal response.\label{tab:powersWavScan}}
+\centering
 \begin{tabular}{l|lllll}
 wavelength range / nm           & \SIrange{680}{400}{}   & \SIrange{390}{380}{}   & 370  & \SIrange{360}{350}{}& \SIrange{330}{310}{} \\ \hline
 power density / \SI{}{\radiance}& \SIrange{1500}{1700}{} & \SIrange{1800}{2400}{} & 3000 & 6500                 & \SIrange{3800}{3900}{} 
@@ -620,12 +664,12 @@ As mentioned above irregularities over the area of the sample probed were attemp
 
 \section{Power density dependence}\label{sec:powerVar}
 For measurements to be valid there should be a linear correspondence of pump power and the measured absorbance. Main concern here is that pump power is under the threshold radiance for any two photon processes within the sample to have a meaningful influence, which would affect the linearity of pump power dependence. \textit{\textcolor{gray}{Additionally for the probe pulse it is important, that its intensity does not saturate the sample by itself leading to a GSD, which would introduce an unwelcome degree of freedom to the measurements.}} For the probe pulse the linear response of the sample is also important. In case of a too high radiance the sample may saturate as well, which can influence the response in two ways additional to processes involving more than one photon: First for a probe wavelength experiencing ESA, to simplify assume no absorption in the groundstate, the ESA response would be reduced, just like the the population transfer from the groundstate leads to GSD. Secondly for a GSD probe wavelength it would lead to a further reduction in absorption  and an increase of the response.\\
-To test this multiple pump and probe power combinations were tested, at the same sample position, only variable ND filter insertion was changed. Insertion depth of the variable ND filters was assumed to not change the overlap and only the starting overlap was recorded. The linearity of the sample is shown for powers up to $\mathrm{5900\ \frac{W}{m^2}}$ pump and $\mathrm{3600 \ \frac{W}{m^2}}$ probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically the graph showing the probe peak radiance dependence shows sample degradation due to the high pump power density. Notably the higher power density measurements agree far more regarding degradation correction. There is no obvious reason for the low probe peak radiance measurement, corresponding to the first measurement of the three, having a slightly stronger response. The second measurement at a probe radiance of \SI{3600}{\radiance} responds very well to the applied degradation correction and all three sub-measurements coincide. This implies that the decreased response is not just based on faster degradation due to probe influence.
+To test this multiple pump and probe power combinations were tested, at the same sample position, only variable linear neutral density filter insertion was changed. Insertion depth of the variable ND filters was assumed to not change the overlap and only the starting overlap was recorded. The linearity of the sample is shown for powers up to $\mathrm{5900\ \frac{W}{m^2}}$ pump and $\mathrm{3600 \ \frac{W}{m^2}}$ probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically the graph showing the probe peak radiance dependence in fig. \ref{fig:powerVarCorrection} shows sample degradation due to the high pump power density. Notably the higher power density measurements agree far more regarding degradation correction. There is no obvious reason for the low probe peak radiance measurement, corresponding to the first measurement of the three, having a slightly stronger response. The second measurement at a probe radiance of \SI{3600}{\radiance} responds very well to the applied degradation correction and all three sub-measurements coincide. This implies that the decreased response is not just based on faster degradation due to probe influence.
 
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=\linewidth]{images/PowerVariationNotCorrected.png}
-\caption{Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm\\
+\caption{\textbf{split plot}Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm\\
 Overlap corrected data in blue and additionally pump degradation corrected data in red.
 Every point shown is the average of a triple measurement fitted with a single exponential decay\\
 In the left plot the sample response for different pump peak radiances can be seen. To note is that for the pump peak radiance of $\mathrm{(620 \pm 50})\ \frac{W}{m^2}$ three different probe peak radiances of 450 to 1820 $\mathrm{\frac{W}{m^2}}$, showing minimal spread in response. See raw data in fig. \ref{fig:PowerVarL}\\
@@ -693,7 +737,7 @@ Time at start on the y axis corresponds to the starting time of the measurement\
 Usually photobleaching is be modelled as an exponential decay as a function of time exposed. A fit is made to the decay of the absorbance $\frac{A\left(t\right)}{A\left(t=0\right)} = exp(-\frac{t}{\tau})$.
 All datapoints, which are background subtracted, after the temporal overlap are used in fitting. This avoids strong variations in the pre temporal overlap area, where the absorbance values vary mildly around 0 mOD leading to a strong variation of their ratio and an ill conditioned fit. A least squares approach with numpy curve\_fit is used. A residual is defined as
 \begin{equation}
-residual = \sum_{t_i,d_i} \left(ln\left(\lvert\frac{\Delta A(t_i,d_i)}{\Delta A(t=0,d_i)}\rvert\right)- \frac{t_i}{\tau}\right)^2
+\mathrm{residual} = \sum_{t_i,d_i} \left(ln\left(\lvert\frac{\Delta A(t_i,d_i)}{\Delta A(t=0,d_i)}\rvert\right)- \frac{t_i}{\tau}\right)^2
 \end{equation}
 is used, where $t_i$ is the time at the start of the scan, $d_i$ is the delay between pump and probe pulses and $\tau$ is the decay parameter fitted. The absolute value of change in absorbance is taken to avoid negative values in the logarithm, even though they are unlikely when only $d_i$ after temporal overlap are used. The correction assumes an equal time for each measurement point based on the time between two delay scans and the number of points in the scan. This simplification is needed as only starting times of delay scans are collected. A moving mean may be used to smooth particularly noisy data. Used fits use a moving mean of 5 measurement points. Comparison to no smoothing mean does not change the fit result in a significant way, though the data is not particularly noisy.\\
 In fig. \ref{fig:degradationCorrectionComparison} a comparison of raw and corrected data is shown. The decay corrected data shows a far lower spread in absorbance values making the fitting method a valid option. \\
