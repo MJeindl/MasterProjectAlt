@@ -26,6 +26,15 @@ def parseTime(time):
     times[0] = 0
     return times
 
+#moved over from SeriesDegradation
+def numberFileGenerator(start, stop, namePrefix=r"TA_fourier_", nameSuffix=r""):
+    ''''generate TA_fourier_02364 style names in list form'''
+    vec = np.arange(start, stop+1,1)
+    filenames = []
+    for number in vec:
+        filenames.append(namePrefix + str(number)+ nameSuffix)
+    return filenames
+
 
 def parseFilenames(filenameArray, directoryPath = r""):
     if directoryPath != r"":
@@ -44,10 +53,12 @@ def parseFilenames(filenameArray, directoryPath = r""):
                 for subFile in file_current:
                     #filenames.append(directoryPath + r"\\"[0] + subFile[0] + ".mat")
                     filenames.append(r"\\"[0] + subFile[0] + ".mat")
+                    OutdirectoryPath = os.path.dirname(os.path.abspath(filenameArray[0]))
             else:
                 #TA_fourier style file
                 filenames.append(pathInsert + file + ".mat")
-        OutdirectoryPath = os.path.dirname(os.path.abspath(filenameArray[0]))
+                OutdirectoryPath = directoryPath
+        
     else:
         #if single saturation file
         summaryfile = loadmat(directoryPath + pathInsert + filenameArray)
