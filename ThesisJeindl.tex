@@ -344,7 +344,7 @@ The option that finally won out is decoupling the beams after the frontal cage l
 The rear lens is set to image the sample plane onto the camera as described in \ref{regRearFocus} with a pump adjacent wavelength used to illuminate the sample from the detector side, which amounts to back illumination for the rear camera. This is done to be able to use the pump beam as a reference for the cage system, as the front focus for the sample and the rear focus for the rear camera are both calibrated using a wavelength with very little chromatic focal shift from it.\\
 A two step process is then used to get the position of the front camera, in the mirrored sample path, correct:
 \begin{enumerate}
-\item \textcolor{red}{Adjust the frontal camera distance so, that the pump beam profile is right before inversion, due to passing through the focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a bit beyond that point.}  Attention has to be paid to not go into inversion, which is hard to tell by eye. After a first good calibration this could be done by comparing the fitted intensity value/FWHM of the beam profile, as long as the pump beam path did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile. This is due to a change in optical path length due to the different refractive index of the OD filter.
+\item It may seem like a good idea to just minimize the beam waist of the imaged pump beam. However due to effects of the inversion on fitting this does not work strictly. \textcolor{red}{Adjust the frontal camera distance so, that the pump beam profile is right before inversion, due to passing through the focal point. Inversion being the outer features of the beam profile passing through the center. The intensity still rises a tiny bit beyond that point.} Attention has to be paid to not go into inversion, which is hard to tell by eye. After a first good calibration this could be done by comparing the fitted intensity value/FWHM of the beam profile, as long as the pump beam path did not change. Placement of OD filter in front of camera or in front of cage does matter, swapping the position changes the beam profile. This is due to a change in optical path length due to the different refractive index of the OD filter.
 \item Set the probe to the same or an adjacent wavelength to the pump and setup overlap using the rear camera. Due to beampaths and thus spherical aberration this may be a tedious process and not completely accurate. Check the overlap on the frontal camera by moving the camera back and forth and observing if the beams cross through their centers. If that is the case the pump probe overlap should be given optimally and the frontal camera can be set to the optimum position of this overlap. Take reference TA measurements if possible to check if there is an improvement from the purely rear camera based position.
 \end{enumerate}
 
@@ -467,7 +467,7 @@ ArtFit may parse 3 different input types:
 \item Quick plotting of raw data:\\
 With a path to a raw data file and an optional bool value, which is used to tell the program to use the standard size of 1280x720 instead of a square pixel array size deduced from total number of entries. Plots the beam intensity profile without any processing.
 \item Single beam profile with background subtraction: \\
-Loads a \textcolor{blue}{JSON characterising the background file}, including a set offset of ROI, the path for the beam profile to be loaded and a width for fitting.
+Loads a JSON with a dictionary for background subtraction, the path for the beam profile to be loaded and a width for fitting.
 \item Two beam profiles with background subtraction: \\
 ROI offset has to be identical and is again defined by a JSON file with background location.
 \end{enumerate}
@@ -720,14 +720,18 @@ For measurements to be valid there should be a linear correspondence of pump pow
 To test this multiple pump and probe power combinations were tested, at the same sample position, only variable linear neutral density filter insertion was changed to change the attenuation. Insertion depth of the variable ND filters was assumed to not change the overlap and only the starting overlap was recorded. The linearity of the sample is shown for powers up to $\mathrm{5900\ \frac{W}{m^2}}$ pump and $\mathrm{3600 \ \frac{W}{m^2}}$ probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically the graph showing the probe peak radiance dependence in fig. \ref{fig:powerVarCorrection} shows sample degradation due to the high pump power density. Notably the higher power density measurements agree far more regarding degradation correction. There is no obvious reason for the low probe peak radiance measurement, corresponding to the first measurement of the three, having a slightly stronger response. The second measurement at a probe radiance of \SI{3600}{\radiance} responds very well to the applied degradation correction and all three sub-measurements coincide. This implies that the decreased response is not just based on faster degradation due to probe influence.
 
 \begin{figure}[hbtp]
+\begin{subfigure}[t]{0.5\linewidth}
 \centering
-\includegraphics[width=\linewidth]{images/PowerVariationNotCorrected.png}
-\caption{\textbf{split plot}Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm\\
-Overlap corrected data in blue and additionally pump degradation corrected data in red.
-Every point shown is the average of a triple measurement fitted with a single exponential decay\\
-In the left plot the sample response for different pump peak radiances can be seen. To note is that for the pump peak radiance of $\mathrm{(620 \pm 50})\ \frac{W}{m^2}$ three different probe peak radiances of 450 to 1820 $\mathrm{\frac{W}{m^2}}$, showing minimal spread in response. See raw data in fig. \ref{fig:PowerVarL}\\
-On the right probe power is varied at a pump power density of 4430 $\mathrm{\frac{W}{m^2}}$.\\
-In red the degradation compensated points are shown, only accounting for the pump peak radiance. For the right subplot the history of the measurement is left, right and center. The relatively high probe intensity in the GSD band of the squaraine is likely to be the reason for the error in degradation compensation, since the highest radiance is the second measurement point. \label{fig:PowerVarRaw}}
+\includegraphics[width=\linewidth]{images/PowerVariationCorrectedPump.png}
+\caption{Influence of variation of pump radiance on signal. At lowest pump radiance are three measurements with varied probe radiance in range of \SIrange{450}{1820}{\radiance}, with raw data shown in fig. \ref{fig:PowerVarL}. They show a minimal spread in response.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.5\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/PowerVariationCorrectedProbe.png}
+\caption{Influence of variation of probe radiance on signal at pump radiance \SI{4430}{\radiance}. Measurements were made in order left, right and center.\label{fig:PowerVarProbe}}
+\end{subfigure}
+\caption{Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm.
+Overlap corrected data in blue and additionally pump degradation corrected data in red. Every point shown is the average of a triple measurement fitted with a single exponential decay. In red the degradation compensated points are shown, only accounting for the pump peak radiance.\\ The relatively high probe intensity in the GSD band of squaraine  may be the reason for the error in degradation compensation in fig. \ref{fig:PowerVarProbe}, since the highest probe radiance is the second measurement point. \label{fig:PowerVarRaw}}
 \end{figure}
 
 \begin{figure}[hbtp]
@@ -874,6 +878,8 @@ $\mathrm{0_{21}}$ of byte 2 is always empty.\label{fig:ByteArtrayOut}}
 \end{figure}
 
 The via bitwise operations processed value is then assigned to a short integer array. Notably for processing the region of interest (ROI) needs to be known. It is not included in any of the raw data itself.
+
+
 
 \chapter*{Used materials}
 \begin{longtable}{p{0.48\textwidth}p{0.48\textwidth}}
