@@ -12,7 +12,7 @@ import sys
 import plotHelperLatex
 plotHelperLatex.setMatplotSettings()
 sys.path.insert(1, r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm")
-from ShowDelayScan import main
+from ShowDelayScan import fromFiles
 
 from argparse import ArgumentParser
 from fileParsingMethods import getTimes, parseTime, parseSummaryFileToArray, parseFilenames, removeBackground, parseSummaryFiletoRaw
@@ -53,7 +53,7 @@ def degradationCompensation(degConstant, times, decaysteps, powerDensities=1):
 
 
 
-def plotTrend(filePaths, dirPath=r"", figsize=(8,4)):
+def plotTrend(filePaths, dirPath=r"", figsize_in=(8,4)):
     #need to switch getTimes to the same system as parseSummary to allow any type of input
     times = getTimes(filePaths, dirPath)
     dArray, delay, _ = parseSummaryFileToArray(filePaths, dirPath)
@@ -62,11 +62,11 @@ def plotTrend(filePaths, dirPath=r"", figsize=(8,4)):
     timesFromZero = np.array(parseTime(times), dtype=int)
 
     delays, measurementTimes = np.meshgrid(delay, timesFromZero)
-    fig, ax = plt.subplots(1,1, figsize=(8,4), dpi = 200)
-    map = ax.pcolor(delays, measurementTimes, OD, cmap="plasma")
-    ax.set_xlabel('delay time / fs')
+    fig, ax = plt.subplots(1,1, figsize=figsize_in, dpi = 288)
+    map = ax.pcolor(delays*1e-3, measurementTimes, OD, cmap="plasma")
+    ax.set_xlabel('delay time / ps')
     ax.set_ylabel('total time elapsed at start / s')
-    fig.colorbar(map, ax=ax, label=r"$\Delta OD$ / a.u.")
+    fig.colorbar(map, ax=ax, label=r"$\Delta$OD / mOD")
     ax.set_yticks(timesFromZero-(timesFromZero[1]-timesFromZero[0])/2, timesFromZero)
     plt.tight_layout()
     plt.show()
@@ -169,12 +169,6 @@ def ignore():
 
     plt.show()
 
-def numberFileGenerator(start, stop, namePrefix=r"TA_fourier_", nameSuffix=r""):
-    ''''generate TA_fourier_02364 style names in list form'''
-    vec = np.arange(start, stop+1,1)
-    filenames = []
-    for number in vec:
-        filenames.append(namePrefix + str(number)+ nameSuffix)
-    return filenames
+
 
 
