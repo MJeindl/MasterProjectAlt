@@ -5,6 +5,7 @@ def setMatplotSettings():
     plt.rcParams['text.usetex'] = True
     font = {'size': 11}
     plt.rc('font', **font)
+    plt.rcParams["axes.formatter.limits"] = [-3,3]
 
 def figSizer(fractionWidth, aspectRatio=1.618,  scale = 1):
     '''scale = 0.5 means that the plot is meant to be used at scale = 0.5 in latex\\
