@@ -92,7 +92,6 @@ There are several types of contrast within pump probe spectroscopy. Processes li
 These processes may manifest at the same time, thus concealing other processes with the opposite influence on the transient opacity. This is not so much of concern for processes like XPM or stimulated raman scattering, because they require temporal overlap of pump and probe pulse and thus only influence a short range within the time delay based on the pulse lengths. ESA and GSD are measured within a regime linear to the pump irradiance of the sample, where the peak power of the pulse is not high enough for nonlinear optical processes. For this reason the temporal pulse shape is not so important for the classification of these measurements, other than time resolution. Thus it makes sense to write powers used here for pump and probe as dose per area per shot ($\mathrm{\frac{J}{m^2}}$), to also avoid confusing values due to different repetition rates of pump and probe pulses.\\
 
 To record a GSD spectrum simply an excitation from GS has to be available for the probe beam spectrum. For ESA state energies probed are a combination of an excited state reachable by the pump and then the probe beam spectrum. The available photon wavelengths for pump and probe may be seen in tab. \ref{tab:NOPAs}. An important factor is that neither pump or probe are mono-energetic light and they will excite off center wavelengths.
-\textbf{insert spectra of NOPAs and of SHG}
 
 \begin{figure}[hbtp]
 \centering
@@ -267,7 +266,7 @@ The solution to these issues is an adjustable telescope of biconvex lenses, of w
 \paragraph{Setting up}
 The task of setting up the SHG stage is non trivial regarding proper alignment and linear stage positioning, such that the ~5 cm of movement are sufficient to adjust for the chromatic aberration within the targeted wavelength range for probe. This task often ends up being trial and error in correspondence to checking multiple wavelengths. The cage lenses have to be in their correct positions first.\newline
 Irises etc are beneficial if there is a working setup.\newline
-Use irises to shape the probe beam to an acceptable Gaussian shape while avoiding diffraction effects. Optimally the incoming beam is level with the table, since any inclination will introduce an astigmatism? depending on the rear lens position.\newline
+Use irises to shape the probe beam to an acceptable Gaussian shape while avoiding diffraction effects. Optimally the incoming beam is level with the table, since any inclination will introduce an \textbf{astigmatism?} depending on the rear lens position.\newline
 Begin with the first lens in the path leaving enough space for the linear stage and the SHG crystal to the next static optic. Set lens centered regarding beam. Use the irises in front of the lens to adjust the reflection on the lens surface to return the exact incoming beampath.\newline
 Place the rear stage lens and once again adjust for center position. One may again use the reflection and additionally the transmitted beam to tell if the stage is parallel to the beam path. The center of the beam should not move when translating the stage and the expansion of the beam diameter should be as symmetric as possible. Adjusting via the reflection is not such a clear indication of alignment here, as there are multiple convex surfaces in play at this point, leading to multiple focal beams, what may not be in full accordance with each other. For this usually it was chosen to get the highest intensity spot, which refers to the final glass/air surface of the second lens, in the incoming beam path. This spot is also focused, which makes adjustment easier.\newline
 Finally one can adjust mirrors after the stage to get an image on the camera again, as even relatively minute changes in alignment will lead to some beam offset and change in direction. Translating the stage then will give an indication of how well the SHG stage is set up in regards to astigmatism which can be seen as non symmetric expansion of the beam. However beware that the mirror outcoupling in the cage also influences the way a change in focus is experienced, due to deviations from an orthogonal inclination angle to the sensor.
@@ -548,7 +547,7 @@ To check for possible effects regarding offsetting of the distributions from the
 As the Artray $\mathrm{ARTCAM-092UV-WOM}$ could not be interfaced with matlab using the webcam library a C\# program was created based on the manufacturers example program.
 Issues with our system are that for our specific camera or system setup a periodic variation of low intensity signal is reported by the C\# based program, while this periodic variation is missing in the official software. Attempts were made to troubleshoot this in correspondence with the manufacturer, who were very forthcoming in the matter, but it could not be solved so far. To overcome this problem a simple background subtraction has been devised as sufficient, as the variation seems to be constant over time. The background has been recorded with the lens cap on at an exposure of 15 ms, which was chosen after comparing the subtracted quality output of 0.3 ms, 15 ms and 100 ms. 
 \newline
-For all measurements included here version 1.2 was used. The  ALGLIB software package is used and \textbf{(version number)}\footnote{ALGLIB for C\# licensed as per GPL 2} for fitting a Gaussian to the beamshape. Scottplot 4 is used to display the fitted data.\\
+For all measurements included here version 1.2 was used. The  ALGLIB software package is used\footnote{ALGLIB for C\# 3.19.0 licensed as per GPL 3} for fitting a Gaussian to the beamshape. Scottplot 4\footnote{Copyright 2018 Scott Harden, MIT License} is used to display the fitted data.\\
 \subsubsection{Fitting principle}
 In version 1.2 the relevant fitting parameters are returned as a numeric overlap integral based on the Gaussian beamshapes. In this version it is still calculated numerically from the fits, however it can be rebased into an analytical form as per eq. \ref{eq:GaussianProduct} which describes the product of two Gaussians.
 \begin{equation}
@@ -640,13 +639,13 @@ As shown in the spectrum in fig. \ref{fig:VarpercentCWspectrum} the main CW abso
 
 
 Even though the sample is intended to be relatively homogeneous, there are variations in sample response over the area surveyed. For the wavelength scans shown in context of the SHG setup sample spots without strong variations in the vicinity were preferred, however this method is limited by resolution and area of these scans being very time intensive. An attempt to linearly compensate the difference in response has been made for some measurements and will be explicitly stated when applied. \textbf{currently everywhere, should I show something without?} Since exposure of the single spots is rather short no discernible sample degradation is expected from these mapping operations. The map used for correction of the shown wavelength scans may be seen in fig. \ref{fig:TA_image_sample}. Pump power before and after measurement are identical, however probe power varied over time.\\
-Also applied is the overlap correction factor with a fitting width using a 3 px average centered on a peak fit. Degradation compensation is applied as described in sec. \ref{sec:degradation} using the same $\tau_{1/e} = \SI{14100}{\second}$.
+Also applied is the overlap correction factor with a fitting width using a 3 px average centered on a peak fit. Degradation compensation is applied as described in sec. \ref{sec:degradation} using the same $\tau_{1/e} = \SI{14100}{\second}$ compensated for the peak pump power used in the measurement.
 Measurements are done in parallel pump and probe polarization.
 
 \begin{figure}[hbt]
 \centering
 \includegraphics[scale=1]{images/1percentSQIBinPMMA_Sample653-680Image.png}
-\caption{Transient absorption image of 1wt\% SQIB in PMMA sample from image\_0245 with subtracted background image\_0244 at a probe spot size of approximately \SIrange{36}{45}{\micro\meter} FWHM.\\ Extreme deviations from standard power are likely to be imperfections in or on the sample and have to be avoided for measurements.\\ Pump peak radiance at \SI{653}{\nano\meter} approximately \SI{1700}{\radiance}, probe peak radiance at \SI{680}{\nano\meter} approximately \SIrange{300}{500}{\radiance}\label{fig:TA_image_sample}}
+\caption{Transient absorption image of 1wt\% SQIB in PMMA sample from image\_0245 with subtracted background image\_0244 at a probe spot size of approximately \SIrange{36}{45}{\micro\meter} FWHM.\\ Extreme deviations from standard power are likely to be imperfections in or on the sample and have to be avoided for measurements.\\ Pump peak radiance at \SI{653}{\nano\meter} approximately \SI{85e-3}{\radExp}, probe peak radiance at \SI{680}{\nano\meter} approximately \SIrange{7.5e-3}{12.5e-3}{\radExp}\label{fig:TA_image_sample}}
 \end{figure}
 
 The correction for variation of the sample response at different measurement points is accounted for as as a factor normalised by the mean sample response, of the used points of the probe wavelength scan, for a pump 653 nm probe 680 nm. Uncertainty estimation is unavailable due lacking resolution of the map.\\
@@ -665,11 +664,11 @@ f(t) = \left[\sum_{n=0}^{n_{max}} A_n\cdot exp \left(\frac{-(t-t_0)}{\tau_n}\rig
 The data is corrected for the mentioned map irregularities, degradation of the sample over measurement time and overlap of pump and probe beams. The concepts for these corrections are found in chap. \ref{chap:CorrandComp} should be, that the fits generally work well visually or regarding residuals, however uncertainties from the fits are not applicable, as the sample response decays far too slowly to realise good decay constants with available delay lengths of the setup. Thus the fits are applied such, that they replicate the data as well as possible. Choice of a single or bi-exponential decay is made for optimising the residuals, especially near the important temporal overlap edge. The power densities used in the wavelength scan are shown in tab. \ref{tab:powersWavScan} and wavelength scans shown here are normalised by their power densities, assuming the linearity of the response to the pump peak radiance.
 
 \begin{table}[htb]
-\caption{Power densities used for wavelength scan\\ At \SI{6500}{\radiance} linearity of measurements to pump power density may already deviate, however it may still be used to check for signal response.\label{tab:powersWavScan}}
+\caption{Pump peak power densities used for wavelength scan\\ At \SI{0.325}{\radiance} linearity of measurements to pump power density may already deviate, however it may still be used to check for signal response.\label{tab:powersWavScan}\textbf{is mixing bad? I am not sure on this}}
 \centering
-\begin{tabular}{l|lllll}
-wavelength range / nm           & \SIrange{680}{400}{}   & \SIrange{390}{380}{}   & 370  & \SIrange{360}{350}{}& \SIrange{330}{310}{} \\ \hline
-power density / \SI{}{\radiance}& \SIrange{1500}{1700}{} & \SIrange{1800}{2400}{} & 3000 & 6500                 & \SIrange{3800}{3900}{} 
+\begin{tabular}{l|ccccc}
+wavelength range / nm           & \SIrange{680}{400}{}   & \SIrange{390}{380}{}   & 370  & \SIrange{360}{350}{}& \SIrange{330}{310}{} \\ \midrule
+peak power density / \SI{e-3}{\radExp}& \SIrange{75}{85}{} & \SIrange{90}{120}{} & \SI{150}{} & \SI{325}{}  & \SIrange{190}{195}{} 
 \end{tabular}
 \end{table}
 
@@ -717,20 +716,20 @@ As mentioned above irregularities over the area of the sample probed were attemp
 
 \section{Power density dependence}\label{sec:powerVar}
 For measurements to be valid there should be a linear correspondence of pump power and the measured absorbance. Main concern here is that pump irradiance is within the linear regime of the transient absorption response. \textit{\textcolor{gray}{Additionally for the probe pulse it is important, that its intensity does not saturate the sample by itself leading to a GSD, which would introduce an unwelcome degree of freedom to the measurements.}} For the probe pulse the linear response of the sample is also important. In case of a too high radiance the sample may saturate as well, which can influence the response in two ways additional to processes involving more than one photon: First for a probe wavelength experiencing ESA, to simplify assume no absorption in the groundstate, the ESA response would be reduced, just like the the population transfer from the groundstate leads to GSD. Secondly, for a GSD probe wavelength it would lead to a further reduction in absorption  and an increase of the response.\\
-To test this multiple pump and probe power combinations were tested, at the same sample position, only variable linear neutral density filter insertion was changed to change the attenuation. Insertion depth of the variable ND filters was assumed to not change the overlap and only the starting overlap was recorded. The linearity of the sample is shown for powers up to $\mathrm{5900\ \frac{W}{m^2}}$ pump and $\mathrm{3600 \ \frac{W}{m^2}}$ probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically the graph showing the probe peak radiance dependence in fig. \ref{fig:powerVarCorrection} shows sample degradation due to the high pump power density. Notably the higher power density measurements agree far more regarding degradation correction. There is no obvious reason for the low probe peak radiance measurement, corresponding to the first measurement of the three, having a slightly stronger response. The second measurement at a probe radiance of \SI{3600}{\radiance} responds very well to the applied degradation correction and all three sub-measurements coincide. This implies that the decreased response is not just based on faster degradation due to probe influence.
+To test this multiple pump and probe power combinations were tested, at the same sample position, only variable linear neutral density filter insertion was changed to change the attenuation. Insertion depth of the variable ND filters was assumed to not change the overlap and only the starting overlap was recorded. The linearity of the sample is shown for powers up to \SI{295e-3}{\radExp} pump and \SI{91e-3}{\radExp} probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically the graph showing the probe peak radiance dependence in fig. \ref{fig:powerVarCorrection} shows sample degradation due to the high pump power density. Notably the higher power density measurements agree far more regarding degradation correction. There is no obvious reason for the low probe peak radiance measurement, corresponding to the first measurement of the three, having a slightly stronger response. The second measurement at a probe radiance of \SI{90e-3}{\radExp} responds very well to the applied degradation correction and all three sub-measurements coincide. This implies that the decreased response is not just based on faster degradation due to probe influence.
 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{0.5\linewidth}
 \centering
 \includegraphics[width=\linewidth]{images/PowerVariationCorrectedPump.png}
-\caption{Influence of variation of pump radiance on signal. At lowest pump radiance are three measurements with varied probe radiance in range of \SIrange{450}{1820}{\radiance}, with raw data shown in fig. \ref{fig:PowerVarL}. They show a minimal spread in response.}
+\caption{Influence of variation of pump radiance on signal. At lowest pump peak radiance are three measurements with varied probe peak radiance in range of \SIrange{114e-4}{455e-4}{\radExp}, with raw data shown in fig. \ref{fig:PowerVarL}. They show a minimal spread in response.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.5\linewidth}
 \centering
 \includegraphics[width=\linewidth]{images/PowerVariationCorrectedProbe.png}
-\caption{Influence of variation of probe radiance on signal at pump radiance \SI{4430}{\radiance}. Measurements were made in order left, right and center.\label{fig:PowerVarProbe}}
+\caption{Influence of variation of probe radiance on signal at pump radiance \SI{221e-3}{\radExp}. Measurements were made in order left, right and center.\label{fig:PowerVarProbe}}
 \end{subfigure}
-\caption{Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm.
+\caption{Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm. Uncertainties based on peak radiant exposures.
 Overlap corrected data in blue and additionally pump degradation corrected data in red. Every point shown is the average of a triple measurement fitted with a single exponential decay. In red the degradation compensated points are shown, only accounting for the pump peak radiance.\\ The relatively high probe intensity in the GSD band of squaraine  may be the reason for the error in degradation compensation in fig. \ref{fig:PowerVarProbe}, since the highest probe radiance is the second measurement point. \label{fig:PowerVarRaw}}
 \end{figure}
 
@@ -739,13 +738,13 @@ Overlap corrected data in blue and additionally pump degradation corrected data 
 \begin{subfigure}[t]{0.45\textwidth}
 \centering
 \includegraphics[scale=1]{images/PowerVarLowPumpVarProbe.png} 
-\caption{Peak pump radiance \SI{620}{\radiance}\\TA\_fourier measurements:\\ 6615-6620, 6630-6632\label{fig:PowerVarL}}
+\caption{Peak pump radiance \SI{31e-3}{\radExp}\\TA\_fourier measurements:\\ 6615-6620, 6630-6632\label{fig:PowerVarL}}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
 \centering
 \includegraphics[scale=1]{images/PowerVarHighPumpVariedProbe.png} 
-\caption{Peak pump radiance \SI{4430}{\radiance}\\TA\_fourier measurements:\\ 6645-6653\label{fig:PowerVarR}}
+\caption{Peak pump radiance \SI{221e-3}{\radExp}\\TA\_fourier measurements:\\ 6645-6653\label{fig:PowerVarR}}
 \end{subfigure}
 \caption{Power variation raw transient absorption data\\
 For both subplots the probe power density is varied. The influence on the decay of signal response on the right subplot is due to high powers inducing stronger degradation in the sample.}
@@ -782,12 +781,12 @@ $0.72 \pm 0.02$           & $0.58 \pm 0.01$            & $0.00 \pm 0.04$        
 \section{Sample degradation}\label{sec:degradation}
 The main loss of sample response is suspected to be dependent on the pump pulse, as it is right at the CW absorption peak. A repeated delay scan at the same position is shown in fig. \ref{fig:rawDegradation} to show degradation behavior. That combined with the higher peak radiance of the pump pulse makes it the prime candidate of photo bleaching. This also would be supported by the circumstance, that a pump probe wavelength combination fully on the main absorption peak always showed a lower GSD response than expected. Reasoning for that is an extremely fast degradation of the sample spot where pump and probe coincide in their peak radiances.\\
 The pump pulse on the main absorption peak is expected as the main degrading component for most of the probe spectrum as long as low probe peak radiances are used. For high probe photon energies this may no longer be the case, however from the spectra recorded so far no indication of a strong influence is seen.\\
-Thus reduction of transient response at a pump peak radiance of $\mathrm{(1580\pm 80) \ \frac{W}{m^2}}$ at 653 nm combined with a probe wavelength of 493 nm at $\mathrm{(350 \pm 50)\ \frac{W}{m^2}}$, which is close to the main absorption peak of the first ESA transition of the monomer. The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. This mainly serves to confirm the typical measurement behaviour and to make an attempt at correcting for the response loss due to photo bleaching.
+Thus reduction of transient response at a pump peak radiance of \SI{79(4)e-3}{\radExp} at 653 nm combined with a probe wavelength of 493 nm at \SI{8.6(1.3)e-3}{\radExp}, which is close to the main absorption peak of the first ESA transition of the monomer. The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. This mainly serves to confirm the typical measurement behaviour and to make an attempt at correcting for the response loss due to photo bleaching.
 
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=\linewidth]{images/DegradationRAWPump653Probe493.png}
-\caption{Raw data from degradation series of identical measurements at same spot at pump \SI{653}{\nano\meter} \SI{1580}{\radiance} and probe \SI{493}{\nano\meter}.\\
+\caption{Raw data from degradation series of identical measurements at same spot at pump \SI{653}{\nano\meter} \SI{79(4)e-3}{\radExp} and probe \SI{493}{\nano\meter} \SI{8.6(1.3)e-3}{\radExp}.\\
 Time at start on the y axis corresponds to the starting time of the measurement\label{fig:rawDegradation}}
 \end{figure}
 Usually photobleaching is modelled as an exponential decay as a function of time exposed. A fit is made to the decay of the absorbance $\frac{A\left(t\right)}{A\left(t=0\right)} = exp(-\frac{t}{\tau})$.
@@ -801,9 +800,9 @@ The correction applied to the delay scans assumes an equal time for each measure
 \begin{equation}\label{eq:degradationCompensation}
 A_{compensated}(t_i(d_j), d_j) = A(t_i(d_j), d_i)\cdot exp\left(+\frac{t_i(d_j)-t0}{\tau_{1/e}}\right)
 \end{equation}
-$A_{t_i(d_j), d_j}$ 
+
 \begin{equation*}
-t_i(d_j) = t_i + j\cdot \mathrm{mean(\Delta t)}
+t_i(d_j) = t_i + j\cdot \mathrm{mean(\Delta t_{delay scan)}}
 \end{equation*}
 
 \begin{figure}[hbtp]
@@ -818,7 +817,7 @@ t_i(d_j) = t_i + j\cdot \mathrm{mean(\Delta t)}
 \centering
 \includegraphics[scale=1]{images/DegradationCorrectedPump653Probe493-Graph.png}
 \caption{Exponential decay corrected data\\
-Decay constant $\tau_{1/e}$ = \SI{14100}{\second}}
+Decay constant $\tau_{1/e}$ = \SI{14100}{\second} at \SI{79(4)e-3}{\radExp}}
 \end{subfigure}
 \caption{Comparison of raw data and decay corrected data for measurements TA\_fourier: \mbox{6778 - 6787}.\label{fig:degradationCorrectionComparison}}
 \end{figure}
@@ -843,7 +842,7 @@ Decay constant $\tau_{1/e}$ = \SI{14100}{\second}}
 \centering
 \includegraphics[width=\columnwidth]{images/PowerVarHigh_CorrEstimate14100_2.8.png} 
 \caption{Corrected from degradation fit fig. \ref{fig:degradationCorrectionComparison}\\
-$\tau_{1/e}=$\SI{14100}{\second}, $P_{ratio}=\frac{P_{\SI{680}{\nano\meter}}}{P_{\SI{497}{\nano\meter}}} = \frac{4430}{1580}= 2.8$}
+$\tau_{1/e}=$\SI{14100}{\second}, $P_{ratio}=\frac{P_{\SI{680}{\nano\meter}}}{P_{\SI{497}{\nano\meter}}} = \frac{221}{19}= 2.8$}
 \end{subfigure}
 \caption{Comparison of pump \SI{653}{\nano\meter} probe \SI{680}{\nano\meter} raw, corrected by direct fit and corrected by applying the decay constant gathered from fig. \ref{fig:degradationCorrectionComparison}\\Applying the power correction as a ratio factor of used measurement power density divided by fitting power density as follows $\Delta OD(t) = \Delta OD(t=0)\cdot e^{\frac{t\cdot P_{ratio}}{\tau}}$, where $P_{ratio} =1$ if the power density is the same as for the measurement where degradation is fitted and t is the elapsed times since start of the measurement. Note that the measurements gathered here have different probe power densities.\label{fig:powerVarCorrection}}
 \end{figure}
@@ -855,7 +854,7 @@ A simple naive assumption for power dependence of photobleaching is same bleachi
 
 A comparison of the degradation in the measurements in fig. \ref{fig:degradationCorrectionComparison} with a probe wavelength of \SI{497}{\nano\meter} and fig. \ref{fig:powerVarCorrection} is made, to show the decreased spread of the corrected data.
 
-Another aspect to consider is the power density influence on degradation, for which the measurements from sec. \ref{sec:powerVar} are used.  Their decay constant shows $\tau_{1/e}\left(\SI{4400}{\radiance}\right)=$\SI{7600}{\second}  opposed to the $\tau_{1/e}\left(\SI{1580}{\radiance}\right)=$\SI{14100}{\second}. The fit from the degradation series, when corrected for total dose rate, seems to fit better with all measurements close together, while the fit made on the power variation measurements leads to a lot wider spread. The effect of the constants on the measurements is shown in fig. \ref{fig:powerVarCorrection}.
+Another aspect to consider is the power density influence on degradation, for which the measurements from sec. \ref{sec:powerVar} are used.  Their decay constant shows $\tau_{1/e}\left(\SI{221e-3}{\radExp}\right)=$\SI{7600}{\second}  opposed to the $\tau_{1/e}\left(\SI{79e-3}{\radExp}\right)=$\SI{14100}{\second}. The fit from the degradation series, when corrected for total dose rate, seems to fit better with all measurements close together, while the fit made on the power variation measurements leads to a lot wider spread. The effect of the constants on the measurements is shown in fig. \ref{fig:powerVarCorrection}.
 
 A not so naive model for degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile. The high power density area on the sample however would also decay quicker, because photodamage tends to be at least linearly dependent on the total dose.
 
