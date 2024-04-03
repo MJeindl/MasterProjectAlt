@@ -29,8 +29,14 @@
 \sisetup{uncertainty-mode=separate}
 \sisetup{range-phrase=\,--\,}
 \DeclareSIUnit\od{\Delta{}mOD}
+\DeclareSIUnit\shot{shot}
 \DeclareSIUnit\radiance{\watt\per\square\meter}
 \DeclareSIUnit\radExp{\joule\per\square\meter}
+
+\def\pumpExp#1{\ensuremath{\SI{#1}{\radExp}\,\mathrm{at}\, \SI{20}{\kilo\hertz}}}
+\def\probeExp#1{\ensuremath{\SI{#1}{\radExp}\,\mathrm{at}\, \SI{40}{\kilo\hertz}}}
+\def\frep#1{\ensuremath{\,\mathrm{at}\, \SI{#1}{\kilo\hertz}}}
+
 \sisetup{per-mode=fraction}
 
 \begin{document}
@@ -68,9 +74,9 @@
 
 \section{Transient pump probe spectroscopy}
 Using two short laser pulses a sample's response to excitation is measured. The excited states have, depending on the process of their relaxation, time scales of femtoseconds to nanoseconds. To be able to observe charge transfer between molecules and other fast relaxation pathways femtosecond time resolution pulses are needed. The response to excitation is observed as a change in optical density. Time resolution of this transient process comes from shifting the point in time where one of the pulses passes the sample relative to the other, which is usually done by a simple path length change of one of the pulses.\newline
-First a probe pulse of photon flux within a wavelength range passes through the sample and the remaining intensity is detected as $\mathrm{I_{probe}(\lambda_{probe})}$. \\
-Secondly, after a period of time to allow the sample to relax back to its initial state, a pump pulse $\mathrm{I_{pump}(\lambda_{pump})}$ excites a volume of the sample. This leads to a direct change of the optical density of the excited sample volume, which alters the transmission of the probe photons $\mathrm{I_{pump-probe}(\lambda_{probe}, \lambda_{pump}, \Delta t)}$ depending on the time delay $\Delta t$ between the pulses passing the sample volume and the pump and probe wavelengths $\lambda_{pump}/\lambda_{probe}$ respectively. \\
-The change in absorptive properties of the sample depending on the pump pulse is characterised in the transient absorbance $\mathrm{\Delta A}$, which often is given in orders of magnitude of the optical density. It is defined as seen in eq. \ref{eq:TA}.
+The measurement of transient absorption is based on the following: First a probe pulse of photon flux within a wavelength range passes through the sample and the remaining intensity is detected as $\mathrm{I_{probe}(\lambda_{probe})}$. 
+Secondly, after a period of time to allow the sample to relax back to its initial state, a pump pulse $\mathrm{I_{pump}(\lambda_{pump})}$ excites a volume of the sample. This leads to a direct change of the optical density of the excited sample volume, which alters the transmission of the following probe photons $\mathrm{I_{pump-probe}(\lambda_{probe}, \lambda_{pump}, \Delta t)} = I_{probe only}+\Delta I_{pump-probe}$, depending on the time delay $\Delta t$ between the pulses passing the sample volume and the pump and probe wavelengths $\lambda_{pump}/\lambda_{probe}$ respectively. \\
+The change in absorptive properties of the sample depending on the pump pulse is characterised in the transient absorbance $\mathrm{\Delta A}$, which is often given in orders of magnitude of the optical density. It is defined as seen in eq. \ref{eq:TA}.
 \begin{equation}\label{eq:TA}
 \begin{split}
 \Delta A(\lambda_{\mathrm{pump}}, \lambda_{\mathrm{probe}}, \Delta t)&=-\log _{10}\left(\frac{I_{\mathrm{pump}-\mathrm{probe}}\left(\lambda_{\mathrm{pump}}, \lambda_{\mathrm{probe}}, \Delta t\right)}{I_{\mathrm{probe}}\left(\lambda_{\mathrm{probe}}\right)}\right)\\
@@ -79,19 +85,19 @@ The change in absorptive properties of the sample depending on the pump pulse is
 \end{equation}
 
 \section{Transient effects in pump probe spectroscopy}
-There are several types of contrast within pump probe spectroscopy. Processes like two-photon-fluorescence, second or third harmonic generation (and SRS?) are too high power for our samples and would lead to immediate deactivation. They are thus not going to be addressed further with respect to the sample transient processes. The most relevant ones for this experimental setup are:\cite{10.1063/1.5129123}
+There are several types of contrast within pump probe spectroscopy. Processes like two-photon-fluorescence, second or third harmonic generation stimulated raman scattering require power densities too high for our samples and would lead to quick deactivation. They are thus not going to be addressed further with respect to the sample transient processes. The most relevant ones for this experimental setup are:\cite{10.1063/1.5129123}
 \begin{itemize}
 \item Stimulated Emission (SE): Possible in cases where a state below or at the  excited level has a transition to a lower state corresponding to the other photon wavelength used. This could be either pump or probe exciting and then the other leading to stimulated emission. However as the change in the probe is measured only contrast for pump excitation with probe stimulated emission is possible. The emitted photons are of identical energy to the probe pulse and thus an increase in transmission is observed.
 \item Ground State Depletion (GSD): By moving part of the ground state population to different energy levels the probe pulse sees a smaller absorption cross-section. This is seen as a positive change in transmission. The signal returns by an exponential, sometimes multi-exponential when multiple states are excited, decay to the starting transmission value as the molecules relax back to the ground state.
 \item Excited State Absorption (ESA): Similar to GSD a population transfer from the ground state happens, however with this population transfer now a state previously not accessible with the probe pulse becomes accessible, thus leading to an increase in absorption and a reduction of transmission.
 \item Photothermal Effect: Due to heating from strong absorption of the pump beam a change in the refractive index changes the propagation path of the probe beam. It can be avoided by having a larger numerical aperture in the rear focusing element, the condensor, than for the front focusing element and changing modulation frequency.
 \item Cross Phase Modulation (XPM): Through the optical Kerr effect the refractive index changes when both pump and probe beam are temporally overlapped within the sample. This may be used to check the instrumental response of the transient absorption microscope. It can be avoided like the photothermal effect by a larger condensor numerical aperture.
-\item Stimulated Raman Scattering: In case the energy difference between pump and probe corresponds to a raman active state a photon transfer from the higher energy beam to the lower energy beam may happen. For this there needs to be temporal overlap of the beams.
+\item Stimulated Raman Scattering: \textbf{check if really chi 3 process} In case the energy difference between pump and probe corresponds to a raman active state a photon transfer from the higher energy beam to the lower energy beam may happen. For this there needs to be temporal overlap of the beams.
 \end{itemize}
 
-These processes may manifest at the same time, thus concealing other processes with the opposite influence on the transient opacity. This is not so much of concern for processes like XPM or stimulated raman scattering, because they require temporal overlap of pump and probe pulse and thus only influence a short range within the time delay based on the pulse lengths. ESA and GSD are measured within a regime linear to the pump irradiance of the sample, where the peak power of the pulse is not high enough for nonlinear optical processes. For this reason the temporal pulse shape is not so important for the classification of these measurements, other than time resolution. Thus it makes sense to write powers used here for pump and probe as dose per area per shot ($\mathrm{\frac{J}{m^2}}$), to also avoid confusing values due to different repetition rates of pump and probe pulses.\\
+These processes may manifest at the same time, thus concealing other processes with the opposite influence on the transient absorbance. This is not so much of concern for processes like XPM or stimulated raman scattering, because they require temporal overlap of pump and probe pulse and thus only influence a short range within the time delay based on the pulse lengths. ESA and GSD are measured within a power-regime linear to the pump irradiance of the sample, where the peak power of the pulse is not high enough for nonlinear optical processes. For this reason the temporal pulse shape is not so important for the classification of these measurements, other than time resolution. Thus it makes sense to write powers used here for pump and probe as dose per area per shot (\SI{1}{\radExp}) or radiant exposure per laser shot, to also avoid confusing values due to different repetition rates of pump and probe pulses.\\
 
-To record a GSD spectrum simply an excitation from GS has to be available for the probe beam spectrum. For ESA state energies probed are a combination of an excited state reachable by the pump and then the probe beam spectrum. The available photon wavelengths for pump and probe may be seen in tab. \ref{tab:NOPAs}. An important factor is that neither pump or probe are mono-energetic light and they will excite off center wavelengths.
+To record a GSD spectrum simply an excitation from GS has to be available for the probe beam spectrum. ESA needs a state reachable with the probe spectrum to be reachable from the pumped state. The available photon wavelengths for pump and probe may be seen in tab. \ref{tab:NOPAs}. An important factor is that neither pump or probe are mono-energetic light and they will excite off center wavelengths.
 
 \begin{figure}[hbtp]
 \centering
@@ -112,23 +118,20 @@ To record a GSD spectrum simply an excitation from GS has to be available for th
 \includegraphics[width=\linewidth]{images/TA-explanation-probe-after-pump.png}
 \caption{Probing of sample  after pump at $t-t_{sample\, pump} > 0$ at two different photon energies. Green experiences ESA and red experiences GSD.\label{fig:probeAfterPump}}
 \end{subfigure}
-\caption{Principle of pump probe spectroscopy with ESA and GSD. GS is the groundstate of the sample without excitation. A is a low energy state that may be excited from GS. B is a higher energy excited state that may be populated from both GS and A, however selection rules may apply. Fig. \ref{fig:probeOnly} shows the probe passing the sample at a time where no excitation has happened yet. This is the case both for the reference probe only measurement as well as for the pump-probe measurement ahead of temporal overlap.\label{fig:CompendiumTA}}
+\caption{Principle of pump probe spectroscopy with ESA and GSD. GS is the groundstate of the sample without excitation. A is a low energy state that may be excited from GS. B is a higher energy excited state that may be populated from both GS and A. Fig. \ref{fig:probeOnly} shows the probe passing the sample at a time where no excitation has happened yet. This is the case both for the reference probe only measurement as well as for the pump-probe measurement ahead of temporal overlap.\label{fig:CompendiumTA}}
 \end{figure}
 
 
-\textbf{
-Tell them about what happens if probe intensity is too high. -> self GSD of probe that leads to bad measurement values; maybe do in reliability}
 \textbf{insert image from source}
 \subsubsection{Delay scan in detail}
-\textbf{show example of delay scan}
 A single measurement point usually consists of multiple delay scans averaged together. The relative absorbance signal of a delay scan should consist of:
 \begin{enumerate}
 \item Background plateau, where the probe pulse passes the sample in time ahead of the pump pulse.
-\item Rising signal edge, that may be positive or negative, depending on the instrument response time as well as the number of delay points measured.
-\item Maximum signal response, where also transient processes that require temporal overlap happen.
-\item Signal decay without temporal overlap of the pulses, where the sample changes from the at first excited state. This may include energy transfer processes to other molecules, if the sample and the environment are suitable.
+\item Rising signal edge, that may be positive or negative, depends on the instrument response time as well as the number of delay points measured.
+\item Maximum signal response, where transient processes that require temporal overlap tend to be observed.
+\item Signal decay without temporal overlap of the pulses, where the sample relaxes from the excited state. This may include energy transfer processes to other molecules, if the sample and the environment are suitable.
 \end{enumerate}
-The background plateau is simply used to subtract any non probe signal detected, such as stray pump light. This also serves as an indicator of lateral pump movement with stage movement, which can be problematic depending on the geometry. If it is a slow change regarding delay setting it may be subtracted linearly.\\
+The background plateau is simply used to subtract any non probe signal detected, such as stray pump light. This also serves as an indicator of lateral pump movement with stage movement, which can be problematic depending on the alignment of pump and probe. If it is a slow change regarding delay setting it may be subtracted linearly.\\
 Rising signal edge follows an error-function of the pump pulse, as femtosecond pulses usually have a Gaussian temporal shape which cumulatively excites the sample for the probe pulse to detect. This rise allows for an estimate of the temporal pulse length.
 
 \begin{figure}[hbtp]
@@ -136,25 +139,24 @@ Rising signal edge follows an error-function of the pump pulse, as femtosecond p
 \begin{subfigure}[t]{\textwidth}
 \centering
 \includegraphics[scale=1]{images/TA_delayscan_493RAW.png}
-\caption{Pump \SI{653}{\nano\meter} Probe \SI{493}{\nano\meter} ESA TA\_fourier 6767-6769}
+\caption{Pump \SI{653}{\nano\meter} probe \SI{493}{\nano\meter} ESA TA\_fourier 6767-6769}
 \end{subfigure}
 \begin{subfigure}[t]{\textwidth}
 \centering
 \includegraphics[scale=1]{images/TA_delayscan_680RAW.png}
-\caption{Pump \SI{653}{\nano\meter} Probe \SI{680}{\nano\meter} GSD TA\_fourier 6677-6679}
+\caption{Pump \SI{653}{\nano\meter} probe \SI{680}{\nano\meter} GSD TA\_fourier 6677-6679}
 \end{subfigure}
-\caption{Examples of measurement series featuring ESA or GSD for 1wt\% SQIB in PMMA\\ Raw measurements without any correction are shown. Each curve is a single measurement belonging to the series plotted in the corresponding figure. Measurements are done in series, thus delay range is scanned for each of the scans.}
+\caption{Examples of measurement series featuring ESA or GSD for 1wt\% SQIB in PMMA\\ Raw measurements without any correction are shown. Each curve is a single measurement belonging to the series plotted in the corresponding figure. Measurements are done successively, thus the delay range is scanned for each of the scans.}
 \end{figure}
 
 
 \subsection{Polarization angles}
 Pump probe measurements of same polarization obviously return the highest signal in any case. However when working with liquids or (solid) solutions like PMMA in this case the molecules, if relatively unperturbed by the environment, may rotate over time and thus change the direction of their transition dipole moments relative to where they would be in their zero time direction. This leads to a measurable signal change over time.\\
-The rotation in the sample is given by the anisotropy at detection:\textbf{find better source}possibly from here\cite{Schalk2010}
+A possible indicator for the change in rotation at probe time is the anisotropy:\cite[chapter 10]{Lakowicz2008}
 \begin{equation*}
 r = \frac{I_{\parallel}-I_{\perp}}{I_{\parallel}+2I_{\perp}}
 \end{equation*}
-where $\mathrm{I_\parallel}$ is the component, where pump and probe are parallel polarizations, and $\mathrm{I_\perp}$ is the component perpendicular to the pump polarization. The reason for the factor 2 in the enumerator is that the original polarization can rotate into two perpendicular directions, which are projected into a direction perpendicular to the pump polarization.???\\
-By measuring at the so called "magic angle" of $\theta = 54.7 \degree$ the parallel and orthogonal polarization components are polarized and the measurement is made isotropic. This is based on the transmission of polarized light through a polarizer $I(\theta) = I_0 \mathrm{cos}^2(\theta)$.\\
+where $\mathrm{I_\parallel}$ is the component, where pump and probe are parallel polarizations, and $\mathrm{I_\perp}$ is the component perpendicular to the pump polarization. The anisotropy at pump excitation time is given by the Perrin-formula $r = \frac{1}{5}\left(3\mathrm{cos^2}\beta-1\right)$, which gives an anisotropy of r=0.4 for parallel pump and probe. Note that the formula does not apply to multi-photon pump or probe processes. The reason for the factor 2 in the enumerator is that the original polarization can rotate into two perpendicular directions, which are projected into a direction perpendicular to the pump polarization. By measuring at the so called "magic angle" of $\theta = 54.7 \degree$ the parallel and orthogonal polarization components are equalised geometrically and the measurement is made isotropic. This is based on the transmission of polarized light through a polariser $I(\theta) = I_0 \mathrm{cos}^2(\theta)$. \cite[chapter 10]{Lakowicz2008}\cite{Schalk2010}\\
 Alternatively this isotropic output may also be achieved by measuring parallel and orthogonal polarisations and using an arithmetic correction. The total intensity is $I_T = I_x+I_y+I_z = 2\cdot I_\perp + I_\parallel$. To now correct for both rotation directions out of parallel plane the signal may be corrected to $I = \frac{I_\parallel + 2I_\perp}{3}$, which corresponds to the isotropic signal.\cite{Zheng2020}
 
 \textbf{Attempting to plot polarization dependence of simulated molecules rotating, so far does not seem to work like it should}
@@ -671,7 +673,7 @@ Measurements are done in parallel pump and probe polarization.
 \begin{figure}[hbt]
 \centering
 \includegraphics[scale=1]{images/1percentSQIBinPMMA_Sample653-680Image.png}
-\caption{Transient absorption image of 1wt\% SQIB in PMMA sample from image\_0245 with subtracted background image\_0244 at a probe spot size of approximately \SIrange{36}{45}{\micro\meter} FWHM.\\ Extreme deviations from standard power are likely to be imperfections in or on the sample and have to be avoided for measurements.\\ Pump peak radiance at \SI{653}{\nano\meter} approximately \SI{85e-3}{\radExp}, probe peak radiance at \SI{680}{\nano\meter} approximately \SIrange{7.5e-3}{12.5e-3}{\radExp}\label{fig:TA_image_sample}}
+\caption{Transient absorption image of 1wt\% SQIB in PMMA sample from image\_0245 with subtracted background image\_0244 at a probe spot size of approximately \SIrange{36}{45}{\micro\meter} FWHM.\\ Extreme deviations from standard power are likely to be imperfections in or on the sample and have to be avoided for measurements.\\ Pump peak radiance at \SI{653}{\nano\meter} approximately \pumpExp{85e-3}, probe peak radiance at \SI{680}{\nano\meter} approximately \SIrange{7.5e-3}{12.5e-3}{\radExp}\frep{40} \label{fig:TA_image_sample}}
 \end{figure}
 
 The correction for variation of the sample response at different measurement points is accounted for as as a factor normalised by the mean sample response, of the used points of the probe wavelength scan, for a pump 653 nm probe 680 nm. Uncertainty estimation is unavailable due lacking resolution of the map.\\
@@ -694,7 +696,7 @@ The data is corrected for the mentioned map irregularities, degradation of the s
 \centering
 \begin{tabular}{l|ccccc}
 wavelength range / nm           & \SIrange{680}{400}{}   & \SIrange{390}{380}{}   & 370  & \SIrange{360}{350}{}& \SIrange{330}{310}{} \\ \midrule
-peak power density / \SI{e-3}{\radExp}& \SIrange{75}{85}{} & \SIrange{90}{120}{} & \SI{150}{} & \SI{325}{}  & \SIrange{190}{195}{} 
+peak power density / \SI{e-3}{\radExp}\frep{40}& \SIrange{75}{85}{} & \SIrange{90}{120}{} & \SI{150}{} & \SI{325}{}  & \SIrange{190}{195}{} 
 \end{tabular}
 \end{table}
 
@@ -745,18 +747,18 @@ As mentioned above irregularities over the area of the sample probed were attemp
 
 \section{Power density dependence}\label{sec:powerVar}
 For measurements to be valid there should be a linear correspondence of pump power and the measured absorbance. Main concern here is that pump irradiance is within the linear regime of the transient absorption response. \textit{\textcolor{gray}{Additionally for the probe pulse it is important, that its intensity does not saturate the sample by itself leading to a GSD, which would introduce an unwelcome degree of freedom to the measurements.}} For the probe pulse the linear response of the sample is also important. In case of a too high radiance the sample may saturate as well, which can influence the response in two ways additional to processes involving more than one photon: First for a probe wavelength experiencing ESA, to simplify assume no absorption in the groundstate, the ESA response would be reduced, just like the the population transfer from the groundstate leads to GSD. Secondly, for a GSD probe wavelength it would lead to a further reduction in absorption  and an increase of the response.\\
-To test this multiple pump and probe power combinations were tested, at the same sample position, only variable linear neutral density filter insertion was changed to change the attenuation. Insertion depth of the variable ND filters was assumed to not change the overlap and only the starting overlap was recorded. The linearity of the sample is shown for powers up to \SI{295e-3}{\radExp} pump and \SI{91e-3}{\radExp} probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically the graph showing the probe peak radiance dependence in fig. \ref{fig:powerVarCorrection} shows sample degradation due to the high pump power density. Notably the higher power density measurements agree far more regarding degradation correction. There is no obvious reason for the low probe peak radiance measurement, corresponding to the first measurement of the three, having a slightly stronger response. The second measurement at a probe radiance of \SI{90e-3}{\radExp} responds very well to the applied degradation correction and all three sub-measurements coincide. This implies that the decreased response is not just based on faster degradation due to probe influence.
+To test this multiple pump and probe power combinations were tested, at the same sample position, only variable linear neutral density filter insertion was changed to change the attenuation. Insertion depth of the variable ND filters was assumed to not change the overlap and only the starting overlap was recorded. The linearity of the sample is shown for peak powers up to \pumpExp{295e-3} pump and \probeExp{91e-3} probe combinations. To note is that these points were measured at the same sample spot, thus sample degradation is a factor to consider. Specifically the graph showing the probe peak radiance dependence in fig. \ref{fig:powerVarCorrection} shows sample degradation due to the high pump power density. Notably the higher power density measurements agree far more regarding degradation correction. There is no obvious reason for the low probe peak radiance measurement, corresponding to the first measurement of the three, having a slightly stronger response. The second measurement at a probe radiance of \probeExp{90e-3} responds very well to the applied degradation correction and all three sub-measurements coincide. This implies that the decreased response is not just based on faster degradation due to probe influence.
 
 \begin{figure}[hbtp]
 \begin{subfigure}[t]{0.5\linewidth}
 \centering
 \includegraphics[width=\linewidth]{images/PowerVariationCorrectedPump.png}
-\caption{Influence of variation of pump radiance on signal. At lowest pump peak radiance are three measurements with varied probe peak radiance in range of \SIrange{114e-4}{455e-4}{\radExp}, with raw data shown in fig. \ref{fig:PowerVarL}. They show a minimal spread in response.}
+\caption{Influence of variation of pump radiance on signal. At lowest pump peak radiance are three measurements with varied probe peak radiance in range of \SIrange{114e-4}{455e-4}{\radExp}\frep{40}, with raw data shown in fig. \ref{fig:PowerVarL}. They show a minimal spread in response.}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.5\linewidth}
 \centering
 \includegraphics[width=\linewidth]{images/PowerVariationCorrectedProbe.png}
-\caption{Influence of variation of probe radiance on signal at pump radiance \SI{221e-3}{\radExp}. Measurements were made in order left, right and center.\label{fig:PowerVarProbe}}
+\caption{Influence of variation of probe radiance on signal at pump radiance \SI{221e-3}{\radExp}\frep{20}. Measurements were made in order left, right and center.\label{fig:PowerVarProbe}}
 \end{subfigure}
 \caption{Influence of variation of peak radiance on signal of pump 653 nm and probe 680 nm. Uncertainties based on peak radiant exposures.
 Overlap corrected data in blue and additionally pump degradation corrected data in red. Every point shown is the average of a triple measurement fitted with a single exponential decay. In red the degradation compensated points are shown, only accounting for the pump peak radiance.\\ The relatively high probe intensity in the GSD band of squaraine  may be the reason for the error in degradation compensation in fig. \ref{fig:PowerVarProbe}, since the highest probe radiance is the second measurement point. \label{fig:PowerVarRaw}}
@@ -767,13 +769,13 @@ Overlap corrected data in blue and additionally pump degradation corrected data 
 \begin{subfigure}[t]{0.45\textwidth}
 \centering
 \includegraphics[scale=1]{images/PowerVarLowPumpVarProbe.png} 
-\caption{Peak pump radiance \SI{31e-3}{\radExp}\\TA\_fourier measurements:\\ 6615-6620, 6630-6632\label{fig:PowerVarL}}
+\caption{Peak pump radiance \pumpExp{31e-3}\\TA\_fourier measurements:\\ 6615-6620, 6630-6632\label{fig:PowerVarL}}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.45\textwidth}
 \centering
 \includegraphics[scale=1]{images/PowerVarHighPumpVariedProbe.png} 
-\caption{Peak pump radiance \SI{221e-3}{\radExp}\\TA\_fourier measurements:\\ 6645-6653\label{fig:PowerVarR}}
+\caption{Peak pump radiance \pumpExp{221e-3}\\TA\_fourier measurements:\\ 6645-6653\label{fig:PowerVarR}}
 \end{subfigure}
 \caption{Power variation raw transient absorption data\\
 For both subplots the probe power density is varied. The influence on the decay of signal response on the right subplot is due to high powers inducing stronger degradation in the sample.}
@@ -810,15 +812,15 @@ $0.72 \pm 0.02$           & $0.58 \pm 0.01$            & $0.00 \pm 0.04$        
 \section{Sample degradation}\label{sec:degradation}
 The main loss of sample response is suspected to be dependent on the pump pulse, as it is right at the CW absorption peak. A repeated delay scan at the same position is shown in fig. \ref{fig:rawDegradation} to show degradation behavior. That combined with the higher peak radiance of the pump pulse makes it the prime candidate of photo bleaching. This also would be supported by the circumstance, that a pump probe wavelength combination fully on the main absorption peak always showed a lower GSD response than expected. Reasoning for that is an extremely fast degradation of the sample spot where pump and probe coincide in their peak radiances.\\
 The pump pulse on the main absorption peak is expected as the main degrading component for most of the probe spectrum as long as low probe peak radiances are used. For high probe photon energies this may no longer be the case, however from the spectra recorded so far no indication of a strong influence is seen.\\
-Thus reduction of transient response at a pump peak radiance of \SI{79(4)e-3}{\radExp} at 653 nm combined with a probe wavelength of 493 nm at \SI{8.6(1.3)e-3}{\radExp}, which is close to the main absorption peak of the first ESA transition of the monomer. The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. This mainly serves to confirm the typical measurement behaviour and to make an attempt at correcting for the response loss due to photo bleaching.
+Thus reduction of transient response at a pump peak radiance of \pumpExp{79(4)e-3} at 653 nm combined with a probe wavelength of 493 nm at \probeExp{8.6(1.3)e-3}, which is close to the main absorption peak of the first ESA transition of the monomer. The time dependence is taken as a series of typical measurements, as the pump pulse is expected to be the main influence and not the pump probe interaction. This mainly serves to confirm the typical measurement behaviour and to make an attempt at correcting for the response loss due to photo bleaching.
 
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=\linewidth]{images/DegradationRAWPump653Probe493.png}
-\caption{Raw data from degradation series of identical measurements at same spot at pump \SI{653}{\nano\meter} \SI{79(4)e-3}{\radExp} and probe \SI{493}{\nano\meter} \SI{8.6(1.3)e-3}{\radExp}.\\
+\caption{Raw data from degradation series of identical measurements at same spot at pump \SI{653}{\nano\meter} \pumpExp{79(4)e-3} and probe \SI{493}{\nano\meter} \probeExp{8.6(1.3)e-3}.\\
 Time at start on the y axis corresponds to the starting time of the measurement\label{fig:rawDegradation}}
 \end{figure}
-Usually photobleaching is modelled as an exponential decay as a function of time exposed. A fit is made to the decay of the absorbance $\frac{A\left(t\right)}{A\left(t=0\right)} = exp(-\frac{t}{\tau})$.
+Usually photobleaching is modelled as an exponential decay as a function of time exposed. A fit is made to the decay of the absorbance $\frac{A\left(t\right)}{A\left(t=0\right)} = \mathrm{exp}\left(-\frac{t}{\tau}\right)$.
 All datapoints, which are background subtracted, after the temporal overlap are used in fitting. This avoids strong variations in the pre temporal overlap area, where the absorbance values vary mildly around 0 mOD leading to a strong variation of their ratio and an ill-conditioned fit. A nonlinear least squares approach with numpy curve\_fit is used to minimize a residual defined as
 \begin{equation}\label{eq:degradationFitting}
 \mathrm{residual} = \sum_{t_{start,i},d_j} \left(ln\left(\lvert\frac{\Delta A(t_{start,i},d_j)}{\Delta A(t=0,d_j)}\rvert\right)- \frac{t_i}{\tau}\right)^2
@@ -827,7 +829,7 @@ Here $t_i$ is the time at the start of the scan, $d_i$ is the delay between pump
 The correction applied to the delay scans assumes an equal time for each measurement point based on the mean time between two delay scans and the number of points in the scan. The equation equivalent to the compensation is shown in eq. \ref{eq:degradationCompensation}. In fig. \ref{fig:degradationCorrectionComparison} a comparison of raw and corrected data is shown. The decay corrected data shows a far lower spread in absorbance values making the fitting method a valid option. 
 
 \begin{equation}\label{eq:degradationCompensation}
-A_{compensated}(t_i(d_j), d_j) = A(t_i(d_j), d_i)\cdot exp\left(+\frac{t_i(d_j)-t0}{\tau_{1/e}}\right)
+A_{compensated}(t_i(d_j), d_j) = A(t_i(d_j), d_i)\cdot \mathrm{exp}\left(+\frac{t_i(d_j)-t0}{\tau_{1/e}}\right)
 \end{equation}
 
 \begin{equation*}
@@ -846,7 +848,7 @@ t_i(d_j) = t_i + j\cdot \mathrm{mean(\Delta t_{delay scan)}}
 \centering
 \includegraphics[scale=1]{images/DegradationCorrectedPump653Probe493-Graph.png}
 \caption{Exponential decay corrected data\\
-Decay constant $\tau_{1/e}$ = \SI{14100}{\second} at \SI{79(4)e-3}{\radExp}}
+Decay constant $\tau_{1/e}$ = \SI{14100}{\second} at \pumpExp{79(4)e-3}}
 \end{subfigure}
 \caption{Comparison of raw data and decay corrected data for measurements TA\_fourier: \mbox{6778 - 6787}.\label{fig:degradationCorrectionComparison}}
 \end{figure}
@@ -873,7 +875,7 @@ Decay constant $\tau_{1/e}$ = \SI{14100}{\second} at \SI{79(4)e-3}{\radExp}}
 \caption{Corrected from degradation fit fig. \ref{fig:degradationCorrectionComparison}\\
 $\tau_{1/e}=$\SI{14100}{\second}, $P_{ratio}=\frac{P_{\SI{680}{\nano\meter}}}{P_{\SI{497}{\nano\meter}}} = \frac{221}{19}= 2.8$}
 \end{subfigure}
-\caption{Comparison of pump \SI{653}{\nano\meter} probe \SI{680}{\nano\meter} raw, corrected by direct fit and corrected by applying the decay constant gathered from fig. \ref{fig:degradationCorrectionComparison}\\Applying the power correction as a ratio factor of used measurement power density divided by fitting power density as follows $\Delta OD(t) = \Delta OD(t=0)\cdot e^{\frac{t\cdot P_{ratio}}{\tau}}$, where $P_{ratio} =1$ if the power density is the same as for the measurement where degradation is fitted and t is the elapsed times since start of the measurement. Note that the measurements gathered here have different probe power densities.\label{fig:powerVarCorrection}}
+\caption{Comparison of pump \SI{653}{\nano\meter} probe \SI{680}{\nano\meter} raw, corrected by direct fit and corrected by applying the decay constant gathered from fig. \ref{fig:degradationCorrectionComparison}\\Applying the power correction as a ratio factor of used measurement power density divided by fitting power density as follows $\Delta OD(t) = \Delta OD(t=0)\cdot \mathrm{e}^{\frac{t\cdot P_{ratio}}{\tau}}$, where $P_{ratio} =1$ if the power density is the same as for the measurement where degradation is fitted and t is the elapsed times since start of the measurement. Note that the measurements gathered here have different probe power densities.\label{fig:powerVarCorrection}}
 \end{figure}
 \paragraph{Probe wavelengths}
 Note that the probe wavelengths compared here correspond to different processes within the molecules. The degradation of the first ESA transition corresponds to an effect of inactivation of the excited state reachable from the pumped state or to a reduction of molecules which can be pumped. The GSD measurement instead just directly measures the reduction in squaraine absorption, with the probe wavelength likely just adding to the pump power of degradation with a weighting factor of the different absorption cross-section. If their degradation times coincide then the likelihood of the degradation pathway is relatively high. Additionally the probe wavelength may also introduce another degradation pathway or mediate a faster degradation via the same pathway as the GSD pathway. The single exponential degradation is only justified by it seemingly providing a decent output as well as the use case and measurement data not warranting better modelling. A description of different pathways for organic fluorophores may be found along with behaviors, however they strongly vary for different molecules making them unpredictable for untested molecules.\cite{Demchenko_2020}
@@ -885,17 +887,16 @@ A comparison of the degradation in the measurements in fig. \ref{fig:degradation
 
 Another aspect to consider is the power density influence on degradation, for which the measurements from sec. \ref{sec:powerVar} are used.  Their decay constant shows $\tau_{1/e}\left(\SI{221e-3}{\radExp}\right)=$\SI{7600}{\second}  opposed to the $\tau_{1/e}\left(\SI{79e-3}{\radExp}\right)=$\SI{14100}{\second}. The fit from the degradation series, when corrected for total dose rate, seems to fit better with all measurements close together, while the fit made on the power variation measurements leads to a lot wider spread. The effect of the constants on the measurements is shown in fig. \ref{fig:powerVarCorrection}.
 
-A not so naive model for degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile. The high power density area on the sample however would also decay quicker, because photodamage tends to be at least linearly dependent on the total dose.
+A not so naive model for degradation would need to account for the beam shape and overlap of pump and probe beams, as this would change sensitivity according to the pump intensity profile, which in turn would increase relative response near the FWHM of the pump beam profile. The high power density area on the sample however would also decay quicker, because photodamage tends to be at least linearly dependent on the total dose. The naive model seems sufficient for this measurement resolution at good overlap.
 
 
 \chapter{In depth software description}
-\section{Beam characterisation}
-\subsubsection{Inner workings Artray camera interactions}
+\section{Background of Artray camera interaction}
 The software package is based on the SDK provided freely by Artray in C\#, specifically on the CS.NET\_Graphic example software. 
 
 \paragraph{raw data output}
-Data is handled as one dimensional byte arrays by the SDK and has to be processed into a workable format. The camera specifications allow for a maximum bit depth of 12 bit. To be able to access this bit depth the video format of "Color 48bit*" has to be set, as the monochrome formats do not allow higher bit depth. Adjusted software by the manufacturer was attempted, but abandoned on our side due to troubleshooting issues. The single pixel data for the "Color 48 bit*" setting is encoded as 2 byte per colour channel per pixel. Since, even though this is a monochrome camera, the colour output was not the same colour values for all returned subpixel types, meaning RGB, the saturation of the camera was set to be minimal in software (-255). This leads to identical red, green and blue subpixel values. From these 3 colour values red is arbitrarily chosen for further processing.
-The data formatting is explained with the help of fig. \ref{fig:ByteArtrayOut}. Both bytes are formatted as big endian or most significant bit first. The second byte holds the most significant bit, with the first hex value and thus 4 bits being empty. The first bit holds the remaining 8 bit of the 12 bit value.
+Data is handled and saved as one dimensional byte arrays by the SDK and has to be processed into a workable format.  The camera specifications allow for a maximum bit depth of 12 bit. To be able to access this bit depth the video format of "Color 48bit *" has to be set, as the monochrome formats do not allow higher bit depth. Adjusted software by the manufacturer was attempted, but abandoned on our side due to troubleshooting issues. The single pixel data for the "Color 48bit *" setting is encoded as 2 byte per colour channel per pixel. Since, even though this is a monochrome camera, the colour output was not the same colour values for all returned subpixel types, meaning RGB, the saturation of the camera was set to be minimal in software (-255). This leads to identical red, green and blue subpixel values. From these 3 colour values red, being the first entry, is arbitrarily chosen for further processing.
+The data formatting is explained with the help of fig. \ref{fig:ByteArtrayOut}. Both bytes are formatted as big endian or most significant bit first. The second byte holds the most significant bit, with the first hex value and thus 4 bits being empty. The first byte holds the remaining 8 bits of the 12 bit value.
 
 \begin{figure}[hbtp]
 \centering
@@ -905,23 +906,23 @@ $\mathrm{H_{22}}$ holds the 4 most significant bit and byte 1 is simply appended
 $\mathrm{0_{21}}$ of byte 2 is always empty.\label{fig:ByteArtrayOut}}
 \end{figure}
 
-The via bitwise operations processed value is then assigned to a short integer array. Notably for processing the region of interest (ROI) needs to be known. It is not included in any of the raw data itself.
+The value process via bitwise operations is then assigned to a short integer array. Saving of data is handled by a dialogue given Artray dll to assure writing of correct raw data and thus cannot be directly influenced. This is the reason dimensions and position of region of interest saved have to be noted manually so far. Notably for processing the region of interest (ROI) needs to be known. It is not included in any of the raw data itself.
 
 \section{Useful methods available}
 A short listing of python programs and methods used for analysis of data that are useful intended to point to available software for future use: \textbf{this may be replaced with just be a link to a github page with permanent access and a good readme}
-\subsection{fileParsingMethods}
-\paragraph{parseFilenames} is used to easily parse TA_fourier filenames along with saturation files into a list of full path TA_fourier files which can be handed to any function taking arrays of filenames.
+\subsection*{fileParsingMethods}
+\paragraph{parseFilenames} is used to easily parse TA\_fourier filenames along with saturation files into a list of full path TA\_fourier files which can be handed to any function taking arrays of filenames.
 \paragraph{parseSummaryFileToArray} uses "parseFilenames" to return either transient absorbance or transient transmissivity along with a single delay vector, files must have same delay vector. Possible to remove a linear background by fitting if needed. Alternatively similar function returning the raw intensity vectors along with a delay vector is "parseSummaryFiletoRaw".
-\paragraph{getTimes} is used get starting times of TA_fourier files or saturation summary files. TA_fourier file compatibility may be broken by any matlab release changing the header of .m files.
-\subsection{SeriesDegradation}
+\paragraph{getTimes} is used get starting times of TA\_fourier files or saturation summary files. TA\_fourier file compatibility may be broken by any matlab release changing the header of .m files.
+\subsection*{SeriesDegradation}
 \paragraph{autoCompensation} is used to automatically calculate correction values to for known degradation constant and power for a filename array. Returns transient absorption and transmission corrected for background, which may be linear or static, along with an array of correction factors to be applied and a delay vector. Alternatively "degradationCompensation" calculates only the correction factors from degradation constant, power ratio and number of decay steps.
 \paragraph{plotTrend} shows a map of the transient absorbances of a filename array against a delay vector. 
 \paragraph{fitDegradation} fits degradation of the sample according to eq. \ref{eq:degradationFitting}. Allows for smoothing with a moving mean for noisy data. Needs proper t0 index of temporal pump-probe overlap to work.
-\subsection{ArtrayEvaluatorFunctions}
+\subsection*{ArtrayEvaluatorFunctions}
 \paragraph{runRoutineJSON} is used to quickly rerun a fit from the summary JSON. Useful to check if something was changed in the summary. \textbf{check again, compare to ArtFit}
-\subsection{ShowDelayScan} includes methods to quickly plot raw data from either a filename array or from raw data.
-\subsection{ImageAnalysis} is used to show an image scan with a subtracted background. It is a direct transcription of the matlab method.
-\subsection{ArtrayAnalysis}
+\subsection*{ShowDelayScan} includes methods to quickly plot raw data from either a filename array or from raw data.
+\subsection*{ImageAnalysis} is used to show an image scan with a subtracted background. It is a direct transcription of the matlab method.
+\subsection*{ArtrayAnalysis}
 A few ArtFit classmethods that are externally accessible and useful:
 \paragraph{parseFitFile} returns a usable array of fitdata from fitdata file saved with ArtFit.
 \paragraph{calculateOverlap} calculates the LiveFitting overlap that is one if pump and probe are identical.
@@ -1059,14 +1060,28 @@ S_{n} := \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(
 \end{equation*}
 
 \section{Approximation of influence of pump radiance on response}\label{deriv:RadianceResponse}
-\textbf{Very crude, base it on sakurai later on}
-The intensity of the electric field, the power per area, is given by the pointing vector. Here, to approximate, a simple proportionality to  $\mathrm{E^2}$ is sufficient.
+The following derivation is abbreviated Sakurai\cite[chapter 5.7-5.8]{Sakurai_Napolitano_2017}, where the full quantum mechanical derivation can be seen.
+The intensity of the electric field, the power per area, is given by the poynting vector. Here, to approximate, a simple proportionality to  $\mathrm{E^2}$ is sufficient.
 \begin{equation*}
 I =  \lvert  \hat{S} \rvert =  \lvert \hat{E} \times \hat{H} \rvert  \sim \lvert \hat{E} \rvert^2
 \end{equation*}
+A transition rate from a state $i$ to a state $n$ for a harmonic  perturbation $V(t) = \mathcal{V}\mathrm{e}^{i\omega t} + \mathcal{V}^\dagger \mathrm{e}^{i\omega t}$ with frequency $\omega$ $V_{ni}$ is given by:\cite[chapter 5.7]{Sakurai_Napolitano_2017}
+\begin{equation}\label{eq:transitionRate}
+w_{i\rightarrow [n]} = \frac{2\pi}{\hbar}\overline{\lvert \mathcal{V}_{ni}\rvert^2}\rho(E_n)\vert_{E_n \simeq E_i + \hbar\omega}
+\end{equation}
+There $\rho(E_n)$ is the density of states at $E_n$ and $\overline{\lvert V_{ni}\rvert^2}$ is the time average of the squared transition matrix element $V_{ni} = \langle i\lvert V\rvert n \rangle$ with the perturbation amplitude V. %Now specifying the vector potential related to the perturbation amplitude $A = A_0 \mathbf{\hat{\epsilon}} \left[\mathrm{e}^{i\left(\omega/c \right)\mathbf{\hat{n}\cdot \hat{x}}-i\omega t} + \mathrm{e}^{-i\left(\omega/c \right)\mathbf{\hat{n}\cdot \hat{x}}+i\omega t}\right]$
+It turns out that $\mathcal{V}^\dagger_{ni} \sim -\langle i\lvert A_0\cdot \mathrm{e}^{iw/c\left(\hat{n}\cdot\mathbf{\hat{x}}\right)} \mathbf{\hat{\varepsilon}}\cdot\mathbf{\hat{p}}\rvert n \rangle$, when choosing a monochromatic plane wave vector potential $\mathbf{\hat{A}} = 2A_0\mathbf{\hat{\varepsilon}}\mathrm{cos}\left(\frac{w}{c}\mathbf{\hat{n}\cdot \hat{x}}-\omega t\right)$ with a photon energy  $E =\hbar\omega$. Here $\mathbf{\hat{\varepsilon}}$ is the polarization direction and $\mathbf{\hat{n}}$ is the orthogonal propagation direction.\cite[chapter 5.7-5.8]{Sakurai_Napolitano_2017}
+Making use of the dipole approximation to approximate the $\mathrm{e}^{iw/c\left(\hat{n}\cdot\mathbf{\hat{x}}\right)}$ term by 1, which simplifies $\mathcal{V}^\dagger_{ni}$ to $\mathcal{V}^\dagger_{ni} \sim -A_0\langle i\lvert \mathbf{\hat{\varepsilon}}\cdot\mathbf{\hat{p}}\rvert n \rangle$. Arbitrarily choosing $\mathbf{\hat{\varepsilon}}$ in x direction, and thus $\mathbf{\hat{n}}$ in z direction, we can solve $\langle i\lvert \mathbf{\hat{\varepsilon}}\cdot\mathbf{\hat{p}}\rvert n \rangle = \langle i\lvert p_x\rvert n \rangle = \langle i\lvert \frac{m_e}{i\hbar}\left[x,H\right]\rvert n \rangle = \frac{m_e}{i\hbar} \left[-E_i + E_n\right]\langle i\lvert x\rvert n \rangle$ using the (truncated) commutation relation $[x, H] = [x, \frac{\mathbf{\hat{p}}^2}{2m_e} + c\cdot\mathbf{\hat{A}}\cdot \mathbf{\hat{p}}] = -\frac{i\hbar}{m_e} p_x$.\\
+This together with eq. \ref{eq:transitionRate} the proportionality for the transition rate is:\cite[chapter 5.7-5.8]{Sakurai_Napolitano_2017}
+\begin{equation}
+w_{i\rightarrow [n]} \sim \overline{\lvert \mathcal{V}_{ni}\rvert^2} \sim \lvert A_0 \Delta E_{ni}\rvert^2
+\end{equation}
+Now with the electric field strength $\mathbf{\hat{E}} = -e\nabla\Phi - \frac{d}{dt} \mathbf{\hat{A}}\sim A_0$, the transition rate is directly proportional to the irradiance at the sample.
+
+ 
 We have a perturbation proportional to the matter field coupling $\mathrm{\hat{\mu}\cdot \hat{E}}$:
 \begin{equation}
-V_{kl} \sim \hat{\mu}\cdot\hat{E}
+V_{ni} \sim \hat{\mu}\cdot\hat{E}
 \end{equation}\footnote{https://tdqms.uchicago.edu/ chapter 2.7 Time-Dependent Perturbation Theory}
 The transfer probability into the other state is proportional to the intensity of the light:
 \begin{equation*}
