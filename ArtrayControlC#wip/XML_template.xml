@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageWrapper>
+    <metadata type="measurement">
+    <!--possible categories: "measurement", "background"-->
+        <date>
+            <year>2024</year>
+            <month>2024</month>
+            <day>2024</day>
+        </date>
+        <ROI>
+            <hstart>30</hstart>
+            <hstop>330</hstop>
+            <vstart>200</vstart>
+            <vstop>500</vstop>
+        </ROI>
+        <capture>
+        <!--colormode should be 48 for BGR with 16 bits each-->
+            <colormode>48</colormode>
+            <mirrorV>false</mirrorV>
+            <mirrorH>false</mirrorH>
+            <saturation>-255</saturation>
+        </capture>
+        <!--092UV_WOM is 437 according to Artray documentation-->
+        <camera type="ARTCAM">437</camera>
+    </metadata>
+    <!--encoding binary data as base64-->
+    <data type="base64">20240425
+    </data>
+</imageWrapper>
