@@ -17,10 +17,11 @@ using MiscSettings;
 using ScottPlot.Renderable;
 using Microsoft.Win32;
 using System.Xml;
-using Encoding.UTF8;
+//apparently that is part of system or something? not needed to include?
+//using Encoding.UTF8;
 
 
-//Version 1.2 wip
+//Version 1.3 wip
 //needs some cleanup but is working (peakPower may have a wrong factor/not tested)
 namespace MainForm
 {
@@ -67,7 +68,6 @@ namespace MainForm
 
         private System.Windows.Forms.MenuItem menuFile;
 		private System.Windows.Forms.MenuItem menuSave;
-		private System.Windows.Forms.MenuItem menuExit;
 		private System.Windows.Forms.MenuItem menuView;
 		private System.Windows.Forms.MenuItem menuPreview;
 		private System.Windows.Forms.MenuItem menuCallback;
@@ -166,7 +166,6 @@ namespace MainForm
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuFile = new System.Windows.Forms.MenuItem();
             this.menuSave = new System.Windows.Forms.MenuItem();
-            this.menuExit = new System.Windows.Forms.MenuItem();
             this.menuOpenRef = new System.Windows.Forms.MenuItem();
             this.menuItemReference = new System.Windows.Forms.MenuItem();
             this.menuItemBackground = new System.Windows.Forms.MenuItem();
@@ -218,7 +217,6 @@ namespace MainForm
             this.menuFile.Index = 0;
             this.menuFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuSave,
-            this.menuExit,
             this.menuOpenRef,
             this.menuItemReference,
             this.menuItemBackground});
@@ -230,27 +228,21 @@ namespace MainForm
             this.menuSave.Text = "Save(&S)";
             this.menuSave.Click += new System.EventHandler(this.menuSave_Click);
             // 
-            // menuExit
-            // 
-            this.menuExit.Index = 1;
-            this.menuExit.Text = "End(&X)";
-            this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
-            // 
             // menuOpenRef
             // 
-            this.menuOpenRef.Index = 2;
+            this.menuOpenRef.Index = 1;
             this.menuOpenRef.Text = "Open";
             this.menuOpenRef.Click += new System.EventHandler(this.menuOpenRef_Click);
             // 
             // menuItemReference
             // 
-            this.menuItemReference.Index = 3;
+            this.menuItemReference.Index = 2;
             this.menuItemReference.Text = "Reference";
             this.menuItemReference.Click += new System.EventHandler(this.menuItemReference_Click);
             // 
             // menuItemBackground
             // 
-            this.menuItemBackground.Index = 4;
+            this.menuItemBackground.Index = 3;
             this.menuItemBackground.Text = "Background";
             this.menuItemBackground.Click += new System.EventHandler(this.menuItemBackground_Click);
             // 
@@ -1448,13 +1440,14 @@ namespace MainForm
 		private void saveRAWdata(string filepath)
 		{
 
-			File.WriteAllBytes(filepath, m_pCapture);
+			//File.WriteAllBytes(filepath, m_pCapture);
+			saveXMLdata(filepath, "test");
         }
 
-		private ByteArray[] saveXMLdata(string filepath, string strCategory)
+		private void saveXMLdata(string filepath, string strCategory)
 		{
 			//taken from RelayFramePosition
-			int Htotal, Hstart, Heffective, Vtotal, Vstart, Veffective;
+			int Htotal, Heffective, Vtotal, Veffective;
 			int[] start = new int[2];
             this.m_CArtCam.GetCaptureWindowEx(
                 out Htotal, out start[(int)Form2.axis.X], out Heffective,
@@ -1464,23 +1457,27 @@ namespace MainForm
 			//probably need to simplify with external function later
 			XmlWriterSettings settings = new XmlWriterSettings();
 			settings.Indent = true;
-			settings.Encoding = Encoding.UTF8
+			settings.Encoding = Encoding.UTF8;
 			//creates with filename (file system path works)
 			XmlWriter writer = XmlWriter.Create(filepath, settings);
 			int year, month, day;
+			year = DateTime.Today.Year;
+			month = DateTime.Today.Month;
+			day = DateTime.Today.Day;
+			
 			writer.WriteStartDocument();
 			writer.WriteStartElement("imageWrapper");
 				writer.WriteStartElement("metadata");
-					writer.WriteAttributeString("category", strCategory);
-					writer.WriteComment("possible categories: 'measurement', 'background'");
+					writer.WriteAttributeString("type", strCategory);
+					writer.WriteComment("possible types: 'measurement', 'background'");
 					writer.WriteStartElement("date");
-						writer.WriteElementString("year", year);
-						writer.WriteElementString("month", month);
-						writer.WriteElementString("day", day);
+						writer.WriteElementString("year", year.ToString());
+						writer.WriteElementString("month", month.ToString());
+						writer.WriteElementString("day", day.ToString());
 					writer.WriteEndElement();
 					writer.WriteStartElement("ROI");
 						writer.WriteStartElement("hstart");
-							writer.WriteValue(tart[(int)Form2.axis.X]);
+							writer.WriteValue(start[(int)Form2.axis.X]);
 						writer.WriteEndElement();
 						writer.WriteStartElement("hstop");
 							writer.WriteValue(start[(int)Form2.axis.X]+Heffective);
@@ -1491,7 +1488,13 @@ namespace MainForm
 						writer.WriteStartElement("vstop");
 							writer.WriteValue(start[(int)Form2.axis.Y]+Veffective);
 						writer.WriteEndElement();
-					writer.WriteEndElement();
+						writer.WriteStartElement("htotal");
+							writer.WriteValue(Htotal);
+						writer.WriteEndElement();
+						writer.WriteStartElement("vtotal");
+							writer.WriteValue(Vtotal);
+						writer.WriteEndElement();
+            writer.WriteEndElement();
 					writer.WriteStartElement("capture");
 						writer.WriteStartElement("colormode");
 							writer.WriteValue(this.m_CArtCam.GetColorMode());
@@ -1512,8 +1515,8 @@ namespace MainForm
 						//not sure if this will work
 						writer.WriteValue(this.m_CArtCam.GetDllVersion() & 0xFFFF);
 					writer.WriteEndElement();
-				writer.WriteEndElement();
 			writer.WriteEndElement();
+			//writer.WriteEndElement();
 			writer.WriteStartElement("data");
 				writer.WriteAttributeString("category", "base64");
 				//we will see if this works or not

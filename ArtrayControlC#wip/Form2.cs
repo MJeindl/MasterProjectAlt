@@ -655,12 +655,12 @@ namespace LiveFit
             ///c[1] is sigma
             ///c[2] is intensity
             ///c[3] is baseline offset
-            if (XorY == axis.X) || (XorY == axis.Y)
+            if ((XorY == axis.X) || (XorY == axis.Y))
             {
                 if ((cameraFit[(int)XorY] == null) || (refFit[(int)XorY] == null)) { return 0; }
       
-                int sumSigSquare = Math.Pow(refFit[(int)XorY][1],2) + Math.Pow(cameraFit[(int)XorY][1],2);
-                analyticOverlapQualifier = Math.Sqrt(2*Math.Pow(refFit[(int)XorY][1]*cameraFit[(int)XorY][1], 2)/sumSigSquare)*Math.Exp(-Math.Pow(cameraFit[(int)XorY][0]-refFit[(int)XorY][0])/(4*sumSigSquare));
+                double sumSigSquare = Math.Pow(refFit[(int)XorY][1], 2) + Math.Pow(cameraFit[(int)XorY][1], 2);
+                analyticOverlapQualifier = Math.Sqrt(2*Math.Pow(refFit[(int)XorY][1]*cameraFit[(int)XorY][1], 2)/sumSigSquare)*Math.Exp(-Math.Pow(cameraFit[(int)XorY][0]-refFit[(int)XorY][0],2)/(4*sumSigSquare));
             }
             else { throw new Exception("Wrong input into Overlap: needs to be axis.X or axis.Y"); }
             return analyticOverlapQualifier;
