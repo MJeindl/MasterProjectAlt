@@ -344,7 +344,7 @@ The SHG crystal position and input fundamental power have to be adjusted by hand
 \begin{figure}[hbtp]
 \centering
 \includegraphics[scale=1]{images/spectra/SpectrumExampleNoFilter_300nm.png}
-\caption[Example of \qty{300}{\nano\meter} SHG probe spectrum.]{Example of \qty{300}{\nano\meter} SHG probe spectrum.\\600 nm fundamental SHG\label{fig:specSHG300nm}\\ FWHM$_text{SHG}$ = \SI{6}{\nano\meter}}
+\caption[Example of \qty{300}{\nano\meter} SHG probe spectrum.]{Example of \qty{300}{\nano\meter} SHG probe spectrum.\\600 nm fundamental SHG\label{fig:specSHG300nm}\\ FWHM$_\text{SHG}$ = \SI{6}{\nano\meter}}
 \end{figure}
 %\subsubsection{Operation}
 \paragraph{Setting up}
@@ -580,7 +580,7 @@ Relevant for this are the beam sizes as well as the overlap of the pump and the 
 
 \subsection{Correction factor}\label{sec:CorrFactor}
 The correction factor aims to equilibrate the transient absorbance of the given \text{pump-probe} overlap to an ideal state, where the pump is constant in irradiance over the entire probe area or assuming Gaussian intensity distributions is infinitely larger than the probe beam. This would allow the entire probe distribution to experience the same change in absorption.
-Thus for very high $\mathrm{\frac{\sigma_text{pump}}{\sigma_text{probe}} \rightarrow \infty}$ the correction factor has to tend to 1, which is the smallest value.
+Thus for very high $\mathrm{\frac{\sigma_\text{pump}}{\sigma_\text{probe}} \rightarrow \infty}$ the correction factor has to tend to 1, which is the smallest value.
 %The factor is calculated from the Gaussian intensity distributions as seen in eq. \ref{CorrFactorGaussians}, of which the derivation is shown in section \ref{GaussiansDerivation} or in Bromiley\cite{Bromiley2014}, which was used to check correctness. The enumerator is the integral over essentially the probe intensity with the constant factor of the maximum pump intensity 
 Considering this, the correction factor $C$ is chosen as the integral over the product of the ideal pump, an infinite plateau, with the Gaussian probe. The denominator on the other hand is the integral over the actual product of the Gaussian fits of pump and probe beam.  
 \begin{equation}\label{eq:CorrFactorGaussians} 
