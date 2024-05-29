@@ -11,8 +11,8 @@ from scipy.optimize import curve_fit
 import sys
 import plotHelperLatex
 plotHelperLatex.setMatplotSettings()
-sys.path.insert(1, r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm")
-from ShowDelayScan import fromFiles
+#sys.path.insert(1, r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm")
+#from ShowDelayScan import fromFiles
 
 from argparse import ArgumentParser
 from fileParsingMethods import getTimes, parseTime, parseSummaryFileToArray, parseFilenames, removeBackground, parseSummaryFiletoRaw
@@ -33,19 +33,19 @@ def autoCompensation(filenames, degConst, p_ratio, dirPath=r"", backgroundMean =
     return aArray, dArray, correctionFactors,delay, backgroundParameters
 
 
-def degradationCompensation(degConstant, times, decaysteps, powerDensities=1):
+def degradationCompensation(degConstant, times, decaysteps: int, powerDensities=1):
     '''returns correction factor for each measurement\\
         not sure what to do with powerDensities, got to try a few things and see if they work but also read up on it
         '''
 
     meanTime = np.mean((times[1:]-times[:-1]))
-        
+    #print(decaysteps)
     Correction = np.zeros((len(times), decaysteps))
 
     if not hasattr(powerDensities, "len"):
         powerDensities = np.ones(np.shape(times)[0])
     #should also correct for within a measurement, though that part is more estimate (should be fine for long decay times)
-    Correction = np.zeros((len(times), decaysteps))
+    #Correction = np.zeros((len(times), decaysteps))
     for i in range(len(times)-1):
         Correction[i] = np.exp((times[i]+(times[i+1]-times[i])*np.linspace(0,1, decaysteps))*powerDensities[i]/degConstant)
     Correction[len(times)-1] = np.exp((times[len(times)-1]+meanTime*np.linspace(0,1, decaysteps))*powerDensities[i]/degConstant)
@@ -53,7 +53,7 @@ def degradationCompensation(degConstant, times, decaysteps, powerDensities=1):
 
 
 
-def plotTrend(filePaths, dirPath=r"", figsize_in=(8,4)):
+def plotTrend(filePaths, dirPath=r"", figsize_in=(8,4), symlog=False):
     #need to switch getTimes to the same system as parseSummary to allow any type of input
     times = getTimes(filePaths, dirPath)
     dArray, delay, _ = parseSummaryFileToArray(filePaths, dirPath)
@@ -66,10 +66,14 @@ def plotTrend(filePaths, dirPath=r"", figsize_in=(8,4)):
     map = ax.pcolor(delays*1e-3, measurementTimes, OD, cmap="plasma")
     ax.set_xlabel('delay time / ps')
     ax.set_ylabel('total time elapsed at start / s')
-    fig.colorbar(map, ax=ax, label=r"$\Delta$OD / mOD")
+    fig.colorbar(map, ax=ax, label=r"$\Delta A$ / mOD")
     ax.set_yticks(timesFromZero-(timesFromZero[1]-timesFromZero[0])/2, timesFromZero)
+    if symlog==True:
+        ax.set_xscale("symlog")
     plt.tight_layout()
     plt.show()
+
+
 
 #degradationCompensation(1, [r"C:\Users\M\Documents\phdmatlab\sqib-pmma-probe-wavelength\UV_Setup\new_parallel_pol_pump653nm\Pump653Probe493_Degradation\saturation_2024-01-19_16-14.mat"], 1)
 if __name__ == "__main__":
@@ -87,7 +91,8 @@ if __name__ == "__main__":
     
 
 def fitDegradation(inputArray, times, powerDensity=1, sliding_window_len = 5, t0=0):
-    '''only works for single series without interruptions'''
+    '''only works for single series without interruptions\n 
+    returns popt [tau]'''
     #find the mean time to adjust for the final part of the measurement
     for i in range(len(times)-1):
         dtime = times[i+1]-times[i]
