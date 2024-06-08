@@ -29,6 +29,7 @@
 \usepackage{layouts}
 \usepackage{float}
 \usepackage{pdfpages}
+\usepackage[main=english,german]{babel}
 
 
 \usepackage[msc,nawi]{tugrazthesis}
@@ -60,13 +61,13 @@
 %--- INFORMATION FOR TITLEPAGE -------------------------------------------------
 
 % Your name including previous academic degrees (optional argument sets a different \author{}):
-\thesisauthor[Firstname Lastname]{Maximilian Jeindl, BSc}
+\thesisauthor[Firstname Lastname]{Maximilian Samuel Alexander Jeindl, BSc}
 
 % Title of your thesis (optional argument sets a different \title{}):
 \thesistitle[Short Thesis Title]{Investigation of Excited State Absorption of Squaraine Molecules in the Ultraviolet Regime at Femtosecond Resolution}
 
 % Date of completion (optional argument sets a different \date{})
-\thesisdate[ ]{April 2024}
+\thesisdate[ ]{June 2024}
 
 % Supervisor headline (select male/female/plural version)
 \supervisortitle{\germanenglish{Betreuerin/Betreuer}{Supervisor}}
@@ -91,17 +92,19 @@
 \includepdf[pages=-]{Affidavit.pdf}
 
 \chapter*{Abstract}
-The transient absorption microscope (TAM) is extended to probe higher energy states of squaraines, in this case squaraines with isobutyl sidechains abbreviated SQIB. No further states were found beyond the known ESA states, at probe \SIlist{440;500}{\nano\meter} for  pump 653 nm, when probing down to 300 nm; however, peak positions by Zheng et. al\cite{Zheng2020} are reproduced qualitatively. The peak-shape has been observed slightly differently from Zheng. 
+The transient absorption microscope (TAM) is extended to probe higher energy states of squaraines, in this case squaraines with isobutyl sidechains abbreviated SQIB. No further states have been found beyond the known ESA states, at probe \SIlist{440;500}{\nano\meter} for  pump 653 nm, when probing down to 300 nm; however, peak positions by Zheng et. al\cite{Zheng2020} are reproduced qualitatively. The peak-shape is slightly different from Zheng. 
 
 The extension of the probe capability is done by second harmonic generation of the optical parametric amplifier output for a resulting range of \SIrange{250}{470}{\nano\meter}. To avoid any fundamental wavelength influence, which tends to have a far higher responsivity on the detector, a prism is introduced to remove it ahead of the detector. Adjustments have to be made to the existing TAM setup to allow these higher photon energies, as the achromatic objectives of the existing setup are not rated beyond \qty{350}{\nano\meter} or \qty{3.54}{\electronvolt}. A switch to plano-convex UV-fused-silica (UVFS) lenses was required, which introduced the task of compensating and working with chromatic aberration of UVFS. New procedures to deal with the chromatic aberration are introduced and qualified. The procedures include a modification of the current alignment system by imaging the sample plane with another camera and introduction of a correction factor accounting for the spatial intensity distributions of pump and probe beam.
 
 \chapter*{Kurzfassung}
-Das Mikroskop zur Messung von transienten Absorptionsverläufen in Abhängigkeit von Anregungs- und Untersuchungswellenlänge bzw. Probe-Wellenlänge wird für höher energetische Wellenlängenbereiche erweitert um Squaraine Proben weiter zu charakterisieren. In dieser Arbeit wird das Monomer von SQIB, ein Squarain mit Isobutyl Seitenketten, isotrop in PMMA gelöst behandelt. Es konnten keine weiteren ESA Verläufe bei höheren Photonenenergien als bereits zuvor bekannt beobachtet werden. Die bekannten transienten Absorptionspeaks bei zirka \SIlist{440;500}{\nano\meter} wurden qualitativ wie bei Zheng et al.\cite{Zheng2020}, wobei die Schulter des Absorptionspeaks etwas anders beobachtet wurde.
+\begin{otherlanguage}{german}
+Das Mikroskop zur Messung von transienten Absorptionsverläufen in Abhängigkeit von Anregungs- und Untersuchungswellenlänge bzw. Probe-Wellenlänge wird für höher energetische Wellenlängenbereiche erweitert um Squaraine Proben weiter zu charakterisieren. In dieser Arbeit wird das Monomer von SQIB, ein Squarain mit Isobutyl Seitenketten, isotrop in PMMA gelöst behandelt. Es konnten keine weiteren ESA Verläufe bei höheren Photonenenergien als bereits zuvor bekannt beobachtet werden. Die bekannten transienten Absorptionspeaks bei zirka \SIlist{440;500}{\nano\meter} wurden qualitativ wie bei Zheng et al.\cite{Zheng2020} beobachtet, wobei die Schulter des Absorptionspeaks abweicht.
 
-Die Erweiterung für höhere Photonenenergien wird durch Generation der zweiten Harmonischen (SHG) des Probe-Pulses aus dem NOPA Ausgang bewerkstelligt, was Wellenlängen bis zu \qty{250}{\nano\meter} erreichen lässt. Um Einflüsse der fundamentalen Wellenlänge, welche für SHG verwendet wird, zu verhindern wird ein für UV transparentes Prisma vor dem Detektor verwendet. Grund ist die stark erhöhte Empfindlichkeit der Squaraine und des Detektors auf die typischen fundamentalen Wellenlängen gegenüber der verringerten Empfindlichkeit auf die gewünschten Wellenlängen im UV Bereich.\\
-Änderungen mussten bezüglich der Objektive gemacht werden, welche für die Fokussierung auf die Probe verwendet wurden. Grund ist reduzierte Transmission unter \qty{350}{\nano\meter} und eine fehlende Spezifikation für die Achromacität der Objektive für niedrigere Wellenlängen. Deshalb wurde auf UV-Quarzglas Linsen umgeschwenkt, welches jedoch stark wellenlängenabhängige Brennweiten aufweisen, welche nun berücksichtigt werden mussten. Deshalb werden neue Methoden um diese Wellenlängenabhängigkeit zu kompensieren eingeführt und getestet. Die neuen Methodiken beinhalten einen neuen Prozess zum Fokussieren auf die Probe mithilfe einer zweiten Kamera, welche in die Spiegelebene der Probe positioniert wird, und einem Korrekturfaktor der räumliche Intensitätsverläufe der beiden Strahlen in der Probe korrigiert.
+Die Erweiterung für höhere Photonenenergien wird durch Generation der zweiten Harmonischen (SHG) des Probe-Pulses aus dem NOPA Ausgang bewerkstelligt, was Wellenlängen bis zu \qty{250}{\nano\meter} erreichen lässt. Um Einflüsse der fundamentalen Wellenlänge, welche für SHG verwendet wird, zu verhindern wird ein für UV transparentes Prisma vor dem Detektor verwendet. Grund ist die stark erhöhte Empfindlichkeit der Squaraine und des Detektors auf die typischen fundamentalen Wellenlängen gegenüber der geringeren Empfindlichkeit auf die gewünschten Wellenlängen im UV Bereich.\\
+Änderungen mussten bezüglich der Objektive gemacht werden, welche für die Fokussierung auf die Probe verwendet wurden. Grund ist reduzierte Transmission unter \qty{350}{\nano\meter} und eine fehlende Spezifikation für die Achromacität der Objektive für niedrigere Wellenlängen. Deshalb wurde auf UV-Quarzglas Linsen umgeschwenkt, welche jedoch stark wellenlängenabhängige Brennweiten aufweisen. Deshalb werden neue Methoden um diese Wellenlängenabhängigkeit zu kompensieren eingeführt und getestet. Die neue Methodik beinhaltet einen neuen Prozess zum Fokussieren auf die Probe mithilfe einer zweiten Kamera, welche in die Spiegelebene der Probe positioniert wird, und einen Korrekturfaktor der räumliche Intensitätsverläufe der beiden Strahlen in der Probe korrigiert.
+\end{otherlanguage}
 \chapter*{Acknowledgements}
-I would like to thank my colleagues at TU Graz, at the institute of experimental physics as well as specifically at the Koch group for all their help. Things always turned out to be more complicated than at first expected and getting to this point would have been impossible without their help and feedback. Their endless patience and calm was certainly needed at times. 
+I would like to thank my colleagues at TU Graz, at the Institute of Experimental Physics as well as specifically at the Koch group for all their help. Things always turned out to be more complicated than at first expected and getting to this point would have been impossible without their help and feedback. Their endless patience and calm was certainly needed at times. 
 
 Time is a sparce resource for all of us, which makes one appreciate all the initiative of everyone present. Regular discussions within the group with the center piece of Markus Koch drive forward progress for everyone around.
 
@@ -119,7 +122,7 @@ Finally I would like to thank my parents, family and friends for supporting me a
 \chapter{Prerequisites}
 
 \section{Transient pump probe spectroscopy}
-Using two short laser pulses the response of the sample to excitation is measured. The excited states generally have, depending on the process of their relaxation, lifetimes of femtoseconds to nanoseconds. To be able to observe charge transfer between molecules and other fast relaxation pathways femtosecond time resolution pulses are needed. The response to excitation is observed as a change in optical density. Time resolution of this transient process comes from shifting the point in time where one of the pulses passes the sample relative to the other, which is usually done by a simple path length change of one of the pulses.\newline
+Using two short laser pulses the response of the sample to excitation is measured. The excited states may show dynamics in the femtosecond range and have lifetimes from femtoseconds for vibrationally excited states to hours for some phosphorescent materials with spin forbidden transitions.\cite{Zewail2000} To be able to observe charge transfer between molecules and other fast relaxation pathways femtosecond time resolution pulses are needed. The response to excitation is observed as a change in optical density. Time resolution of this transient process comes from shifting the point in time where one of the pulses passes the sample relative to the other, which is usually done by a simple path length change of one of the pulses.\newline
 The measurement of transient absorption is based on the following: First a probe pulse of photon flux within a wavelength range passes through the sample and the remaining intensity is detected as $I_\text{probe}(\lambda_\text{probe})$. 
 Secondly, after a period of time to allow the sample to relax back to its initial state, a pump pulse $\mathrm{I_{pump}(\lambda_{pump})}$ excites a volume of the sample. This leads to a direct change of the wavelength dependent optical density of the excited sample volume, which alters the transmission of the following probe photons $I_\text{pump-probe}(\lambda_\text{probe}, \lambda_\text{pump}, \Delta t) = I_\text{probe\, only}+\Delta I_\text{pump-probe}$, depending on the time delay $\Delta t$ between the pulses passing the sample volume and the pump and probe wavelengths $\lambda_\text{pump}/\lambda_\text{probe}$ respectively. \\
 The initial change in absorption properties of the sample, depending on the pump pulse, is characterised in the transient absorbance $\Delta A$, which is often specified in orders of magnitude of the optical density $\left[\Delta A\right] = 1\, \text{OD}$. It is defined as seen in eq. \ref{eq:TA}.
@@ -208,14 +211,14 @@ Alternatively this isotropic output may also be achieved by measuring parallel a
 \begin{figure}[hbtp]
 \centering
 \includegraphics[width=0.6\linewidth]{images/nAlinoSquaraine.jpeg}
-\caption[Chemical structure of anilino squaraine.]{Chemical structure of anilino squaraine used within this thesis. Side chains R are iso-butyl.\label{fig:chemStructureSQIB}}
+\caption[Chemical structure of anilino squaraine.]{Chemical structure of anilino squaraine used within this thesis. Side chains R are iso-butyl.\protect{\cite{Balzer2022}}\label{fig:chemStructureSQIB}}
 \end{figure}
 
 Squaraines are investigated for multiple properties making them an interesting model system for organic solar cells. Processing for prototyping is very simple and may be done by spin-coating, like the samples provided by Manuela Schiek.
 
 For crystalline squaraines the stacking and geometry of the unit cell may be tuned by choosing side-chain molecules of appropriate bulkiness. A wide choice of alkyl chain lengths from butyl to octyl, isobutyl and similar molecules that do not directly influence the monomer spectrum are available. \cite{Hestand2015, Brueck2014, Balzer2022} 
 
-Theoretical modelling may be done with the semi-empirical essential states model, simplifying the large molecules to a donor-acceptor-donor structure, where the central oxygen groups with high electron affinity act as the acceptors and the nitrogens in the periphery of the molecule as donors. Opposed to the Frenkel excition model the essential states model allows states to diabatically mix to account for changes in charge distribution due to intermolecular and solvent interactions. This is needed due to the highly polarisable nature of the molecules. This works well to reproduce features such as davydov splitting, which is an effect for unit-cells with more than one molecule or multiple molecular sub-units with interacting transition dipole moments.\cite{Zhong2019, Hestand2015} 
+Theoretical modelling may be done with the semi-empirical essential states model, simplifying the large molecules to a donor-acceptor-donor structure, where the central oxygen groups with high electron affinity act as the acceptors and the nitrogens in the periphery of the molecule as donors. Opposed to the Frenkel excition model the essential states model allows states to diabatically mix to account for changes in charge distribution due to intermolecular and solvent interactions. This is needed due to the highly polarisable nature of the molecules. This works well to reproduce features such as Davydov splitting, which is an effect for unit-cells with more than one molecule or multiple molecular sub-units with interacting transition dipole moments.\cite{Zhong2019, Hestand2015} 
 
 
 
@@ -257,7 +260,7 @@ Output wavelengths of the NOPAs may deviate from the set wavelength, as they are
 \begin{tabular}{lccc}\toprule
 Device configuration & wavelength range / nm & photon energy range / eV & temporal envelope / fs \\ \midrule
 2H & \SIrange{650}{940}{} & \SIrange{1.32}{1.91}{} & $\leq$ 50 \\ 
-2H-SHG & \SIrange{325}{470}{} & \SIrange{1.32}{1.91}{} & - \\\midrule
+2H-SHG & \SIrange{325}{470}{} & \SIrange{2.63}{3.81}{} & - \\\midrule
 3H & \SIrange{495}{680}{} & \SIrange{1.82}{2.50}{} & $\leq$ 40 \\
 & \SIrange{680}{900}{} & \SIrange{1.38}{1.82}{} & $\leq$ 90 \\
 & \SIrange{900}{940}{} & \SIrange{1.32}{1.38}{} & $\leq$ 110 \\
@@ -374,8 +377,11 @@ A polariser may be used alternatively to glass filters. Reasoning is that for th
 The detectors themselves are the same as described in Schwarzl et al\cite{Schwarzl2022}. Matlab software for the measurements was devised by Pascal Heim. For the measurements \text{detector A} was used at all times in combination with a picoscope 5442D. An isosceles, UV translucent, prism is inserted after the cage, to remove any remainders of the fundamental probe wavelength at the detector. To improve this separation an extra iris may be used immediately in front of the detector.\\
 The prism should be placed such that the angle between pump and probe is further increased, as this can help reach full pump rejection without any other filters or beamblocks involved. The prism is important as the fundamental light for SHG tends to be on the extended absorption feature for SQIB, which has a far higher transient response than the second harmonic wavelengths. The prism is used since the detector is so sensitive, that further filters would not guarantee sufficient fundamental rejection. For each change of the probe the mirror coupling into the prism should be adjusted for maximum intensity of the probe on the detector, which can be monitored using the \text{fourierDetector()} matlab program.\\
 The detector has a maximum peak to peak voltage (Vpp) of approximately \qty	{3}{\volt}, before the response no longer is linear. Vpp should for that reason be kept below \qty{3}{\volt} to avoid response problems and thus systematic errors in the measurement.
-\subsection{Adjusting overlap without achromatic optics}\label{sec:overlapChromaticAberration}
-This section introduces the solution to working with non-achromatic optics in this transient absorption microscopy setup. Some of the attempted, but inevitably abandoned, ideas and tests are introduced after going through the final solution of a camera in the mirror plane of the sample surface.
+\subsection{Considerations of introduction of non-achromatic focusing optics}
+%\subsection{Adjusting overlap without achromatic optics}\label{sec:overlapChromaticAberration}
+%This section introduces the solution to working with non-achromatic optics in this transient absorption microscopy setup. Some of the attempted, but inevitably abandoned, ideas and tests are introduced after going through the final solution of a camera in the mirror plane of the sample surface.
+This section introduces the change from achromatic objectives to the very much wavelength dependent focusing behaviour of the plano-convex lenses. It serves as a setup for the description of the final solution in sec. \ref{SampleMirrorCamera}, as well as the legacy method for achromatic optics and an abandoned attempt to adjust the overlap using a screen in place of the sample.
+
 \paragraph{General overlap adjustment}
 Pump-probe overlap adjustments are done using a camera, onto which the sample plane is imaged. This is combined with a fitting program, which fits a Gaussian point spread function to the beam image. From this a center position as well as the FWHM of the point spread function can be determined and used to move the point spread functions on top of each other. An explanation on how to use the software is in sec. \ref{sec:LiveFitting}.
 
@@ -417,8 +423,8 @@ Furthermore the depth of focus may be visualized by plotting the beam waist diam
 \end{figure}
 
 %This issue is of fundamental nature and a few attempts were made until the following solution was found:
-
-\paragraph{Sample mirror path}\label{SampleMirrorCamera}
+\subsection{Sample mirror path - the final solution}\label{SampleMirrorCamera}
+%\paragraph{Sample mirror path}\label{SampleMirrorCamera}
 The option that finally won out is decoupling the beams after the frontal cage lens and imaging onto a camera that is in the mirror plane of the sample surface. This method requires a process for consistent placement of the mirror within the cage and a way to move the camera into the mirror plane of the sample.\\
 
 
@@ -479,7 +485,7 @@ The rear lens is set to image the sample plane onto the rear camera as described
 \end{figure}
 
 \begin{enumerate}
-\item It may seem like a good idea to just minimize the beam waist of the imaged pump beam. However due to effects of the image inversion on fitting, this does not work well. Inversion being the outer features of the beam profile passing through the center. Adjust the frontal camera distance so, that the pump beam profile is right before inversion, due to passing through the focal point. The intensity, given by fitting, still rises a tiny bit beyond that point. Attention has to be paid to not go into inversion, which is hard to tell by eye. Example images for pump \qty{653}{\nano\meter} calibration of the frontal Artray camera are shown in fig. \ref{fig:pumpCalibComparison}. After a first good calibration this could be done by comparing the fitted intensity value/FWHM of the beam profile, as long as the pump beam path did not change. Placement of ND filters in front of the camera or in front of the cage does matter, as swapping the position changes the beam profile. This is due to a change in optical path length, when a filter is inserted after the lens. Reason is the refractive index of the ND filter differing from the refractive index of air.
+\item It may seem like a good idea to just minimize the beam waist of the imaged pump beam. However due to effects of the transition of the camera plane through the focal plane on fitting, this does not work well. This transition is observed on the camera as the outer features of the beam profile passing through the center. Adjust the frontal camera distance so, that the pump beam profile is right before the transition, due to passing through the focal point. The intensity, given by fitting, still rises a tiny bit beyond that point. Attention has to be paid to not go past the transition, which is hard to tell by eye. Example images for pump \qty{653}{\nano\meter} calibration of the frontal Artray camera are shown in fig. \ref{fig:pumpCalibComparison}. After a first good calibration this could be done by comparing the fitted intensity value/FWHM of the beam profile, as long as the pump beam path did not change. Placement of ND filters in front of the camera or in front of the cage does matter, as swapping the position changes the beam profile. This is due to a change in optical path length, when a filter is inserted after the lens. Reason is the refractive index of the ND filter differing from the refractive index of air.
 \item Set the probe to the same or an adjacent wavelength to the pump and set overlap using the rear camera. Due to beam paths and possible aberrations this may be a tedious process and not completely accurate. Check the overlap on the frontal camera by moving the camera back and forth while observing if the beams cross through their centers, as illustrated in fig. \ref{fig:calibrationArtrayIllustration}. If that is the case the pump probe overlap should be optimal and the frontal camera can be set to the optimum position of this overlap. Take reference TA measurements if possible to check if there is an improvement from the purely rear camera based position.
 \end{enumerate}
 \begin{figure}[hbtp]
@@ -509,11 +515,14 @@ After calibration no changes, other than changing ND filters or polarisation wit
 This can be done by introducing more glass filters, in case their absorption of the fundamental is lacking for the wavelength. The glass filters may be removed afterwards if the detector is using the prism setup, which removes the fundamental wavelength from the measurement.\\
 Another option to check is to remove the fundamental filter completely and check the position of the fundamental focus spot in relation to the SHG focus spot, which will be different due to chromatic focal shift.
 
-\paragraph{Regular focusing after cage}\label{regRearFocus}
+\subsection{Regular focusing after cage - the legacy, achromatic, method}\label{regRearFocus}
+%\paragraph{Regular focusing after cage}\label{regRearFocus}
 This is the option used for the regular TAM setup as described in section \ref{RegTAM}. The last mirror in front of the detector is simply removed to reveal a camera behind it. The rear cage objective is focused onto the rear camera using white light from an LED torch or similar light sources in transmission. A calibration of sensor pixels to physical dimensions, after focusing, is done by moving the sample stage by an arbitrary distance and calculating the pixel shift from the sample image, see example image in fig. \ref{fig:micrometerToPxExample}. Afterwards the front objective is moved such that a satisfactory point spread function of the beam is seen on the rear camera. For the SHG setup this pump point spread function needs to be minimal in size.
 
 This is sufficient as the achromatic objectives ensure a very similar focus for all wavelengths between 400 nm and 940 nm. The rear objective is focused to image the plane of the sample onto the rear camera. Thus in use it simply projects the point spread function of the beams in the plane of the sample onto the camera. Moving the front objective adjusts the part of the focusing beam cone, and thus the size of the slice of the beam, which interacts with the sample. This works for both pump and probe. Since the focal length of the lenses varies wildly in the UV this is not an option for the UV extension.
-\paragraph{Conversion screen for overlap adjustment}
+
+\subsection{Conversion screen for overlap adjustment - the infeasible method}
+%\paragraph{Conversion screen for overlap adjustment}
 An idea, later on abandoned for impracticality, was to use a screen as a placeholder for the sample to then be imaged onto the rear camera using the rear cage lens. This method has several requirements:
 \begin{itemize}
 \item The screen needs to allow for diffuse imaging of the sample without disturbing the beam shape too much.
@@ -571,7 +580,7 @@ Theoretically the correct way of applying a background subtraction, under assump
 \chapter{Beam Characterisation and Correction}\label{chp:OverlapCorrection}
 In this chapter the reasoning and methods to characterise the beams, as well as the absorbance correction for their overlap, are introduced. The theoretical description of the absorbance correction method is detailed in sec. \ref{sec:overlapComp}.
 
-The characterisation of the beam shapes during the measurement procedure is currently done with a simplified fitting routine in C\#, detailed in sec. \ref{sec:LiveFitting}, to allow setting the overlap and record the images directly from live camera data. The second step of calculating the correction factors for the measurements is done with a python class that loads raw saved camera data and has more analysis options. The basic use of the python class is briefly introduced in sec. \ref{sec:pythonBeamCharacterisation}.
+The characterisation of the beam shapes during the measurement procedure is currently done with a simplified fitting routine in C\#, detailed in sec. \ref{sec:LiveFitting}, to allow setting the overlap and record the images directly from live camera data. The second step of calculating the correction factors for the measurements is done with a Python class that loads raw saved camera data and has more analysis options. The basic use of the Python class is briefly introduced in sec. \ref{sec:pythonBeamCharacterisation}.
 \section{Overlap compensation}\label{sec:overlapComp}
 Opposed to the regular setup, where the achromatic objectives guaranteed relatively consistent overlap of pump and probe, the UV setup has the need to correct the overlap variation between single measurements, since the refraction of the dispersive elements in the probe path varies strongly in the UV range and any compensation via the telescope will be imperfect.\newline
 Relevant for this are the beam sizes as well as the overlap of the pump and the probe beam in the sample as described in sec. \ref{sec:overlapCorrDescription} and shown in fig. \ref{fig:overlapVisualisation}. Variations in those parameters are induced by change of the beam-shape due to second harmonic generation, imperfect alignment of the SHG telescope and correction of the chromatic aberration for different wavelength settings of the probe. The full description of the correction factor is below in sec. \ref{sec:CorrFactor}.\\
@@ -586,7 +595,7 @@ Considering this, the correction factor $C$ is chosen as the integral over the p
 \begin{equation}\label{eq:CorrFactorGaussians} 
 C = \dfrac{\int I_\text{pump}^*(x)\cdot I_\text{probe}(x) \;dx}{\int I_\text{pump}(x)\cdot I_\text{probe}(x) \; dx} = \dfrac{c^*\cdot \int I_\text{probe} dx}{S_{12}} = \dfrac{c^*}{S_{12}}
 \end{equation}
-The ideal top-hat pump distribution power is chosen to be the peak of the Gaussian power distribution of the real beam $\mathrm{max}\left(I_text{pump}(x)\right)$. This means choosing the factor according to the geometry of the true pump beam as defined:
+The ideal top-hat pump distribution power is chosen to be the peak of the Gaussian power distribution of the real beam $\mathrm{max}\left(I_\text{pump}(x)\right)$. This means choosing the factor according to the geometry of the true pump beam as defined:
 \begin{equation*}\label{eq:maxPowerGauss}
 I_\text{pump}^*(x) = c^* = max(I_\text{pump}(x)) = \frac{1}{\sqrt{2\cdot\pi}\cdot\sigma_\text{pump}}
 \end{equation*}
@@ -764,7 +773,7 @@ In this chapter the main results, a wavelength scan of extended wavelengths, are
 The sample is 1wt\% SQIB in a PMMA solid solution provided by Manuela Schiek\footnote{Sample No. 4 from 2021}. The sample is not annealed and shows fluorescence if illuminated by white light, implying the influence of neighbouring molecules is not strong enough to quench the fluorescence at this concentration. \\
 
 It is assumed that the relatively fixed structure of the squaraine hinders structural rearrangement within the rigid PMMA matrix.
-Opposed to liquid solutions like $\mathrm{CHCL_3}$, no quick solvent reorganisation for n-butyl terminated squaraine molecules within PMMA was observed by Zheng et al.\cite{Zheng2020}, for squaraines with side chains of similar bulkiness. This makes it unlikely for our sample to have such solvent reorganization in PMMA either.
+Opposed to liquid solutions like $\mathrm{CHCl_3}$, no quick solvent reorganisation for n-butyl terminated squaraine molecules within PMMA was observed by Zheng et al.\cite{Zheng2020}, for squaraines with side chains of similar bulkiness. This makes it unlikely for our sample to have such solvent reorganization in PMMA either.
 
 An average nearest neighbour distance for this concentration may be taken as \SI{2.36}{\nano\meter} according to Zheng et al.\cite{Zheng2020}, who based the calculation on poisson statistics\cite{Krider2003}. The actual spread of nearest neighbour distances is an extended distribution. Thus there is an expectation of some quenching of effects, such as quenching of fluorescence and decay times of excited states. However with the majority of the molecules being at larger distances these effects should be virtually unobserved.\cite{Zheng2020} \\
 Collective effects like Davydov splitting, which are dependent on a relative orientation of transition dipole moments of subunits, are negligible for SQIB samples at this concentration, which are not annealed, and are not observed as the average distance is great enough.\\
@@ -792,7 +801,7 @@ Measurements are done only in parallel pump and probe polarization.\\
 
 The transient behaviour of the sample is shown in fig. \ref{fig:SQIB_PMMAwavelengthscan}, where fitted delay points are shown to see the immediate transient behaviour. They are fitted using a nonlinear curve\_fit from scipy.optimize to fit eq. \ref{eq:transientDecay}. The number of exponential components may be automatically determined by fitting, however within this thesis they are set by hand to achieve best fitting. The routine is based on an implementation by Robert Schwarzl and Pascal Heim. An example for a fitted delay scan is seen in fig. \ref{fig:delayFitExample}.
 \begin{equation}\label{eq:transientDecay}
-f(t) = \left[\sum_{n=0}^{n_\text{max}} \Delta A_n\cdot exp \left(\frac{-(t-t_0)}{\tau_n}\right)\right]\cdot \int_{-\infty}^t exp\left(-\frac{(t-t_0)^2}{2\sigma^2}\right)
+f(t) = \left[\sum_{n=0}^{n_\text{max}} \Delta A_n\cdot \exp{\left(\frac{-(t-t_0)}{\tau_n}\right)}\right]\cdot \int_{-\infty}^t \exp \left(-\frac{(t-t_0)^2}{2\sigma^2}\right)
 \end{equation}
 
 \begin{figure}[hbtp]
@@ -814,12 +823,85 @@ $\radiantExp$ / \SI{e-3}{\radExp}\frep{20}& \SIrange{75}{86}{} & \SIrange{87}{12
 \end{table}
 \renewcommand{\arraystretch}{1.0}
 
+Fitting of Cauchy peaks at \qty{0.1}{\pico\second} for the ESA features was attempted in fig. \ref{fig:SQIB_PMMAwavelengthscan}. The Cauchy fits are based on the following formula:
+\begin{equation}
+f(E_\text{probe}) = \sum_{n=0}^{N} \frac{\Delta A_n}{1+\left(\frac{E_\text{probe}-E_n}{\gamma_n}\right)^2}
+\end{equation}
+$E_\text{probe}$ is the photon energy of the probe wavelength and the fit parameters are $\Delta A_n$ for the amplitude, $\gamma_n$ for the peak width and $E_n$ for the center photon energy. 
+Here the possibility of a third ESA feature at approximately 3 eV is shown, however the fit is not stable and has to be forced with boundary conditions. The main boundary condition influencing this is restricting the energy of the feature at approximately \qty{2.82}{\electronvolt} to a maximum of \qty{2.83}{\electronvolt}. Then however the highest energy peak at approximately \qty{3}{\electronvolt} is stable. The reasoning for doing this is that it makes no sense for the features to be on top of each other and secondly the higher uncertainty of the measurement at \qty{430}{\nano\meter}. The fitting parameters are shown in tab. \textbf{TABLE}
 
 \begin{figure}[hbt]
 \centering
-\includegraphics[scale=1]{images/TimeResolvedWavelengthScanSQIB1perc_PMMA_mapCorrected.png}
-\caption[Fitted transient absorbance probe spectrum of 1wt\% SQIB PMMA at pump \qty{653}{\nano\meter}.]{Time resolved (fitted) transient absorbance probe spectrum of 1wt\% SQIB PMMA. Errorbars for 0.1 ps based on peak pump radiant exposure uncertainty. Pump wavelength is 653 nm with peak radiant exposures noted in tab. \ref{tab:powersWavScan}. Correction by reference map has been applied. Transient absorbance values calculated from (multi-)exponential decay fits.\label{fig:SQIB_PMMAwavelengthscan}}
+%\includegraphics[scale=1]{images/TimeResolvedWavelengthScanSQIB1perc_PMMA_mapCorrected.png}
+\includegraphics[scale=1]{images/TimeResolvedWavelengthScanSQIB1perc_PMMA_fits.png}
+\caption[Fitted transient absorbance probe spectrum of 1wt\% SQIB PMMA at pump \qty{653}{\nano\meter}.]{Time resolved (fitted) transient absorbance probe spectrum of 1wt\% SQIB PMMA. Errorbars for 0.1 ps based on peak pump radiant exposure uncertainty. Pump wavelength is 653 nm with peak radiant exposures noted in tab. \ref{tab:powersWavScan}. Correction by reference map has been applied. Transient absorbance values calculated from (multi-)exponential decay fits. Cauchy fits of ESA peaks for \qty{0.1}{\pico\second} are shown.\label{fig:SQIB_PMMAwavelengthscan}}
 \end{figure}
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[h]
+\caption{Fit parameters from Cauchy fits of ESA features. $\Delta A$ as in graphs where the fits are shown. SHG denotes the SHG setup and Zheng references Zheng et al.\protect\cite{Zheng2020}.}
+\label{tab:cauchyParameters}
+\centering
+\begin{tabular}{clclrrr}
+\toprule
+\multicolumn{4}{c}{Data} &
+	SHG &
+	SHG &
+	Zheng \\ \midrule
+\multicolumn{4}{c}{$t_\text{delay}$ / \unit{\pico\second}}
+   &
+  0.1 &
+  10 &
+  10 \\ \midrule
+\multirow{3}{*}{E $\approx$ \qty{2.48}{\electronvolt}} &
+  $E_\text{center}$ &/& \unit{\electronvolt} &
+  2.475 &
+  2.477 &
+  2.471 \\
+ &
+  $\gamma$ &/& $\unit{\electronvolt}$ &
+  0.032 &
+  0.037 &
+  0.029 \\
+ &
+  $\Delta A$ &/& 1 &
+  \num{1.222e-3} &
+  0.716 &
+  1.053  \\ \midrule
+\multirow{3}{*}{E $\approx$ \qty{2.82}{\electronvolt}} &
+  $E_\text{center}$ &/& \unit{\electronvolt} &
+  2.830 &
+  2.830 &
+  2.775 \\
+ &
+  $\gamma$ &/& $\unit{\electronvolt}$ &
+  0.102 &
+  0.109 &
+  0.1 \\
+ &
+  $\Delta A$ &/& 1 &
+  \num{1.137e-3} &
+  0.635 &
+  0.4  \\ \midrule
+\multirow{3}{*}{E $\approx$ \qty{3.00}{\electronvolt}} &
+  $E_\text{center}$ &/& \unit{\electronvolt} &
+  3.039 &
+  3.015 &
+   \\
+ &
+  $\gamma$ &/& $\unit{\electronvolt}$ &
+  1.430 &
+  0.111 &
+   \\
+ &
+  $\Delta A$ &/& 1 &
+  \num{0.077e-3} &
+  0.072 &
+\\ \bottomrule
+\end{tabular}
+\end{table}
 
 A comparison is made to data for squaraines with n-butyl sidechains by Zheng et al.\cite{Zheng2020} in fig. \ref{fig:TA_vsZheng} and in a zoomed section detailing the ESA bands in fig. \ref{fig:TA_vsZheng}. Notably Zheng\cite{Zheng2020} used a white light probe setup and corrected measurements for anisotropy, leading to a much finer spectrum and slightly different peaks. Due to a moving sample setup Zheng also could use far higher pump power densities, which for our measurement setup would degrade our sample too quickly to acquire a delay scan. Using a white light probe together with a wavelength selective detector leads to a far more precise spectrum compared to the Gaussian spectral distribution probe used here. The measurements are scaled so that the transient absorption immediately after temporal overlap at \SI{680}{\nano\meter} is -1. Reason for that is, in our case the transient behaviour directly on the maximum of the CW absorption band at \SI{653}{\nano\meter} proved hard to correctly measure, which is why an off maximum measurement point was chosen to compare.%madlad used up to 80 nJ/pulse
 
@@ -978,7 +1060,7 @@ Time at start on the y axis corresponds to the starting time of the measurement\
 Usually photobleaching is modelled by an exponential decay as a function of exposure time. A fit is made to the decay of the absorbance $\frac{\Delta A\left(t\right)}{\Delta A\left(t=0\right)} = \mathrm{exp}\left(-\frac{t}{\tau}\cdot f_{rep}\cdot\radiantExp\right)$.
 All datapoints after the temporal overlap, which are background subtracted, are used in fitting. This avoids strong variations in the pre-temporal-overlap area, where the absorbance values vary mildly around 0 mOD leading to a strong variation of their ratio and an ill-conditioned fit. A nonlinear least squares approach with scipy curve\_fit is used to minimize a residual defined as
 \begin{equation}\label{eq:degradationFitting}
-\mathrm{residual} = \sum_{t_{\text{start},i},d_j} \left(ln\left(\lvert\frac{\Delta A(t_{\text{start},i},d_j)}{\Delta A(t=0,d_j)}\rvert\right)- \frac{t_i}{\tau}\right)^2
+\mathrm{residual} = \sum_{t_{\text{start},i},d_j} \left(\ln\left(\left\lvert\frac{\Delta A(t_{\text{start},i},d_j)}{\Delta A(t=0,d_j)}\right\rvert\right)- \frac{t_i}{\tau}\right)^2
 \end{equation}
 Here $t_i$ is the time at the start of the scan, $d_j$ is the delay between pump and probe pulses and $\tau$ is the decay parameter fitted. The absolute value of change in absorbance is taken to avoid negative values in the logarithm, even though they are unlikely when only $d_i$ after temporal overlap are used.  This simplification is needed, as only starting times of delay scans are collected. A moving mean may be used to smooth particularly noisy data. Used fits use a moving mean of 5 measurement points. Compared to no smoothing mean, it does not change the fit result in a significant way, though the data here is not particularly noisy.\\
 The correction applied to the delay scans assumes an equal time for each measurement point based on the mean time between two delay scans and the number of points in the scan. The equation equivalent to the compensation is shown in eq. \ref{eq:degradationCompensation}. In fig. \ref{fig:degradationCorrectionComparison} a comparison of raw and corrected data is shown. The decay corrected data shows a far lower spread in absorbance values making the fitting method a valid option. 
@@ -1029,7 +1111,7 @@ Decay constant $\tau_{1/e}$ = \SI{12600}{\second} at $\radiantExp\,=\;$\pumpExp{
 \centering
 \includegraphics[width=\columnwidth]{images/PowerVarHigh_CorrEstimate12600_2.8.png} 
 \caption{Corrected from degradation fit fig. \ref{fig:degradationCorrectionComparison}\\
-$\tau_{1/e}=$\SI{14100}{\second}, $H_{ratio}=\frac{H_\text{\SI{680}{\nano\meter}}}{H_\text{reference:\SI{497}{\nano\meter}}} = \frac{218}{79}= 2.8$}
+$\tau_{1/e}=$\SI{12600}{\second}, $H_{ratio}=\frac{H_\text{\SI{680}{\nano\meter}}}{H_\text{reference:\SI{497}{\nano\meter}}} = \frac{218}{79}= 2.8$}
 \end{subfigure}
 \caption[Comparison of pump \SI{653}{\nano\meter} probe \SI{680}{\nano\meter} raw data, degradation corrected by directly fitted and adapted, power corrected, decay constant.]{Comparison of pump \SI{653}{\nano\meter} probe \SI{680}{\nano\meter} raw data, corrected by direct fit and by applying the decay constant gathered from fig. \ref{fig:degradationCorrectionComparison}. Using the power correction as a ratio factor of used measurement \radiantExp divided by fitting \radiantExp as follows $\Delta A(t) = \Delta A(t=0)\cdot \mathrm{e}^{-\frac{t\cdot H_{ratio}}{\tau}}$, where $\frac{H_\mathrm{measurement}}{H_\mathrm{reference}} =1$, if the \radiantExp is the same as for the measurement where degradation is fitted, and t is the elapsed times since start of the measurement. Note that the measurements gathered in this figure have different probe power densities.\label{fig:powerVarCorrection}}
 \end{figure}
@@ -1068,7 +1150,7 @@ The current experimental setup should be reliable enough for UV probe measuremen
 A next step for the setup is the planned inclusion of a wavelength dispersive detector along a white light generation stage. This will allow a vastly improved measurement speed for non-UV wavelengths, along with an even better time resolution, with wider chromatic range improving the transform limited pulse length.
 
 \section{Squaraines}
-With the now UV extended transient absorption capability of the setup new theoretical simulations may be confirmed and improved upon. Further simulations, beyond the capability for the essential states model of Robert Schwarzl in the Koch Group, are now contributed by the Puschnig Group at Karl Franzens University Graz.\\
+With the now UV extended transient absorption capability of the setup new theoretical simulations may be confirmed and improved upon. Further simulations, beyond the capability for the essential states model of Robert Schwarzl in the Koch Group, are now contributed by the Puschnig Group at University of Graz.\\
 Measurements of samples with an external institution are planned to be done within the next year, which are meant to confirm both the transient behaviour of our samples as well as shine a new light onto squaraines and their transient behaviour with ellipsometry techniques.
 
 
@@ -1095,8 +1177,8 @@ Measurements of samples with an external institution are planned to be done with
     \bottomrule
     \endlastfoot
     Light Conversion PHAROS & Yb:KGW femtosecond laser, PH1-20-0400-02-30, L191103; \SI{40}{\kilo\hertz} repetition rate at \SI{400}{\micro\joule} pulse energy \\
-    Light Conversion ORPHEUS N-3H & NOPA, $ \lambda = \SIrange{500}{950}{\nano\meter} $ \\
-    Light Conversion ORPHEUS N-2H & NOPA, $ \lambda = \SIrange{640}{950}{\nano\meter} $ \\
+    Light Conversion ORPHEUS N-3H & NOPA, SN:19123, $ \lambda = \SIrange{500}{950}{\nano\meter} $ \\
+    Light Conversion ORPHEUS N-2H & NOPA, SN:19124, $ \lambda = \SIrange{640}{950}{\nano\meter} $ \\
     Scitec 310 CD with 300CD200HS & Optical chopper, frequency $\approx \SIrange{1000}{55000}{\hertz}$, focusing on chopper wheel using two $f=\SI{125}{\milli\meter}$ plano-convex N-BK7 lenses \\
     Scitec S310Sync synchroniser & Phase and frequency locking of the chopper to external sources (function generator, laser sync output, frequency divider) \\
     Thorlabs AHWP05M-600 & \SIrange{400}{800}{\nano\meter} achromatic $\frac{\lambda}{2}$ plate \\
@@ -1123,7 +1205,7 @@ NDL-25C-2 & Used to set input power exactly \\
     Coherent LabMax Pro & Pulse measuring head, used for optimizing OPA output \\
     Coherent FieldMate with OP2-VIS measuring head & Laser power meter, used for setting input power, partially damaged leading to higher low intensity readings (SN: 1019L08R) \\
     Newport LTA-HS & Delay stage actuator \\
-    Thorlabs Z825B, KDC101 & Microscopy sample stage actuators (horizontal and vertical) \\
+    Thorlabs Z825B, KDC101 & Microscopy sample stage actuators (horizontal and vertical) with K-Cube controller \\
     Various aluminium mirrors & Protected UV enhanced \\
     74HC73 & Dual JK flip-flop for frequency division\\
     Ocean Optics Flame-S & Grating spectrometer with optical fiber and diffusor. SN: FLMS04432 
@@ -1146,21 +1228,21 @@ NDL-25C-2 & Used to set input power exactly \\
     \endlastfoot
     Spectrometer software spectraLight & Light Conversion; malfunctioned with update and superseded in use by Waves \\
     Spectrometer software Waves & BROADCOM; Version 2.2.2.0\\
-    WebPlotDigitizer & automeris.io\\
+    WebPlotDigitizer 4.6 & automeris.io\\
     IC Capture/IC Measure & Software for use of DMK camera\\
-    ArtViwer & Artray camera interface program\\
+    ArtViewer & Artray camera interface program\\
     Matlab & R2023a\\
     Python 3& \\
     
 \end{longtable}
-Further software and scripts have been moved to a repository.\footnote{\protect{\url{https://github.com/MJeindl/TransientAbsorptionMicroscope-Analysis}}}. There a description of useful methods and functions as well as to the inner workings of the interaction with the Artray camera is noted.
+Further software and scripts have been moved to a repository.\footnote{\protect{\url{https://github.com/MJeindl/TransientAbsorptionMicroscope-Analysis}}}. There a description of useful methods and functions as well as of the inner workings of the interaction with the Artray camera is noted.
 
 \listoffigures
 \listoftables
 
 \chapter{Derivations of Formula}
 \section{Product of two Gaussians}\label{deriv:GaussiansDerivation}
-This calculation has been cross checked with Bromiley.\cite{Bromiley2014}\\
+This calculation has been cross-checked with Bromiley.\cite{Bromiley2014}\\
 Begin with two Gaussian distributions $\mathrm{G_1(x)\ and \ G_2(x)}$ and combine the exponential terms.
 \begin{equation*}
 \begin{split}
@@ -1190,7 +1272,7 @@ x^2 - 2x\frac{\mu_1\sigma_2^2+ \mu_2\sigma_1^2}{\sigma_{12}^2} + \frac{\sigma_1^
 \end{equation*}
 Now find $\epsilon$ to fulfil the binomial theorem $x^2- 2xb + \tilde{b}^2 + \epsilon - \epsilon= (x-b)^2 - \epsilon$ within the exponent, where $\epsilon$ is used to compensate such that $\mathrm{b^2 = \tilde{b}^2 + \epsilon}$.
 \begin{gather*}
-\left(\frac{\mu_1 \sigma_2^2 + \mu_2\sigma_1^2}{\sigma_{12}^2}\right)^2 \stackrel{!}{=} \frac{\sigma_1^2\sigma_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}^2} + \epsilon
+\left(\frac{\mu_1 \sigma_2^2 + \mu_2\sigma_1^2}{\sigma_{12}^2}\right)^2 \stackrel{!}{=} \frac{\sigma_1^2\mu_2^2 + \sigma_2^2\mu_1^2}{\sigma_{12}^2} + \epsilon
 \\
 \begin{split}
 \epsilon \cdot \sigma_{12}^4  & = \mu_2^2\sigma_1^4 + \mu_1^2\sigma_2^4 + 2\mu_1\mu_2\sigma_1^2\sigma_2^2 - \sigma_1^2\mu_2^2(\sigma_1^2+ \sigma_2^2) - \sigma_2^2\mu_1^2(\sigma_1^2+ \sigma_2^2)\\
@@ -1214,11 +1296,11 @@ With these the combined Gaussian can be split into a "classical" Gaussian part a
 \begin{split}
 G_{12}(x) & = \frac{1}{\sqrt{2\pi}\sigma_\text{new}}\frac{\sigma_\text{new}}{\sqrt{2\pi}\sigma_1\sigma_2}\cdot exp\left(- \frac{\left(\mu_1-\mu_2\right)^2}{2\sigma_{12}^2}\right) \cdot
 exp\left(-\frac{\left(x-\mu_{new}\right)^2}{\sigma_{12}^2}\right)\\
-& = S_n \cdot \frac{1}{\sqrt{2\pi}\sigma_\text{new}} \cdot exp\left(-\frac{\left(x-\mu_\text{new}\right)^2}{2\sigma_\text{new}^2}\right)
+& = S_{12} \cdot \frac{1}{\sqrt{2\pi}\sigma_\text{new}} \cdot exp\left(-\frac{\left(x-\mu_\text{new}\right)^2}{2\sigma_\text{new}^2}\right)
 \end{split}
 \end{gather*}
 \begin{equation*}
-S_{n} := \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(-\dfrac{\left(\mu_1 - \mu_2\right)^2}{2\cdot \left(\sigma_1^2+\sigma_2^2\right)}\right)
+S_{12} := \dfrac{1}{\sqrt{2\pi\left(\sigma_1^2+\sigma_2^2\right)}}\cdot exp\left(-\dfrac{\left(\mu_1 - \mu_2\right)^2}{2\cdot \left(\sigma_1^2+\sigma_2^2\right)}\right)
 \end{equation*}
 
 \section{Approximation of influence of pump radiance on response}\label{deriv:RadianceResponse}
@@ -1231,7 +1313,7 @@ A transition rate from a state $i$ to a state $n$ for a harmonic  perturbation $
 \begin{equation}\label{eq:transitionRate}
 w_{i\rightarrow n} = \frac{2\pi}{\hbar}\overline{\lvert \mathcal{V}_{ni}\rvert^2}\rho(E_n)\vert_{E_n \simeq E_i + \hbar\omega}
 \end{equation}
-There $\rho(E_n)$ is the density of states at $E_n$ and $\overline{\lvert V_{ni}\rvert^2}$ is the time average of the squared transition matrix element $V_{ni} = \langle i\lvert V\rvert n \rangle$ with the perturbation amplitude $\mathcal{V}$. %Now specifying the vector potential related to the perturbation amplitude $A = A_0 \mathbf{\hat{\epsilon}} \left[\mathrm{e}^{i\left(\omega/c \right)\mathbf{\hat{n}\cdot \hat{x}}-i\omega t} + \mathrm{e}^{-i\left(\omega/c \right)\mathbf{\hat{n}\cdot \hat{x}}+i\omega t}\right]$
+There $\rho(E_n)$ is the density of states at $E_n$ and $\overline{\lvert \mathcal{V}_{ni}\rvert^2}$ is the time average of the squared transition matrix element $V_{ni} = \langle i\lvert V\rvert n \rangle$ with the perturbation amplitude $\mathcal{V}$. %Now specifying the vector potential related to the perturbation amplitude $A = A_0 \mathbf{\hat{\epsilon}} \left[\mathrm{e}^{i\left(\omega/c \right)\mathbf{\hat{n}\cdot \hat{x}}-i\omega t} + \mathrm{e}^{-i\left(\omega/c \right)\mathbf{\hat{n}\cdot \hat{x}}+i\omega t}\right]$
 It turns out that 
 \begin{equation}\mathcal{V}^\dagger_{ni} \sim -\langle i\lvert A_0\cdot \mathrm{e}^{iw/c\left(\hat{n}\cdot\mathbf{\hat{x}}\right)} \mathbf{\hat{\varepsilon}}\cdot\mathbf{\hat{p}}\rvert n \rangle
 \end{equation}
@@ -1294,7 +1376,7 @@ The sign of the naively defined $\sigma_\text{ES} - \sigma_\text{GS}$ specifies 
 \includegraphics[scale=1]{images/CompensationTestFitted.png}
 \caption{Fitted beam shapes.}
 \end{subfigure}
-\caption[Comparison of fitted beam shapes and the imaged beam shapes.]{Comparison of fitted beam shapes and the imaged beam shapes. Pump is purple, probe is green. Corresponding to fig. \ref{fig:correctionComparison}. \label{fig:rawVsFittedBeam}}
+\caption[Comparison of fitted beam shapes and the imaged beam shapes.]{Comparison of fitted beam shapes and the imaged beam shapes. Corresponding to fig. \ref{fig:correctionComparison}. \label{fig:rawVsFittedBeam}}
 \end{figure}
 
 \begin{figure}[hbtp]
@@ -1330,7 +1412,7 @@ The sign of the naively defined $\sigma_\text{ES} - \sigma_\text{GS}$ specifies 
     \endfoot
     \bottomrule
     \endlastfoot
-\radiantExp & The radiant exposure $[H] = [\frac{\partial Q_e}{\partial A}] = \si{\joule\per\square\meter}$ here is given as the maximum of the (fitted) Gaussian intensity distribution, in the center $\mathrm{x_0,y_0}$. It used to specify the sample exposure of a single shot or a single pulse. \\
+\radiantExp & The radiant exposure $[H] = [\frac{\partial Q_e}{\partial A}] = \si{\joule\per\square\meter}$ here is given as the maximum of the (fitted) Gaussian intensity distribution, in the center $\mathrm{x_0,y_0}$. It is used to specify the sample exposure of a single shot or a single pulse. It is directly related to the irradiance. Measurement values are taken from measurements with a CW powermeter applied to Gaussian distribution to get the exposure in the center of the beam.\\
 SHG & Second harmonic generation is a non-linear optical process in $\chi^{\left(2\right)}$ materials that generates photons of double the input frequency. It is found in non-centrosymmetric crystals.\\
 ESA & Excited state absorption is a transient effect of increased absorption/decreased transmission of a probe pulse after excitation of the material.\\
 GSD & Ground state depletion is a transient effect of reduced absorption/increased transmission of a probe pulse after excitation.\\
