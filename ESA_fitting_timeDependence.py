@@ -131,6 +131,8 @@ modifier_scan_params = {
     'tau2' : SHG_wav_timescan['tau2'][indexMeasureModifier],
 }
 
+#get rid of faulty measurement
+dOD_map_reference[8] = np.nan
 
 measurementModifier = abs(scan_corrFactors*dOD_map_reference[indexMeasureModifier]*paramDictatTime(modifier_scan_params, times[0]))[0]
 #print((dOD_map_reference[indexMeasureModifier]*paramDictatTime(scan_params, time))[0])
@@ -153,6 +155,10 @@ axs.plot([310, 330], [0,0], '1', color = colors[-1], label="%.1f ps" %(times[-1]
 y_dataFit = scan_corrFactors*dOD_map_reference*paramDictatTime(scan_params, times[0])/measurementModifier
 y_dataFit = y_dataFit[1:-2]
 wav_dataFit = scan_wavs[1:-2]
+bool_mask = np.invert(np.isnan(y_dataFit))
+y_dataFit = np.array(y_dataFit[bool_mask])
+wav_dataFit = wav_dataFit[bool_mask]
+
 #do nan-check
 #nanBool = np.isnan(y_dataFit)
 
@@ -168,6 +174,9 @@ wav_dataFit = scan_wavs[1:-2]
 for timeInd, subTime in enumerate(timesFit):
     y_dataFit = scan_corrFactors*dOD_map_reference*paramDictatTime(scan_params, subTime)/measurementModifier
     y_dataFit = y_dataFit[1:-2]
+    bool_mask = np.invert(np.isnan(y_dataFit))
+    y_dataFit = np.array(y_dataFit[bool_mask])
+    wav_dataFit = wav_dataFit[bool_mask]
 
     tempFit, tempCov = fitPeaks(wavToEnergy(wav_dataFit), y_dataFit, 3, [2.82, 2.48, 3.15], [0.1,0.04, 0.02], [0.7, 0.7, 0.2], positionBounds=[[2.76, 2.83], [2.3, 2.7], [2.95,3.60]], function=multiLorentzianAdditive, ampBounds=[0,np.inf])
     timeComparisonFit[str(subTime)] = tempFit

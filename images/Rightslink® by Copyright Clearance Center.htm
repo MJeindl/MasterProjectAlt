@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html><head>
+<title>Rightslink® by Copyright Clearance Center</title>
+<meta name="description" content="Copyright Clearance Center is your one stop shopping for digital rights.">
+<meta name="keywords" content="digital rights, digital copyright, copyright, licensing, article, articles">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/rightslink_layout_v2.css">
+<link rel="stylesheet" href="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/impromptu.css" type="text/css" media="screen">
+<link rel="stylesheet" href="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/css.css" type="text/css">
+<script type="text/javascript" async="" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/analytics.js"></script><script type="text/javascript" async="" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/js"></script><script async="" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/js_002"></script><script type="text/javascript" async="" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/recaptcha__de.js" crossorigin="anonymous" integrity="sha384-YuQMuEndX3UILeUmM41T6xxuC7Zxm1Du4q3vKOVcN24romIPcZBJpnwxJPJk+zzB"></script><script src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/api.js"></script>
+<script language="JavaScript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/MM.js"></script>
+<script language="JavaScript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/BrowserInfo.js"></script>
+<script language="JavaScript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/NoRightClick.js"></script>
+<script language="JavaScript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/DefaultMethods.js"></script>
+    <script type="text/javascript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/jquery-1.11.3.js"></script>
+    <script language="JavaScript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/Cookies.js"></script>
+    <script src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+    <script type="text/javascript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/jquery-impromptu.min.js"></script>
+    <script language="JavaScript" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/FullPopUp.js"></script>
+
+    <script type="text/javascript">
+        var gaTrackingID = 'UA-3607871-15';
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.async = true;
+            ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaTrackingID;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+
+        
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        const rlPublisherName = "acs";
+        gtag('set', {campaign: {"source": "RightsLink links", "medium": rlPublisherName, "name": rlPublisherName, "id": rlPublisherName}});
+        gtag('config', gaTrackingID);
+    </script>
+
+    
+
+    <script type="text/javascript">
+function openHelp(page)
+{
+	var loadedWindow = false;
+	if (page)
+	{
+        // % of screen resolution
+        let popupScreenSize = 0.65;
+
+        let customizedWidth = screen.width * popupScreenSize;
+        let customizedHeight = screen.height * popupScreenSize;
+		rHelp = window.open('', 'rHelp', 'menubar=yes,toolbar=yes,location=no,status=no,width=' + customizedWidth + ',height=' + customizedHeight + ',scrollbars=yes,resizable=yes');
+		if (rHelp.frames.length == 2)
+		{
+			if (rHelp.frames[1].frames.length == 2)
+			{
+				theWindow = rHelp.frames[1].frames[1];
+				theWindow.document.location= page;
+				theWindow.focus();
+				loadedWindow = true;
+			}
+		}
+		if (!loadedWindow)
+		{
+			
+			FullPopUp(page, 'rHelp');
+		}
+	}
+	else
+	{
+	    FullPopUp('/help/rightslinkhelppages/helpstart.htm', 'rHelp');
+	}
+}
+
+function openTC()
+{
+	var location = '/clients/ccc_creditcard_tc.html';
+	window.open(location, '_Terms', 'location=no,toolbar=no,status=no,width=500,height=400,scrollbars=yes,resizable=yes');
+
+}
+function openPubFAQ(anchor){
+            var urlToUse = "/help/rightslinkhelppages/Frequently_Asked_Questions_";
+            var pubContent = "acs";
+            var pubOrder = "acs";
+            var pubAttr = "acs";
+            if (pubContent){
+                urlToUse += pubContent.toLowerCase().replace(" ", "_") + ".htm";
+            } else if(pubOrder){
+                urlToUse += pubOrder.toLowerCase().replace(" ", "_") + ".htm";
+            } else if(pubAttr){
+                urlToUse += pubAttr.toLowerCase().replace(" ", "_") + ".htm";
+            } else {
+                urlToUse = "/help/rightslinkhelppages/welcome_to_rightslink.htm";
+            }
+            if (anchor){
+                urlToUse = urlToUse + "#" + anchor;
+            }
+            FullPopUp(urlToUse, 'rHelp');
+    }
+
+function openRFPHelp(name, title) {
+    if (name) {
+        title = name.startsWith('publisherStmSignatory.') ? "Publisher, STM Signatory" : title;
+        FullHelpPopUp('/App/RFPHelp.jsp?name=' + name, 'rOpenHelp', title);
+    }
+}
+
+function metaDataLogin()
+{
+    document.TheForm.doCalc.value = "false";
+	document.TheForm.targetPage.value= "metadatalogin";
+    document.TheForm.passThroughTarget.value = "";
+	document.TheForm.ignoreErrors.value= "true";
+	document.TheForm.target = "_top";
+	document.TheForm.isMyAccount.value = "false";
+	document.TheForm.buttonClicked.value = "logina";
+	document.TheForm.submit();
+}
+
+
+function resetPassword()
+{
+    document.TheForm.targetPage.value = "resetPassword";
+    document.TheForm.passThroughTarget.value = "resetPasswordStatus";
+    document.TheForm.ignoreErrors.value= "false";
+    document.TheForm.buttonClicked.value = "continue";
+    document.TheForm.submit();
+}
+
+
+function outOfUS()
+{
+
+    openHelp('/help/rightslinkhelppages/Shipping_&_Delivery.htm#International_Shipping');
+
+}
+
+
+function autoLoginHelp()
+{
+    openHelp('/help/rightslinkhelppages/Enable_Auto_Log-in.htm');
+}
+
+function taxHelp()
+{
+
+    openHelp('/help/rightslinkhelppages/Payment_Pricing_Promotions.htm#Tax');
+
+}
+
+</script>
+<meta http-equiv="origin-trial" content="AymqwRC7u88Y4JPvfIF2F37QKylC04248hLCdJAsh8xgOfe/dVJPV3XS3wLFca1ZMVOtnBfVjaCMTVudWM//5g4AAAB7eyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjk1MTY3OTk5LCJpc1RoaXJkUGFydHkiOnRydWV9"></head>
+<body class="rl-body" bgcolor="#FFFFFF" onload="setup();">
+<a name="top"></a>
+
+
+
+
+
+
+<form class="rl-form" action="/AppDispatchServlet" method="post" name="TheForm" autocomplete="OFF" onkeypress="return handleKeyPress(event,this);" id="TheForm">
+<input type="hidden" name="orderBeanReset" value="false">
+<input type="hidden" name="insideApp" value="true">
+<input type="hidden" name="doCalc" value="true">
+<input type="hidden" name="ignoreErrors" value="false">
+<input type="hidden" name="grantDenyCheckIgnoreErrors" value="false">
+<input type="hidden" name="loggedIn" value="false">
+<input type="hidden" name="myaccountlogin" value="true">
+<input type="hidden" name="rlPaymentProfileId" value="0">
+<input type="hidden" name="install" value="">
+
+<input type="hidden" name="initialUrl" value="/AppDispatchServlet?startPage=4032&amp;pageCount=12&amp;copyright=American+Chemical+Society&amp;author=Chenyu+Zheng%2C+Michael+F.+Mark%2C+Tyler+Wiegand%2C+et+al&amp;orderBeanReset=true&amp;imprint=American+Chemical+Society&amp;volumeNum=124&amp;issueNum=7&amp;contentID=acs.jpcc.9b11816&amp;title=Measurement+and+Theoretical+Interpretation+of+Exciton+Diffusion+as+a+Function+of+Intermolecular+Separation+for+Squaraines+Targeted+for+Bulk+Heterojunction+Solar+Cells&amp;numPages=12&amp;pa=&amp;issn=1932-7447&amp;publisherName=acs&amp;publication=jpccck&amp;rpt=n&amp;endPage=4043&amp;publicationDate=February+2020">
+<input type="hidden" name="userSessionTimeout" value="20">
+
+
+<script>
+function createAccount()
+{
+
+	    document.TheForm.passThroughTarget.value = "quickprice";
+
+	document.TheForm.targetPage.value = "createaccountstep1";
+	document.TheForm.ignoreErrors.value= "true";
+	document.TheForm.target = "_top";
+	document.TheForm.isMyAccount.value = "false";
+	document.TheForm.buttonClicked.value = "createaccount";
+    gtag('event', 'Create Account', {
+        'event_category': 'Create Account',
+        'event_label': 'Create Account'
+    });
+	document.TheForm.submit();
+}
+
+</script>
+
+
+<div class="top-header">
+    <div class="top-line"></div>
+
+    <div class="header-content">
+        <div class="header-image-content">
+            <div id="logoBoard">
+    <div id="logoLeft">
+        <a href="https://www.copyright.com/" target="_blank"><img src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/cccLogo.svg"></a>
+    </div>
+    <div id="logoDivider"></div>
+    <div id="logoRight">
+        <a href="javascript:navigateToOriginalUrl();"><img src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/rightsLinkLogo.svg"></a>
+    </div>
+</div>
+        </div>
+
+        <div class="header-menu">
+            <ul class="menu-list">
+
+                
+                <li>
+    <a id="doCasLoginButton" href="javascript:doCasLogin();">
+                            <span class="menu-icon menu-sign-in-register">
+                                <img src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/sign_in.svg">
+                            </span>
+        <span>Sign in/Register</span>
+    </a>
+</li>
+
+                
+                
+
+
+
+
+<script type="text/javascript">
+    function openPubHelp() {
+        FullPopUp('https://copyright.secure.force.com/kb/?l=en_US&c=CCC_FAQ%3AOther_RightsLink_for_Permissions', 'rPubHelp');
+    }
+</script>
+
+<li>
+    <a id="helpMenuButton" href="#" onclick="openPubHelp();" title="Help">
+        <span class="menu-icon">
+            <img src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/help.svg">
+        </span>
+    </a>
+</li>
+
+                
+                
+
+
+
+
+<li>
+    <a href="javascript:liveagent.startChat('5730c0000004aOv');" id="liveagent_button_online_5730c0000004aOv" title="Live Chat">
+                        <span class="menu-icon">
+                            <img name="help" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/live-chat.svg">
+                        </span>
+    </a>
+
+    <a href="javascript:onOfflineClicked();" id="liveagent_button_offline_5730c0000004aOv" style="display: none;" title="Live Chat">
+                        <span class="menu-icon">
+                            <img name="help" src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/live-chat.svg">
+                        </span>
+    </a>
+</li>
+
+<script type="text/javascript">
+    if (!window._laq) {
+        window._laq = [];
+    }
+    window._laq.push(function () {
+        liveagent.showWhenOnline('5730c0000004aOv', document.getElementById('liveagent_button_online_5730c0000004aOv'));
+        liveagent.showWhenOffline('5730c0000004aOv', document.getElementById('liveagent_button_offline_5730c0000004aOv'));
+    });
+</script>
+
+<script src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/deployment.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    liveagent.addCustomDetail('buttonType', 'Rightslink');
+
+    var referringUrl = 'http://s100.copyright.com//AppDispatchServlet?startPage=4032&pageCount=12&copyright=American+Chemical+Society&author=Chenyu+Zheng%2C+Michael+F.+Mark%2C+Tyler+Wiegand%2C+et+al&orderBeanReset=true&imprint=American+Chemical+Society&volumeNum=124&issueNum=7&contentID=acs.jpcc.9b11816&title=Measurement+and+Theoretical+Interpretation+of+Exciton+Diffusion+as+a+Function+of+Intermolecular+Separation+for+Squaraines+Targeted+for+Bulk+Heterojunction+Solar+Cells&numPages=12&pa=&issn=1932-7447&publisherName=acs&publication=jpccck&rpt=n&endPage=4043&publicationDate=February+2020';
+    if (referringUrl == 'null') {
+        referringUrl = window.location.href;
+    }
+    liveagent.addCustomDetail('ReferringURL', referringUrl).saveToTranscript('Referring_URL__c');
+
+    
+    liveagent.setChatWindowWidth(285);
+    liveagent.setChatWindowHeight(490);
+
+    liveagent.init('https://d.la4-c2-dfw.salesforceliveagent.com/chat', '5720c0000004aDI', '00D30000000oeGz');
+
+</script>
+
+<script type="text/javascript">
+    function onOfflineClicked() {
+        window.location.href = 'mailto:customercare@copyright.com';
+    }
+</script>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="content-info-block">
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+<div class="content-info-block-inner">
+    <div class="content-publication-logo-container"><img src="Rightslink%C2%AE%20by%20Copyright%20Clearance%20Center-Dateien/acspubslogo.gif"></div>
+    <div class="content-description-block">
+        
+        <div>
+            <p id="metaDataTitle" class="content-description-block-title">Measurement
+ and Theoretical Interpretation of Exciton Diffusion as a Function of 
+Intermolecular Separation for Squaraines Targeted for Bulk 
+Heterojunction Solar Cells
+            </p>
+        </div>
+        
+        <div>
+            <strong id="metaDataAuthorLabel">Author:
+            </strong>
+            <p id="metaDataAuthor">Chenyu Zheng, Michael F. Mark, Tyler Wiegand, et al
+            </p></div>
+        
+        <div>
+            <strong id="metaDataPublicationLabel">Publication:
+            </strong>
+            <p id="metaDataPublication">The Journal of Physical Chemistry C
+            </p></div>
+
+        
+        <div>
+            <strong id="metaDataPublisherLabel">Publisher:</strong>
+            <p id="metaDataPublisher">American Chemical Society
+            </p></div>
+        
+        <div>
+            
+            <strong id="metaDataPublicationDateLabel">Date:</strong>
+            
+            <p id="metaDataPublicationDate">Feb 1, 2020
+            </p>
+        </div>
+        
+        <div>
+            <p id="metaDataCopyright" class="content-description-block-copyright-line">Copyright © 2020, American Chemical Society
+            </p></div>
+        
+    </div>
+</div>
+</div>
+
+
+
+<div class="simple-page-block">
+    <div class="simple-page-inner-block">
+        <div class="line-container">
+<div class="line-element PageTitleCell"><p class="PageTitle" name="pgTitleDenyRedirect" id="pgTitleDenyRedirect">PERMISSION/LICENSE IS GRANTED FOR YOUR ORDER AT NO CHARGE</p></div>
+</div>
+<div class="line-container">
+<div class="line-element MainInstructionsCell"><p class="MainInstructions" name="InstructionsDenyRedirect" id="InstructionsDenyRedirect">This
+ type of permission/license, instead of the standard Terms and 
+Conditions, is sent to you because no fee is being charged for your 
+order. Please note the following:<br>
+<br>- Permission is granted for your request in both print and electronic formats, and translations.
+<br>- If figures and/or tables were requested, they may be adapted or used in part.
+<br>- Please print this page for your records and send a copy of it to your publisher/graduate school.
+<br>- Appropriate credit for the requested material should be given as 
+follows: "Reprinted (adapted) with permission from {COMPLETE REFERENCE 
+CITATION}. Copyright {YEAR} American Chemical Society." Insert 
+appropriate information in place of the capitalized words.
+<br>- One-time permission is granted only for the use specified in your 
+RightsLink request. No additional uses are granted (such as derivative 
+works or other editions). For any uses, please submit a new request.<br><br>If
+ credit is given to another source for the material you requested from 
+RightsLink, permission must be obtained from that source.</p></div>
+</div>
+<div class="line-container">
+<div class="line-element DefaultButtons"><a href="javascript:goHome();" id="backButton" class="TextButton Buttons BackButton">BACK</a></div>
+<div class="line-element DefaultButtonsRight"><a href="javascript:closeWindow();" class="TextButton Buttons CloseWindowButton">CLOSE WINDOW</a></div>
+</div>
+
+    </div>
+</div>
+
+<input type="hidden" name="publisherID" value="113">
+<input type="hidden" name="subPublisherID" value="-5555">
+<input type="hidden" name="publisherName" value="acs">
+<input type="hidden" name="publication" value="jpccck">
+<input type="hidden" name="publicationID" value="20517">
+<input type="hidden" name="rightID" value="1">
+<input type="hidden" name="typeOfUseID" value="54">
+<input type="hidden" name="isMyAccount" value="false">
+<input type="hidden" name="popBackPage" value="">
+<input type="hidden" name="isCancelPressed" value="false">
+<input type="hidden" name="currentTargetPage" value="denyredirect">
+<input type="hidden" name="passThroughTarget" value="">
+<input type="hidden" name="targetPage" value="">
+<input type="hidden" name="previousTargetPage" value="quickprice">
+<input type="hidden" name="currentTargetPageID" value="6165373">
+<input type="hidden" name="currentHeaderPage" value="/App/Includes/Header.jsp">
+<input type="hidden" name="currentBodyPage" value="/App/SimplePage.jsp">
+<input type="hidden" name="currentFooterPage" value="/App/Includes/Footer.jsp">
+<input type="hidden" name="timeStamp" value="1709051775921">
+<input type="hidden" name="requestToken" value="yPSmOYDN5eiHLkqLxY5UAAzz">
+<input type="hidden" name="buttonClicked" value="unknown">
+<input type="hidden" name="linkClicked" value="unknown">
+<input type="hidden" name="jsonScriptName" id="jsonScriptName" value="">
+
+<script language="JavaScript" type="text/javascript">
+    function closeWindow() {
+        window.close();
+    }
+
+    function continueThis() {
+        document.TheForm.doCalc.value = "true";
+        document.TheForm.targetPage.value = "";
+        document.TheForm.target = "_top";
+        document.TheForm.isMyAccount.value = "false";
+        document.TheForm.ignoreErrors.value = "false";
+        document.TheForm.buttonClicked.value = "continue";
+        document.TheForm.submit();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+
+    var el = document.TheForm.elements['keyPressTarget'];
+    
+    var isLogin = el && el.value == 'authenticate';
+    
+    var isBack = getCookie("history_back_event") == '1';
+    removeCookie("history_back_event");
+
+    
+    if (isBack) {
+        
+        el = document.TheForm.elements['currentTargetPage'];
+        if (el && el.value.indexOf('createaccount') != -1) {
+            goQuickPrice();
+        }
+    } else if (isLogin) {
+        doCasLogin();
+    }
+    
+
+    
+    history.back = function () {
+        setDefaultCookie("history_back_event", "1");
+        history.go(-1);
+    };
+
+    if (typeof jQuery === "undefined") {
+        var script_tag = document.createElement('script');
+        script_tag.setAttribute("type", "text/javascript");
+        script_tag.setAttribute("src", "/resources/jquery/latest/jquery-1.11.3.js");
+        script_tag.onload = main;
+        script_tag.onreadystatechange = function () {
+            if (this.readyState == 'complete' || this.readyState == 'loaded') main();
+        }
+        document.getElementsByTagName("head")[0].appendChild(script_tag);
+    } else {
+        main();
+    }
+
+    
+    $(window).bind('beforeunload', function () {
+        new Image().src = "/CAS/Images/singlepixel.cas?" + new Date().getTime();
+        saveQuickPriceEstimateCheckBoxState();
+    });
+
+    function main() {
+        var pageid;
+        if (document.TheForm.currentTargetPageID) {
+            pageid = document.TheForm.currentTargetPageID.value;
+        } else {
+            pageid = -1;
+        }
+        var linktext = $("#debuglink").text();
+        linktext += " : " + pageid;
+        $("#debuglink").prop("title", pageid);
+        $("#debuglink").html(linktext);
+    }
+
+    function paymentTerms() {
+        var location = "/App/PaymentTermsAndConditions.jsp";
+        window.open(location, '_Terms', 'location=no,toolbar=no,status=no,width=500,height=400,scrollbars=yes,resizable=yes');
+    }
+</script>
+<footer class="page-footer">
+    <div class="footer-copyright-line">
+        
+        <ul class="footer-copyright-line-text">
+            <li>
+                <span class="footer-copyright-line-mark">© 2024 Copyright - All Rights Reserved</span>
+            </li>
+            <li>
+                <a href="http://www.copyright.com/" target="_blank">Copyright Clearance Center, Inc.</a>
+            </li>
+            <li>
+                <a target="_blank" href="http://www.copyright.com/about/privacy-policy/">Privacy
+                    statement</a>
+            </li>
+            <li>
+                <a href="https://www.copyright.com/data-security-and-privacy/" target="_blank">Data Security and Privacy</a>
+            </li>
+            <li>
+                <a href="https://www.copyright.com/california-privacy-act/" target="_blank">For California Residents</a>
+            </li>
+            <li><a href="javascript:paymentTerms();">Terms and Conditions</a></li>
+
+            
+        </ul>
+        <br>
+        <p class="footer-copyright-line-comments">
+            Comments? We would like to hear from you. E-mail us at <a href="mailto:customercare@copyright.com">customercare@copyright.com</a>
+        </p>
+    </div>
+    
+
+    <!-- ServerIdentityFooter -->
+<div class="footer-server-identity">
+    
+</div>
+
+<!-- ServerIdentityFooter End -->
+
+    
+        <input type="hidden" name="TermsAndConditions" value="">
+    
+
+</footer></form>
+
+
+<div class="rightslinkexpiredsessionbox" style="display:none; position: absolute; height: 100%; width: 100%; inset: 0px; z-index: 1000;">
+    <div class="rightslinkfade" style="position: fixed; height: 100%; width: 100%; inset: 0px; z-index: 1000; opacity: 0.6;">
+    </div>
+    <div class="rightslink" style="position: absolute; top: 56.7px; left: 25%; z-index: 1001;">
+            <div class="rightslinkstates">
+                <div class="rightslinkstate" data-jqi-name="state0" style="">
+                    <div class="rightslinkmessage">Your session has expired or you logged out. Please click "OK" to continue.</div>
+                    <div class="rightslinkbuttons">
+                        <button class=" rightslinkbutton rightslinkdefaultbutton" name="rightslink_state0_buttonRefresh" onclick="javascript:navigateToOriginalUrl();">OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+	
+</body></html>
