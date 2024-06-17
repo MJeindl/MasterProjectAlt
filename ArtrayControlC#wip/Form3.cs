@@ -36,6 +36,10 @@ namespace MiscSettings
 
         }
 
+
+				
+			
+
         //update the quick exposure settings
         //textbox input is in ms and has to be converted to microseconds
         private void UpdateFitSettings_Click(object sender, EventArgs e)

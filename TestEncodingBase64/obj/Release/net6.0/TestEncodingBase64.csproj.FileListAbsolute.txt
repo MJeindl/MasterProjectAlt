@@ -1,0 +1,15 @@
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\bin\Release\net6.0\TestEncodingBase64.exe
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\bin\Release\net6.0\TestEncodingBase64.deps.json
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\bin\Release\net6.0\TestEncodingBase64.runtimeconfig.json
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\bin\Release\net6.0\TestEncodingBase64.dll
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\bin\Release\net6.0\TestEncodingBase64.pdb
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.csproj.AssemblyReference.cache
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.AssemblyInfoInputs.cache
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.AssemblyInfo.cs
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.csproj.CoreCompileInputs.cache
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.dll
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\refint\TestEncodingBase64.dll
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.pdb
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\TestEncodingBase64.genruntimeconfig.cache
+C:\Users\TAMINATOR\Documents\masterprojectinformation\TestEncodingBase64\obj\Release\net6.0\ref\TestEncodingBase64.dll

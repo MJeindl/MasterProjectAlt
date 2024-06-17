@@ -230,7 +230,7 @@ namespace LiveFit
             formsPlot1.Refresh();
             //formsPlot1.Render();
             //comment this out when not testing
-            TestLiveImage();
+            //TestLiveImage();
         }
 
         //calling this if things change in the camera menu

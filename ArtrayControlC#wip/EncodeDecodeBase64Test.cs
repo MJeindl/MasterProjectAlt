@@ -8,13 +8,13 @@ byte[] byteMap  = File.ReadAllBytes(filepath);
 byte[24] truncArray = new byte[24];
 Array.Copy(byteMap, truncArray, truncArray.Length);
 
-File.WriteAllBytes(truncArray, "Base64ConversionTest_Binary.txt");
+File.WriteAllBytes(truncArray, "C:\\Users\\TAMINATOR\\Documents\\masterprojectinformation\\ArtrayControlC#wip\\Base64ConversionTest_Binary.txt");
 
 Console.WriteLine(BitConverter.ToString(truncArray));
 Console.WriteLine(Encoding.UTF8.GetString(truncArray));
 string base64string = Convert.ToBase64String(truncArray);
 Console.WriteLine(base64string);
-File.WriteAllBytes(base64, "Base64ConversionTest_Base64.txt")
+File.WriteAllBytes(C:\\Users\\TAMINATOR\\Documents\\masterprojectinformation\\ArtrayControlC#wip\\Base64ConversionTest_Base64.txt", base64string)
 //now do the reverse
 Console.WriteLine(BitConverter.ToString(Convert.FromBase64String(base64string)));
 Console.WriteLine(Encoding.UTF8.GetString(Convert.FromBase64String(base64string)));

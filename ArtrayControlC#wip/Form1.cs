@@ -53,12 +53,15 @@ namespace MainForm
 		//I might have to make the instance right here, right now (funksoul brother)
 		//may need to push this to the constructor
 		private LiveFit.Form2 FitForm = null;
-		//private bool delegateActive = false;
+        //private bool delegateActive = false;
         //timer for updating fitroutine
         //readonly Stopwatch Stopwatch = Stopwatch.StartNew();
-		private int longExp = 100000;
+
+        //doing this with registry during init now, though leaving this as a fallback
+        private int longExp = 100000;
         private int mediumExp = 15000;
         private int shortExp = 6000;
+		
 		//camera frame quick switch
 		//supposed to help find beam quicker
 		//width, height, FPS
@@ -124,18 +127,20 @@ namespace MainForm
 			FitForm = new LiveFit.Form2(this);
             FitForm.data_height = this.getHeight();
             FitForm.data_width = this.getWidth();
-            //here the height and width still are 0?
-            //fitroutine.resetXValues();
-            //fitroutine.ShowDialog();
+			//here the height and width still are 0?
+			//fitroutine.resetXValues();
+			//fitroutine.ShowDialog();
 
-            //open to give settings option
-            //MiscSettings.Form3 tempMenu = new MiscSettings.Form3(fitroutine);
+			//open to give settings option
+			//MiscSettings.Form3 tempMenu = new MiscSettings.Form3(fitroutine);
 
-            //grab current target frame size
-            /*
+			//grab current target frame size
+			/*
 			targetFrameSize[0] = m_CArtCam.Width();
             targetFrameSize[1] = m_CArtCam.Height();
 			targetFrameSize[2] = m_CArtCam.Fps();*/
+			//grab exposure values
+			this.initExposures();
         }
 
 		/// <summary>
@@ -535,6 +540,9 @@ namespace MainForm
 				ser.Serialize(fs, Type);
 				fs.Close();
 			}
+
+			//write to registry currently used exposure values
+			setRegExposures();
 
 			Release();
 		}
@@ -1587,12 +1595,51 @@ namespace MainForm
 			longExp = longExposure;
 			mediumExp = mediumExposure;
 			shortExp = shortExposure;
-		}
+        }
 		public int[] getExposures()
 		{
 			int[] ShortMediumLong = { shortExp, mediumExp, longExp };
 			return ShortMediumLong;
 		}
+		//doing initialisation from registry now
+		public void initExposures()
+		{
+			//try is kind of not needed but keeping for now
+			try
+			{
+				//create/open subkey
+				RegistryKey regkey;
+				regkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\LiveFit\\EXPOSURES", true);
+				//defaults
+				int[] defaultExposures = { 6000, 15000, 100000 };
+				//shortExp, mediumExp, longExp
+				shortExp = (int) regkey.GetValue("SHORT_EXP", defaultExposures[0]);
+                mediumExp = (int) regkey.GetValue("MEDIUM_EXP", defaultExposures[1]);
+                longExp = (int) regkey.GetValue("LONG_EXP", defaultExposures[2]);
+			}
+			catch
+			{
+				//do nothing
+			}
+        }
+		//this is used to write to write last exposure values to the registry
+		public void setRegExposures()
+		{
+			//write to registry
+			//create/open subkey
+			RegistryKey regkey;
+			regkey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\LiveFit", true);
+            RegistryKey exposureKey = regkey.CreateSubKey("EXPOSURES");
+
+			//I hate this, Registry instead of using on subkeys probably would be cleaner
+			exposureKey.CreateSubKey("SHORT_EXP");
+            exposureKey.SetValue("SHORT_EXP",  shortExp, RegistryValueKind.DWord);
+            exposureKey.CreateSubKey("MEDIUM_EXP");
+            exposureKey.SetValue("MEDIUM_EXP", mediumExp, RegistryValueKind.DWord);
+            exposureKey.CreateSubKey("LONG_EXP");
+            exposureKey.SetValue("LONG_EXP", longExp, RegistryValueKind.DWord);
+
+        }
 
 		//sets background from file and also sets it in registry so it automatically is found
 		public void BackgroundSet()
