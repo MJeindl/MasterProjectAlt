@@ -5,6 +5,7 @@ from celluloid import Camera
 from IPython import display
 import plotHelperLatex
 plotHelperLatex.setMatplotSettings()
+from matplotlib.animation import ImageMagickWriter
 
 def gaussian(x, sig = 1, mu = 0):
     return 1/(np.sqrt(2*np.pi)*sig)*np.exp(-(x-mu)**2/(2*sig**2))
@@ -49,22 +50,22 @@ if 1:
     ax.set_ylabel('intensity / a.u.')
     ax.set_xlabel(r'x / $\sigma$')
     plt.tight_layout()
-    probeLine = ax.plot(x, gaussian(x, 1, 0), label = "probe", color="royalblue")
-    pumpLine = ax.plot(x, gaussian(x, 1, 0), label="pump", linestyle="dotted", color="orange")
-    #ax.legend()
+    probeLine = ax.plot(x, gaussian(x, 1, 0), label = "pump", color="royalblue")
+    pumpLine = ax.plot(x, gaussian(x, 1, 0), label="probe", linestyle="dotted", color="orange")
+    ax.legend()
     #probe
     for mu_p in np.linspace(-3,3, 40):
-        probeLine = ax.plot(x, gaussian(x, 1, 0), label = r"probe", color="royalblue")
-        pumpLine, = ax.plot(x, gaussian(x, 1, mu_p), label=r"pump", linestyle="dotted", color="orange")
+        probeLine = ax.plot(x, gaussian(x, 1, 0), label = r"pump", color="royalblue")
+        pumpLine, = ax.plot(x, gaussian(x, 1, mu_p), label=r"probe", linestyle="dotted", color="orange")
         #fillCollection = ax.fill_between(x, np.zeros(np.shape(x)), hatch='/', color="orange", facecolor="None")
         fillCollection  = ax.fill_between(x, gaussian(x,1,0)*gaussian(x, 1, mu_p)/max(gaussian(x, 1, mu_p)),hatch='/', color="orange", facecolor="None")
-        stringy = r"$\Delta \mu_{Pump}$ = %.1f" %abs(mu_p)
+        stringy = r"$\Delta \mu_{probe}$ = %.1f" %abs(mu_p)
         ax.text(-2.5,0.4, stringy)
         camera.snap()
 
     animation = camera.animate()
     #print(type(animation))
-    animation.save(r"C:\Users\M\Documents\Books\masterprojectinformation\images\Presentation"+r"\PumpShiftOverlap.gif", fps=4, dpi=144)
+    animation.save(r"C:\Users\M\Documents\Books\masterprojectinformation\images\Presentation"+r"\PumpShiftOverlapInverse.gif", fps=4, dpi=288)
 
 
 
@@ -85,11 +86,12 @@ if 0:
     pumpLine = ax.plot(x, gaussian(x, 1, 0), label="pump", linestyle="dotted", color="orange")
     ax.legend()
     for sig_pump in np.linspace(0.5,3, 40):
-        probeLine = ax.plot(x, gaussian(x, 1, 0), label = r"probe", color="royalblue")
-        pumpLine = ax.plot(x, gaussian(x, sig_pump, 0), label=r"pump", linestyle="dotted", color="orange")
+        probeLine = ax.plot(x, gaussian(x, 1, 0), label = r"pump", color="royalblue")
+        pumpLine = ax.plot(x, gaussian(x, sig_pump, 0), label=r"probe", linestyle="dotted", color="orange")
         #fillCollection = ax.fill_between(x, np.zeros(np.shape(x)), hatch='/', color="orange", facecolor="None")
-        fillCollection  = ax.fill_between(x, gaussian(x,1,0)*gaussian(x, sig_pump, 0)/max(gaussian(x, sig_pump, 0)),hatch='/', color="orange", facecolor="None")
-        stringy = r"$\frac{\sigma_{Pump}}{\sigma_{Probe}}$ = %.1f" %sig_pump
+        fillCollection  = ax.fill_between(x, gaussian(x,1,0)*gaussian(x, sig_pump, 0)/max(gaussian(x, 1, 0)),hatch='/', color="orange", facecolor="None")
+        #stringy = r"$\frac{\sigma_{Pump}}{\sigma_{Probe}}$ = %.1f" %sig_pump
+        stringy = r"$\frac{\sigma_{probe}}{\sigma_{pump}}$ = %.1f" %sig_pump
         ax.text(-2.5,0.4, stringy)
         camera.snap()
     
@@ -97,7 +99,7 @@ if 0:
 
     animation = camera.animate()
     #print(type(animation))
-    animation.save(r"C:\Users\M\Documents\Books\masterprojectinformation\images\Presentation"+r"\PumpSizeOverlap.gif", fps=4, dpi=144)
+    animation.save(r"C:\Users\M\Documents\Books\masterprojectinformation\images\Presentation"+r"\PumpSizeOverlapInverse.gif", fps=4, dpi=288)
 
 def init():
     ax.set_ylim((0,0.45))

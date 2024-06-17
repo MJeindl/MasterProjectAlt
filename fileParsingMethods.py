@@ -97,8 +97,6 @@ def removeBackgroundLinearFit(T_vec, delay, numEntries: int = 20):
 
     #print(T_vec)
     #print(T)
-    
-    plt.show()
     A_vec = -1000* np.log10(T_vec)
     return T_vec, A_vec, poptTvec
 
@@ -108,20 +106,20 @@ def parseSummaryFileToArray(filenameArray, directoryPath=r"", linearBackgroundSu
 
     filenames = parseFilenames(filenameArray, directoryPath)
     if linearBackgroundSubtract == True:
-            #splitting it like this becaues the lower part already works and I do not want to touch it before I know how to proceed
-            #I cannot have a linear subtraction of background and it be different for every measurement
-            #print(len(filenames))
-            for ind, file in enumerate(filenames):
-                if isinstance(file, np.ndarray):
-                    file = file[0]
-                tempFile = loadmat(file)
-                delay = tempFile['delay'][0]
-                if ind == 0:
-                    T_vec = np.zeros((len(filenames), len(delay)))
+        #splitting it like this becaues the lower part already works and I do not want to touch it before I know how to proceed
+        #I cannot have a linear subtraction of background and it be different for every measurement
+        #print(len(filenames))
+        for ind, file in enumerate(filenames):
+            if isinstance(file, np.ndarray):
+                file = file[0]
+            tempFile = loadmat(file)
+            delay = tempFile['delay'][0]
+            if ind == 0:
+                T_vec = np.zeros((len(filenames), len(delay)))
 
-                T_vec[ind, :] = tempFile['d_vec']
-                #d_vec = I1_vec/I2_vec
-            datArray, aArray, backgroundParameters = removeBackgroundLinearFit(T_vec, delay, backgroundLen)
+            T_vec[ind, :] = tempFile['d_vec']
+            #d_vec = I1_vec/I2_vec
+        datArray, aArray, backgroundParameters = removeBackgroundLinearFit(T_vec, delay, backgroundLen)
     else:
         for ind, file in enumerate(filenames):
             #if os.path.isfile(directoryPath + r'\\' + file[0]) == False:
@@ -134,9 +132,9 @@ def parseSummaryFileToArray(filenameArray, directoryPath=r"", linearBackgroundSu
             if ind == 0:
                 datArray = np.zeros((len(filenames), len(delay)))
                 aArray = np.zeros(np.shape(datArray))
-            
-            datArray[ind, :], aArray[ind,:], backgroundParameters = removeBackground(tempFile['d_vec'], backgroundLen)
-            backgroundParameters = np.array([0, backgroundParameters])
+            datArray[ind, :] = tempFile['d_vec']
+        datArray, aArray, backgroundParameters = removeBackground(datArray)
+        backgroundParameters = np.array([0, backgroundParameters])
             
 
     if absorbance == False:

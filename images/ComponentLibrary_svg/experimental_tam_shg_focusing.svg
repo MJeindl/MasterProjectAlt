@@ -1518,16 +1518,16 @@
      inkscape:guide-bbox="true"
      showguides="true"
      inkscape:window-maximized="1"
-     inkscape:window-y="-6"
-     inkscape:window-x="-6"
-     inkscape:window-height="838"
-     inkscape:window-width="1440"
+     inkscape:window-y="341"
+     inkscape:window-x="2873"
+     inkscape:window-height="1378"
+     inkscape:window-width="2560"
      showgrid="false"
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="153.99999"
-     inkscape:cx="389.24998"
+     inkscape:cy="111.49999"
+     inkscape:cx="358.99998"
      inkscape:zoom="2.0000001"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -2029,7 +2029,7 @@
     </g>
     <g
        id="g90078-4-3-9-0"
-       transform="matrix(0,-0.18496302,-0.28202556,0,207.99627,188.53664)"
+       transform="matrix(0,-0.18496302,-0.28202556,0,206.93793,188.53664)"
        style="display:inline;enable-background:new">
       <g
          id="g90062-3-7-3-5">
@@ -2963,16 +2963,16 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:5.29167px;line-height:1.25;font-family:sans-serif;opacity:0.999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="144.06216"
+       x="140.35805"
        y="251.91565"
        id="text1316-0"><tspan
          sodipodi:role="line"
          id="tspan1314-7"
-         x="144.06216"
+         x="140.35805"
          y="251.91565"
          style="font-size:5.29167px;stroke-width:0.264583">front </tspan><tspan
          sodipodi:role="line"
-         x="144.06216"
+         x="140.35805"
          y="258.53024"
          style="font-size:5.29167px;stroke-width:0.264583"
          id="tspan27">camera</tspan></text>
@@ -3013,7 +3013,7 @@
          id="tspan1310-5-6-0"
          x="114.42986"
          y="275.59149"
-         style="font-size:4.23333px;stroke-width:0.264583">Filter</tspan></text>
+         style="font-size:4.23333px;stroke-width:0.264583">filter</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;opacity:0.999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -3066,6 +3066,51 @@
          y="297.3493"
          style="font-size:4.23333px;stroke-width:0.264583"
          id="tspan35">lens</tspan></text>
+    <path
+       style="opacity:0.999;fill:none;fill-opacity:0.33;stroke:#000000;stroke-width:0.61;stroke-opacity:1"
+       d="m 160.51163,267.36408 -0.0468,-18.97067 2.08136,-1.94105"
+       id="path31-7"
+       sodipodi:nodetypes="ccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.29167px;line-height:1.25;font-family:sans-serif;opacity:0.999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="159.44376"
+       y="244.95921"
+       id="text1316-0-2-2"><tspan
+         sodipodi:role="line"
+         x="159.44376"
+         y="244.95921"
+         style="font-size:5.29167px;stroke-width:0.264583"
+         id="tspan31-8">sample</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.29167px;line-height:1.25;font-family:sans-serif;opacity:0.999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="196.13606"
+       y="249.19255"
+       id="text1316-0-2-2-6"><tspan
+         sodipodi:role="line"
+         x="196.13606"
+         y="249.19255"
+         style="font-size:5.29167px;stroke-width:0.264583"
+         id="tspan31-8-7">detector</tspan></text>
+    <g
+       id="g1"
+       transform="translate(56.271568,8.2021061)"
+       inkscape:export-filename="SHG-focusing-large.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:5.29167px;line-height:1.25;font-family:sans-serif;opacity:0.999;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="130.86914"
+         y="258.18826"
+         id="text1316-0-2-2-0"><tspan
+           sodipodi:role="line"
+           x="130.86914"
+           y="258.18826"
+           style="font-size:5.29167px;stroke-width:0.264583"
+           id="tspan31-8-1">prism</tspan></text>
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
