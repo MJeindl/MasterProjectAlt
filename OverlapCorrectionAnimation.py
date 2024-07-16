@@ -41,7 +41,7 @@ def plotVisGaussians(x, sig2, dmu, norm = True, ax=None, colors = ["blue", "roya
     return ax
 
 ##PUMP SHIFT
-if 1:
+if 0:
     x = np.linspace(-3, 3, 200)
     fig, ax = plt.subplots(1, 1, figsize=plotHelperLatex.figSizer(1), dpi = 288)
     ax.set_ylim((0,0.45))
@@ -70,7 +70,7 @@ if 1:
 
 
 ##PUMP SIZE CHANGE
-if 0:
+if 1:
     x = np.linspace(-3, 3, 200)
     fig, ax = plt.subplots(1, 1, figsize=plotHelperLatex.figSizer(1), dpi = 288)
     ax.set_ylim((0,0.45))
@@ -82,10 +82,10 @@ if 0:
     plt.tight_layout()
     #ax.set_title(r"$\frac{\sigma_\text{Pump}}{\sigma_\text{Probe}}$")
     #probe
-    probeLine = ax.plot(x, gaussian(x, 1, 0), label = "probe", color="royalblue")
-    pumpLine = ax.plot(x, gaussian(x, 1, 0), label="pump", linestyle="dotted", color="orange")
+    probeLine = ax.plot(x, gaussian(x, 1, 0), label = "pump", color="royalblue")
+    pumpLine = ax.plot(x, gaussian(x, 1, 0), label="probe", linestyle="dotted", color="orange")
     ax.legend()
-    for sig_pump in np.linspace(0.5,3, 40):
+    for sig_pump in np.linspace(0.3,3, 40):
         probeLine = ax.plot(x, gaussian(x, 1, 0), label = r"pump", color="royalblue")
         pumpLine = ax.plot(x, gaussian(x, sig_pump, 0), label=r"probe", linestyle="dotted", color="orange")
         #fillCollection = ax.fill_between(x, np.zeros(np.shape(x)), hatch='/', color="orange", facecolor="None")
