@@ -1260,14 +1260,12 @@ namespace MainForm
 			using (OpenFileDialog openFileDialog = new OpenFileDialog())
 			{
 				openFileDialog.InitialDirectory = "c:\\";
-				openFileDialog.Filter = "RAW files (*.txt)|*.txt";
+				openFileDialog.Filter = "RAW files (*.txt)|*.txt|XML RAW (*.xml)|*.xml";
 				openFileDialog.FilterIndex = 2;
 				openFileDialog.RestoreDirectory = true;
 				if (openFileDialog.ShowDialog() == DialogResult.OK)
 				{
-                    //Get the path of specified file
-                    c_RefPath = openFileDialog.FileName;
-                    /*
+					/*
                     if (Path.GetExtension(openFileDialog.FileName)== "*.tif")
 					{ 
 						
@@ -1294,9 +1292,54 @@ namespace MainForm
                     bmp.UnlockBits(data);
 					*/
 
-                    //just go ahead and read the bytes
-                    byte[] inputByteArray = File.ReadAllBytes(c_RefPath);
-					int length_ByteArray = inputByteArray.Length;
+                    //Get the path of specified file
+                    c_RefPath = openFileDialog.FileName;
+					if (Path.GetExtension(openFileDialog.FileName)== "*.xml")
+					{ 
+						//https://learn.microsoft.com/en-us/dotnet/api/system.xml.xmltextreader.readbase64?view=net-8.0
+						XmlTextReader reader = null;
+						try {
+							int length_ByteArray = 0;
+							int temp_h = 0;
+							int temp_v = 0;
+							reader = new XmlTextReader(c_RefPath);
+							reader.WhiteSpaceHandling = WhiteSpaceHandling.None;
+							while (reader.Read()){
+								switch (reader.Name)
+								{
+									case "hstart": temp_h = temp_h-reader.Value+1;
+									case "vstart": temp_v = temp_v-reader.Value+1;
+									case "hstop": temp_h = temp_h + reader.Value;
+									case "vstop": temp_v = temp_v + reader.Value;
+									case "data": break;
+								}
+								
+							}
+							//decode base64
+							length_ByteArray = temp_h*temp_v*6;
+							int actual_len = 0;
+							byte[] inputByte_Array = new byte[length_ByteArray];
+							do {
+								actual_len = actual_len + reader.readbase64(inputByte_Array, actual_len, 5000);
+							} while (reader.Name == "data");
+							//test
+							Console.WriteLine("Base64 total len in Reference read");
+							Console.WriteLine(actual_len.ToString());
+						}
+						finally {
+							if (reader != null)
+							reader.Close();
+						}
+                    }
+					else if (Path.GetExtension(openFileDialog.FileName) == "*.txt")
+					{
+						//just go ahead and read the bytes
+						byte[] inputByteArray = File.ReadAllBytes(c_RefPath);
+						int length_ByteArray = inputByteArray.Length;
+					}
+                    
+
+                    
 
 					//I need to finde a clever check for this
 					//if (getHeight()*getWidth() != length_ByteArray) { MessageBox.Show("Incompatible reference image: Dimensions wrong!"); }

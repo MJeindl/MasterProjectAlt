@@ -733,9 +733,59 @@ namespace LiveFit
             string filepath = filepath_key.ToString(); 
             //if (filepath.IsNullOrEmpty() == true) { return; }
             if (String.IsNullOrWhiteSpace(filepath)) { return; }
-            byte[] inputByteArray = File.ReadAllBytes(filepath);
-            //int length_ByteArray = inputByteArray.Length;
 
+            //taken from ref loading in Control Form
+            if (Path.GetExtension(openFileDialog.FileName)== "*.xml")
+					{ 
+						//https://learn.microsoft.com/en-us/dotnet/api/system.xml.xmltextreader.readbase64?view=net-8.0
+						XmlTextReader reader = null;
+						try {
+							int length_ByteArray = 0;
+							int temp_h = 0;
+							int temp_v = 0;
+							reader = new XmlTextReader(c_RefPath);
+							reader.WhiteSpaceHandling = WhiteSpaceHandling.None;
+							while (reader.Read()){
+								switch (reader.Name)
+								{
+									case "hstart": temp_h = temp_h-reader.Value+1;
+									case "vstart": temp_v = temp_v-reader.Value+1;
+									case "hstop": temp_h = temp_h + reader.Value;
+									case "vstop": temp_v = temp_v + reader.Value;
+									case "data": break;
+								}
+								
+							}
+							//decode base64
+							length_ByteArray = temp_h*temp_v*6;
+							int actual_len = 0;
+							byte[] inputByte_Array = new byte[length_ByteArray];
+							do {
+								actual_len = actual_len + reader.readbase64(inputByte_Array, actual_len, 5000);
+							} while (reader.Name == "data");
+							//test
+							Console.WriteLine("Base64 total len in Reference read");
+							Console.WriteLine(actual_len.ToString());
+
+                            if (temp_h*temp_v != 1280*720){
+                                throw new InvalidOperationException("Background has wrong size in Form2 FetchBackground");
+                            }
+						}
+						finally {
+							if (reader != null)
+							reader.Close();
+						}
+                    }
+					else if (Path.GetExtension(openFileDialog.FileName) == "*.txt")
+					{
+						//just go ahead and read the bytes
+						byte[] inputByteArray = File.ReadAllBytes(c_RefPath);
+						int length_ByteArray = inputByteArray.Length;
+					}
+
+            //byte[] inputByteArray = File.ReadAllBytes(filepath);
+            //int length_ByteArray = inputByteArray.Length;
+    
             for (int i = 0; i < 1280*720; i++)
             {
                 m_BackgroundRemoveInt[i] = (short)(((((Int16)inputByteArray[(3 * i) * 2 + 1]) & 0b1111) << 8) | (inputByteArray[(3 * i) * 2]));
