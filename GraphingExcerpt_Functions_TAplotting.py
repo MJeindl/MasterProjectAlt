@@ -23,7 +23,7 @@ def ErrorCorrectionSimple(signal, correctionFactor, peakRadiance, dRelPower):
     dPeakRadiance = dRelPower*peakRadiance
     return abs(signal*correctionFactor/peakRadiance*dPeakRadiance)
 
-def fitPeaks(x_data, y_data, N_gaussians, centers = [], sigma = [], amplitudes = [], positionBounds = [], ampBounds = [], function = None):
+def fitPeaks(x_data, y_data, N_gaussians, centers = [], sigma = [], amplitudes = [], positionBounds = [], ampBounds = [], sigBounds = [], function = None):
     from scipy.optimize import curve_fit
     startParameters = np.ones(3*N_gaussians)
     min_bounds = []
@@ -48,8 +48,12 @@ def fitPeaks(x_data, y_data, N_gaussians, centers = [], sigma = [], amplitudes =
         else:
             min_bounds.append(positionBounds[i][0])
             max_bounds.append(positionBounds[i][1])
-        min_bounds.append(0)
-        max_bounds.append(np.inf)
+        if len(sigBounds)==0:
+            min_bounds.append(0)
+            max_bounds.append(np.inf)
+        else:
+            min_bounds.append(sigBounds[i][0])
+            max_bounds.append(sigBounds[i][1])
         if len(ampBounds) == 0:
             min_bounds.append(-np.inf)
             max_bounds.append(np.inf)
@@ -64,6 +68,7 @@ def fitPeaks(x_data, y_data, N_gaussians, centers = [], sigma = [], amplitudes =
             bounds = par_bounds,
             method="trf")
     return popt, pcov
+
 
 def multiGaussianAdditive(x_data, *parameters):
     r'''parameters are parameters[number of gaussian, center/sig/amplitude]'''
